@@ -2,12 +2,29 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Info } from "lucide-react";
+import { Info, FlaskConical, HeartPulse, Bed, UtensilsCrossed, Users, AlertCircle } from "lucide-react";
 import { useState } from "react";
 import Canvas3D from "@/components/Canvas3D";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { toast } from "@/hooks/use-toast";
+
+type AreaType = "Investigación" | "Salud" | "Descanso" | "Comida y Recursos" | "Social";
 
 const Editor = () => {
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
+  const [areaAssignments, setAreaAssignments] = useState<Record<string, AreaType>>({
+    root1: "Investigación",
+    root2: "Salud",
+    root3: "Descanso",
+    root4: "Comida y Recursos",
+    root5: "Social",
+  });
 
   const zones = [
     { id: "trunk", name: "TRUNK", color: "from-primary to-primary-glow" },
@@ -17,6 +34,74 @@ const Editor = () => {
     { id: "root4", name: "ROOT 4", color: "from-primary to-secondary" },
     { id: "root5", name: "ROOT 5", color: "from-secondary to-primary" },
   ];
+
+  const areaInfo: Record<AreaType, { icon: any; description: string; color: string }> = {
+    "Investigación": {
+      icon: FlaskConical,
+      description: "Laboratorios y espacios dedicados a investigación científica y análisis de datos marcianos",
+      color: "text-blue-400"
+    },
+    "Salud": {
+      icon: HeartPulse,
+      description: "Centro médico equipado para atención de salud y monitoreo de la tripulación",
+      color: "text-red-400"
+    },
+    "Descanso": {
+      icon: Bed,
+      description: "Habitaciones privadas y áreas de descanso para recuperación y sueño",
+      color: "text-purple-400"
+    },
+    "Comida y Recursos": {
+      icon: UtensilsCrossed,
+      description: "Cocina, comedor, almacenamiento de alimentos y gestión de recursos",
+      color: "text-yellow-400"
+    },
+    "Social": {
+      icon: Users,
+      description: "Sala de reuniones y áreas comunes para interacción social de la tripulación",
+      color: "text-green-400"
+    }
+  };
+
+  const handleAreaChange = (rootId: string, newArea: AreaType) => {
+    // Verificar si el área ya está asignada a otro ROOT
+    const isAreaTaken = Object.entries(areaAssignments).some(
+      ([id, area]) => id !== rootId && area === newArea
+    );
+
+    if (isAreaTaken) {
+      toast({
+        title: "Área no disponible",
+        description: `El área "${newArea}" ya está asignada a otro ROOT`,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setAreaAssignments(prev => ({
+      ...prev,
+      [rootId]: newArea
+    }));
+
+    toast({
+      title: "Área actualizada",
+      description: `${zones.find(z => z.id === rootId)?.name} ahora es: ${newArea}`,
+    });
+  };
+
+  const getAvailableAreas = (currentRootId: string): AreaType[] => {
+    const allAreas: AreaType[] = ["Investigación", "Salud", "Descanso", "Comida y Recursos", "Social"];
+    const currentArea = areaAssignments[currentRootId];
+    
+    return allAreas.filter(area => {
+      // Incluir el área actual
+      if (area === currentArea) return true;
+      // Incluir áreas no asignadas
+      return !Object.entries(areaAssignments).some(
+        ([id, assignedArea]) => id !== currentRootId && assignedArea === area
+      );
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -48,7 +133,7 @@ const Editor = () => {
 
           <div className="grid lg:grid-cols-3 gap-6">
             {/* 3D Viewport */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 space-y-6">
               <Card className="p-0 glass-effect border-primary/30 overflow-hidden h-[600px] relative animate-fade-in">
                 <Canvas3D selectedZone={selectedZone} onZoneSelect={setSelectedZone} />
 
@@ -62,6 +147,84 @@ const Editor = () => {
                   </ul>
                 </div>
               </Card>
+
+              {/* Panel de Información Detallada - Solo para ROOTs */}
+              {selectedZone && selectedZone !== "trunk" && (
+                <Card className="p-6 glass-effect border-secondary/30 animate-fade-in">
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        {(() => {
+                          const area = areaAssignments[selectedZone];
+                          const AreaIcon = areaInfo[area].icon;
+                          return (
+                            <>
+                              <div className={`w-12 h-12 rounded-lg glass-effect flex items-center justify-center ${areaInfo[area].color}`}>
+                                <AreaIcon className="w-6 h-6" />
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-bold text-foreground">
+                                  {zones.find(z => z.id === selectedZone)?.name}
+                                </h3>
+                                <p className="text-sm text-muted-foreground">Área asignada</p>
+                              </div>
+                            </>
+                          );
+                        })()}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground mb-2 block">
+                          Función del ROOT
+                        </label>
+                        <Select
+                          value={areaAssignments[selectedZone]}
+                          onValueChange={(value) => handleAreaChange(selectedZone, value as AreaType)}
+                        >
+                          <SelectTrigger className="w-full border-border/50 bg-background/50">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background border-border">
+                            {getAvailableAreas(selectedZone).map((area) => {
+                              const AreaIcon = areaInfo[area].icon;
+                              return (
+                                <SelectItem key={area} value={area}>
+                                  <div className="flex items-center gap-2">
+                                    <AreaIcon className={`w-4 h-4 ${areaInfo[area].color}`} />
+                                    <span>{area}</span>
+                                  </div>
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+                        <div className="flex items-start gap-2">
+                          <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <p className="text-sm text-muted-foreground">
+                            {areaInfo[areaAssignments[selectedZone]].description}
+                          </p>
+                        </div>
+                      </div>
+
+                      {getAvailableAreas(selectedZone).length < 5 && (
+                        <div className="p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                          <div className="flex items-start gap-2">
+                            <AlertCircle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
+                            <p className="text-xs text-yellow-500">
+                              Algunas áreas ya están asignadas a otros ROOTs
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              )}
             </div>
 
             {/* Control Panel */}
@@ -71,21 +234,37 @@ const Editor = () => {
                   Seleccionar Zona
                 </h2>
                 <div className="space-y-3">
-                  {zones.map((zone) => (
-                    <Button
-                      key={zone.id}
-                      variant={selectedZone === zone.id ? "default" : "outline"}
-                      className={`w-full justify-start ${
-                        selectedZone === zone.id 
-                          ? "bg-primary hover:bg-primary/90 text-primary-foreground" 
-                          : "border-border/50 hover:bg-primary/10"
-                      }`}
-                      onClick={() => setSelectedZone(zone.id)}
-                    >
-                      <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${zone.color} mr-3`} />
-                      {zone.name}
-                    </Button>
-                  ))}
+                  {zones.map((zone) => {
+                    const isRoot = zone.id !== "trunk";
+                    const area = isRoot ? areaAssignments[zone.id] : null;
+                    const AreaIcon = area ? areaInfo[area].icon : null;
+                    
+                    return (
+                      <Button
+                        key={zone.id}
+                        variant={selectedZone === zone.id ? "default" : "outline"}
+                        className={`w-full justify-start ${
+                          selectedZone === zone.id 
+                            ? "bg-primary hover:bg-primary/90 text-primary-foreground" 
+                            : "border-border/50 hover:bg-primary/10"
+                        }`}
+                        onClick={() => setSelectedZone(zone.id)}
+                      >
+                        <div className="flex items-center gap-3 w-full">
+                          <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${zone.color} flex-shrink-0`} />
+                          <div className="flex-1 text-left">
+                            <div className="font-semibold">{zone.name}</div>
+                            {isRoot && area && (
+                              <div className="text-xs opacity-80 flex items-center gap-1 mt-0.5">
+                                {AreaIcon && <AreaIcon className="w-3 h-3" />}
+                                {area}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </Button>
+                    );
+                  })}
                 </div>
               </Card>
 
