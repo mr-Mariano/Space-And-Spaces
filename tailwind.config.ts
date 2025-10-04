@@ -98,7 +98,7 @@ export default {
         "glow": "glow 2s ease-in-out infinite",
       },
       fontFamily: {
-        sans: ["Space Grotesk", "system-ui", "sans-serif"],
+        sans: ["Source Sans 3", "system-ui", "sans-serif"],
       },
     },
   },

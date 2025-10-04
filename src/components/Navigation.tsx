@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Rocket, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navigation = () => {
   const location = useLocation();
@@ -52,8 +53,9 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* CTA Button Desktop */}
-          <div className="hidden md:block">
+          {/* Theme Toggle & CTA Button Desktop */}
+          <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <Link to="/editor">
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-[0_0_20px_rgba(175,76,15,0.3)] hover:shadow-[0_0_30px_rgba(175,76,15,0.5)] transition-all">
                 Diseña tu Hábitat
@@ -92,6 +94,10 @@ const Navigation = () => {
                 </Button>
               </Link>
             ))}
+            <div className="flex items-center gap-2 px-2">
+              <ThemeToggle />
+              <span className="text-sm text-muted-foreground">Tema</span>
+            </div>
             <Link to="/editor" onClick={() => setMobileMenuOpen(false)}>
               <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
                 Diseña tu Hábitat
