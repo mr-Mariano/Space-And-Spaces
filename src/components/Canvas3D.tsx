@@ -12,7 +12,7 @@ const Canvas3D = ({ selectedZone, onZoneSelect }: Canvas3DProps) => {
   return (
     <>
       <Canvas
-        camera={{ position: [5, 3, 5], fov: 50 }}
+        camera={{ position: [8, 6, 8], fov: 60 }}
         shadows
         className="w-full h-full"
       >
@@ -41,9 +41,17 @@ const Canvas3D = ({ selectedZone, onZoneSelect }: Canvas3DProps) => {
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
-          minDistance={2}
-          maxDistance={20}
-          maxPolarAngle={Math.PI / 2}
+          minDistance={0.5}
+          maxDistance={50}
+          maxPolarAngle={Math.PI}
+          minPolarAngle={0}
+          enableDamping={true}
+          dampingFactor={0.05}
+          rotateSpeed={0.5}
+          zoomSpeed={1.2}
+          panSpeed={0.8}
+          screenSpacePanning={false}
+          target={[0, 0, 0]}
         />
       </Canvas>
       <Loader />

@@ -21,65 +21,164 @@ const HabitatModel = ({ selectedZone, onZoneSelect }: HabitatModelProps) => {
     root5: "ROOT_5",
   };
 
-  // Find meshes by collection name
+  // Find meshes by collection name with more precise matching
   const findMeshesByName = (name: string): THREE.Mesh[] => {
     const meshes: THREE.Mesh[] = [];
     scene.traverse((child) => {
-      if (child instanceof THREE.Mesh && child.name.includes(name)) {
-        meshes.push(child);
+      if (child instanceof THREE.Mesh) {
+        // More precise matching - check if the name starts with or contains the exact collection name
+        // This prevents ROOT_5 from matching ROOT_1, ROOT_2, etc.
+        if (child.name === name || 
+            child.name.startsWith(name + "_") || 
+            child.name.startsWith(name + ".") ||
+            child.name.includes(name + "_") ||
+            child.name.includes(name + ".")) {
+          meshes.push(child);
+        }
       }
     });
     return meshes;
   };
 
-  // Update materials based on selection and hover
+  // Debug: Log all mesh names to understand the structure
   useEffect(() => {
+    console.log("=== ALL MESH NAMES ===");
+    const allMeshes: THREE.Mesh[] = [];
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        allMeshes.push(child);
+        console.log(`Mesh: "${child.name}"`);
+      }
+    });
+    
+    console.log("=== ROOT MESHES ===");
+    const meshToZoneMap: Record<string, string[]> = {};
+    
     Object.entries(zoneMap).forEach(([zoneId, collectionName]) => {
       const meshes = findMeshesByName(collectionName);
-      const isSelected = selectedZone === zoneId;
-      const isHovered = hoveredZone === zoneId;
+      console.log(`${zoneId} (${collectionName}):`, meshes.map(m => m.name));
+      
+      // Track which zones each mesh belongs to
+      meshes.forEach(mesh => {
+        if (!meshToZoneMap[mesh.name]) {
+          meshToZoneMap[mesh.name] = [];
+        }
+        meshToZoneMap[mesh.name].push(zoneId);
+      });
+    });
+    
+    // Check for overlapping meshes
+    console.log("=== MESH OVERLAP CHECK ===");
+    Object.entries(meshToZoneMap).forEach(([meshName, zones]) => {
+      if (zones.length > 1) {
+        console.warn(`⚠️ Mesh "${meshName}" belongs to multiple zones:`, zones);
+      }
+    });
+  }, [scene]);
 
+  // Update materials based on selection and hover
+  useEffect(() => {
+    console.log("=== MATERIAL UPDATE ===");
+    console.log("Selected zone:", selectedZone);
+    console.log("Hovered zone:", hoveredZone);
+    
+    // First, reset all meshes to default state
+    Object.entries(zoneMap).forEach(([zoneId, collectionName]) => {
+      const meshes = findMeshesByName(collectionName);
       meshes.forEach((mesh) => {
         if (mesh.material) {
-          const material = mesh.material as THREE.MeshStandardMaterial;
-          
-          if (isSelected) {
-            material.emissive = new THREE.Color(0x00ff00);
-            material.emissiveIntensity = 0.3;
-          } else if (isHovered) {
-            material.emissive = new THREE.Color(0xffffff);
-            material.emissiveIntensity = 0.2;
-          } else {
-            material.emissive = new THREE.Color(0x000000);
-            material.emissiveIntensity = 0;
+          // Clone the material to avoid sharing materials between meshes
+          if (!mesh.userData.originalMaterial) {
+            // Handle both single material and material array
+            if (Array.isArray(mesh.material)) {
+              mesh.userData.originalMaterial = mesh.material.map(mat => mat.clone());
+            } else {
+              mesh.userData.originalMaterial = mesh.material.clone();
+            }
           }
+          
+          const material = Array.isArray(mesh.userData.originalMaterial) 
+            ? mesh.userData.originalMaterial[0] as THREE.MeshStandardMaterial
+            : mesh.userData.originalMaterial as THREE.MeshStandardMaterial;
+          
+          mesh.material = mesh.userData.originalMaterial;
+          
+          // Reset to default
+          material.emissive = new THREE.Color(0x000000);
+          material.emissiveIntensity = 0;
           material.needsUpdate = true;
         }
       });
     });
+    
+    // Then apply selection/hover effects
+    Object.entries(zoneMap).forEach(([zoneId, collectionName]) => {
+      const meshes = findMeshesByName(collectionName);
+      const isSelected = selectedZone === zoneId;
+      const isHovered = hoveredZone === zoneId;
+      
+      console.log(`${zoneId}: ${meshes.length} meshes, selected: ${isSelected}, hovered: ${isHovered}`);
+
+      if (isSelected) {
+        console.log(`🎯 SELECTING ${zoneId} - Applying GREEN to:`, meshes.map(m => m.name));
+        meshes.forEach((mesh) => {
+          if (mesh.material) {
+            const material = Array.isArray(mesh.material) 
+              ? mesh.material[0] as THREE.MeshStandardMaterial
+              : mesh.material as THREE.MeshStandardMaterial;
+            
+            material.emissive = new THREE.Color(0x00ff00);
+            material.emissiveIntensity = 0.3;
+            material.needsUpdate = true;
+          }
+        });
+      } else if (isHovered) {
+        console.log(`👆 HOVERING ${zoneId} - Applying WHITE to:`, meshes.map(m => m.name));
+        meshes.forEach((mesh) => {
+          if (mesh.material) {
+            const material = Array.isArray(mesh.material) 
+              ? mesh.material[0] as THREE.MeshStandardMaterial
+              : mesh.material as THREE.MeshStandardMaterial;
+            
+            material.emissive = new THREE.Color(0xffffff);
+            material.emissiveIntensity = 0.2;
+            material.needsUpdate = true;
+          }
+        });
+      }
+    });
   }, [selectedZone, hoveredZone, scene]);
 
-  // Handle click on zones
+  // Handle click on zones with more precise matching
   const handleClick = (event: any) => {
     event.stopPropagation();
     const clickedObject = event.object;
+    console.log("Clicked object:", clickedObject.name);
     
-    // Find which zone was clicked
+    // Find which zone was clicked with precise matching
     for (const [zoneId, collectionName] of Object.entries(zoneMap)) {
-      if (clickedObject.name.includes(collectionName)) {
+      if (clickedObject.name === collectionName || 
+          clickedObject.name.startsWith(collectionName + "_") || 
+          clickedObject.name.startsWith(collectionName + ".") ||
+          clickedObject.name.includes(collectionName + "_") ||
+          clickedObject.name.includes(collectionName + ".")) {
+        console.log(`Selected zone: ${zoneId} (${collectionName})`);
         onZoneSelect(selectedZone === zoneId ? null : zoneId);
         return;
       }
     }
   };
 
-  // Handle hover
+  // Handle hover with precise matching
   const handlePointerOver = (event: any) => {
     event.stopPropagation();
     const hoveredObject = event.object;
-    
     for (const [zoneId, collectionName] of Object.entries(zoneMap)) {
-      if (hoveredObject.name.includes(collectionName)) {
+      if (hoveredObject.name === collectionName || 
+          hoveredObject.name.startsWith(collectionName + "_") || 
+          hoveredObject.name.startsWith(collectionName + ".") ||
+          hoveredObject.name.includes(collectionName + "_") ||
+          hoveredObject.name.includes(collectionName + ".")) {
         setHoveredZone(zoneId);
         document.body.style.cursor = "pointer";
         return;
