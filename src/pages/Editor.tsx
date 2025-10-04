@@ -349,22 +349,11 @@ const Editor = () => {
 
               <Card className="p-6 glass-effect border-border/30">
                 <h3 className="text-lg font-semibold mb-3 text-foreground">
-                  Vistas Rápidas
+                  Exportar Configuración
                 </h3>
-                <div className="grid grid-cols-2 gap-2 mb-4">
-                  <Button variant="outline" className="border-border/50 hover:bg-primary/10">
-                    Superior
-                  </Button>
-                  <Button variant="outline" className="border-border/50 hover:bg-primary/10">
-                    Lateral
-                  </Button>
-                  <Button variant="outline" className="border-border/50 hover:bg-primary/10">
-                    Frontal
-                  </Button>
-                  <Button variant="outline" className="border-border/50 hover:bg-primary/10">
-                    Isométrica
-                  </Button>
-                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Descarga un PDF con las especificaciones de tu hábitat o compártelo en línea
+                </p>
                 
                 <Button 
                   onClick={handleExportOrShare}
