@@ -4,6 +4,9 @@ import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Rocket, Leaf, Users, Zap, Building2, Sprout } from "lucide-react";
+import edenTreeSystem from "@/assets/eden-tree-system.jpg";
+import habitatInterior from "@/assets/habitat-interior.jpg";
+import greenhouseLife from "@/assets/greenhouse-life.jpg";
 
 const Index = () => {
   const features = [
@@ -98,29 +101,15 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Visual Element - Tree Structure */}
-          <div className="mt-16 max-w-3xl mx-auto">
-            <div className="relative">
-              {/* Trunk */}
-              <div className="mx-auto w-32 h-32 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-[0_0_40px_rgba(175,76,15,0.4)] animate-glow">
-                <span className="font-bold text-background text-lg">TRUNK</span>
-              </div>
-              
-              {/* Roots spreading out */}
-              <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6">
-                {roots.slice(1).map((root, idx) => (
-                  <div 
-                    key={root.name}
-                    className="flex flex-col items-center gap-2 animate-fade-in"
-                    style={{ animationDelay: `${idx * 0.1}s` }}
-                  >
-                    <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${root.color} flex items-center justify-center shadow-lg`}>
-                      <span className="font-bold text-background text-sm">{root.name}</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">{root.desc}</span>
-                  </div>
-                ))}
-              </div>
+          {/* Visual Element - EDEN TREE System Image */}
+          <div className="mt-16 max-w-5xl mx-auto animate-fade-in">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-primary/20">
+              <img 
+                src={edenTreeSystem} 
+                alt="EDEN TREE modular habitat system with TRUNK and 5 ROOT modules on Mars surface" 
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
             </div>
           </div>
         </div>
@@ -158,10 +147,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Philosophy Section */}
+      {/* Philosophy Section with Images */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+            {/* Text Content */}
             <div className="glass-effect rounded-2xl p-8 md:p-12 border border-primary/30">
               <div className="flex items-start gap-4 mb-6">
                 <div className="p-3 rounded-full bg-primary/20">
@@ -190,6 +180,24 @@ const Index = () => {
                     </li>
                   </ul>
                 </div>
+              </div>
+            </div>
+
+            {/* Image Grid */}
+            <div className="grid gap-4">
+              <div className="rounded-2xl overflow-hidden shadow-lg border border-primary/20 hover-lift">
+                <img 
+                  src={habitatInterior} 
+                  alt="Interior de hábitat EDEN TREE con astronautas en espacio común acogedor" 
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-lg border border-primary/20 hover-lift">
+                <img 
+                  src={greenhouseLife} 
+                  alt="Astronauta cuidando plantas en invernadero del hábitat marciano" 
+                  className="w-full h-auto object-cover"
+                />
               </div>
             </div>
           </div>

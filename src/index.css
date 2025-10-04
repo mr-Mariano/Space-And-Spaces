@@ -8,53 +8,57 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* EDEN TREE Color System - Mars Inspired */
-    --background: 0 0% 100%; /* Light background */
-    --foreground: 0 0% 5%; /* Dark text */
+    /* EDEN TREE Color System - Light Mode */
+    --background: 0 0% 98%; /* #f9f9f9 - Soft off-white */
+    --foreground: 0 0% 13%; /* #222222 - Dark gray text */
 
-    --card: 0 0% 98%; /* Light card background */
-    --card-foreground: 0 0% 5%;
+    --card: 0 0% 100%; /* Light card background */
+    --card-foreground: 0 0% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 0 0% 13%;
 
-    /* Mars Orange - Primary accent */
-    --primary: 22 85% 37%; /* #af4c0f */
+    /* Bright Modern Orange - Primary accent */
+    --primary: 16 100% 60%; /* #ff6b35 */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 22 85% 50%;
+    --primary-glow: 16 100% 70%;
 
-    /* Warm Beige - Secondary accent */
-    --secondary: 18 53% 68%; /* #d49f85 */
-    --secondary-foreground: 0 0% 5%;
+    /* Light Warm Beige - Secondary accent */
+    --secondary: 24 69% 81%; /* #f1c5a8 */
+    --secondary-foreground: 0 0% 13%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 40%; /* #666666 - Medium gray */
 
-    --accent: 18 53% 68%; /* Beige accent */
-    --accent-foreground: 0 0% 5%;
+    --accent: 24 69% 81%; /* Light beige accent */
+    --accent-foreground: 0 0% 13%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 22 40% 85%; /* Mars-tinted border */
+    --border: 0 0% 90%; /* Soft border */
     --input: 0 0% 96%;
-    --ring: 22 85% 37%;
+    --ring: 16 100% 60%;
+    
+    /* Cool Contrast Blue */
+    --blue-accent: 211 70% 58%; /* #4a90e2 */
 
     --radius: 0.75rem;
     
     /* Custom EDEN TREE tokens */
-    --mars-orange: 22 85% 37%;
-    --warm-beige: 18 53% 68%;
+    --mars-orange: 16 100% 60%; /* Light mode orange */
+    --warm-beige: 24 69% 81%; /* Light mode beige */
     --space-black: 0 0% 0%;
+    --blue-contrast: 211 70% 58%; /* Cool blue */
     
     /* Gradients */
-    --gradient-mars: linear-gradient(135deg, hsl(22 85% 37%) 0%, hsl(18 53% 68%) 100%);
-    --gradient-space: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 5%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(22 40% 10%) 50%, hsl(0 0% 0%) 100%);
+    --gradient-mars: linear-gradient(135deg, hsl(16 100% 60%) 0%, hsl(24 69% 81%) 100%);
+    --gradient-space: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(0 0% 95%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 98%) 0%, hsl(16 100% 98%) 50%, hsl(0 0% 98%) 100%);
     
-    /* Shadows with Mars glow */
-    --shadow-mars: 0 10px 40px -10px hsl(22 85% 37% / 0.4);
-    --shadow-glow: 0 0 30px hsl(22 85% 50% / 0.3);
+    /* Shadows with warm glow */
+    --shadow-mars: 0 10px 40px -10px hsl(16 100% 60% / 0.3);
+    --shadow-glow: 0 0 30px hsl(16 100% 70% / 0.25);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -87,15 +91,30 @@ All colors MUST be HSL.
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 100%;
 
+    /* Dark mode accent colors */
+    --primary: 16 100% 65%; /* Brighter orange for dark mode */
+    --primary-glow: 16 100% 75%;
+    
+    --secondary: 24 69% 75%;
     --secondary-foreground: 0 0% 0%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
+    --accent: 24 69% 75%;
     --accent-foreground: 0 0% 0%;
 
-    --border: 22 40% 25%; /* Mars-tinted border */
+    --border: 16 40% 25%; /* Orange-tinted border */
     --input: 0 0% 15%;
+    
+    /* Dark mode gradients */
+    --gradient-mars: linear-gradient(135deg, hsl(16 100% 65%) 0%, hsl(24 69% 75%) 100%);
+    --gradient-space: linear-gradient(180deg, hsl(0 0% 7%) 0%, hsl(0 0% 10%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 7%) 0%, hsl(16 40% 12%) 50%, hsl(0 0% 7%) 100%);
+    
+    /* Dark mode shadows */
+    --shadow-mars: 0 10px 40px -10px hsl(16 100% 65% / 0.4);
+    --shadow-glow: 0 0 30px hsl(16 100% 75% / 0.3);
   }
 }
 
@@ -123,9 +142,15 @@ All colors MUST be HSL.
   }
   
   .glass-effect {
+    background: hsl(0 0% 100% / 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(16 100% 60% / 0.2);
+  }
+  
+  .dark .glass-effect {
     background: hsl(0 0% 5% / 0.6);
     backdrop-filter: blur(12px);
-    border: 1px solid hsl(22 40% 25% / 0.3);
+    border: 1px solid hsl(16 40% 25% / 0.3);
   }
 }
 
@@ -153,10 +178,10 @@ All colors MUST be HSL.
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px hsl(22 85% 37% / 0.3);
+    box-shadow: 0 0 20px hsl(16 100% 60% / 0.3);
   }
   50% {
-    box-shadow: 0 0 40px hsl(22 85% 37% / 0.6);
+    box-shadow: 0 0 40px hsl(16 100% 60% / 0.6);
   }
 }
 

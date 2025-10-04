@@ -52,6 +52,9 @@ export default {
           orange: "hsl(var(--mars-orange))",
           beige: "hsl(var(--warm-beige))",
         },
+        blue: {
+          accent: "hsl(var(--blue-accent))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -86,8 +89,8 @@ export default {
           to: { opacity: "1", transform: "translateY(0)" },
         },
         glow: {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(22 85% 37% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(22 85% 37% / 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(16 100% 60% / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(16 100% 60% / 0.6)" },
         },
       },
       animation: {
