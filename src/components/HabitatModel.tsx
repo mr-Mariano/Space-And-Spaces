@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useState } from "react";
 import * as THREE from "three";
+import trunkModel from "@/assets/trunk.glb";
 
 interface HabitatModelProps {
   selectedZone: string | null;
@@ -8,7 +9,7 @@ interface HabitatModelProps {
 }
 
 const HabitatModel = ({ selectedZone, onZoneSelect }: HabitatModelProps) => {
-  const { scene } = useGLTF("/src/assets/trunk.glb");
+  const { scene } = useGLTF(trunkModel);
   const [hoveredZone, setHoveredZone] = useState<string | null>(null);
 
   // Map zone IDs to collection names
@@ -204,6 +205,6 @@ const HabitatModel = ({ selectedZone, onZoneSelect }: HabitatModelProps) => {
 };
 
 // Preload the model
-useGLTF.preload("/src/assets/trunk.glb");
+useGLTF.preload(trunkModel);
 
 export default HabitatModel;
