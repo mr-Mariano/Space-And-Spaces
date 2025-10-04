@@ -3,19 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Rocket, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
-import LanguageSwitcher from "./LanguageSwitcher";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navigation = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { t } = useLanguage();
 
   const navItems = [
-    { path: "/", label: t.nav.home },
-    { path: "/about", label: t.nav.about },
-    { path: "/docs", label: t.nav.docs },
-    { path: "/editor", label: t.nav.editor },
+    { path: "/", label: "Inicio" },
+    { path: "/about", label: "Proyecto" },
+    { path: "/docs", label: "Documentación" },
+    { path: "/editor", label: "Editor 3D" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -56,13 +53,12 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Actions Desktop */}
+          {/* Theme Toggle & CTA Button Desktop */}
           <div className="hidden md:flex items-center gap-2">
-            <LanguageSwitcher />
             <ThemeToggle />
             <Link to="/editor">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-[0_0_20px_rgba(255,107,53,0.3)] hover:shadow-[0_0_30px_rgba(255,107,53,0.5)] transition-all">
-                {t.home.ctaDesign}
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-[0_0_20px_rgba(175,76,15,0.3)] hover:shadow-[0_0_30px_rgba(175,76,15,0.5)] transition-all">
+                Diseña tu Hábitat
               </Button>
             </Link>
           </div>
@@ -98,15 +94,13 @@ const Navigation = () => {
                 </Button>
               </Link>
             ))}
-            <div className="flex items-center justify-between px-2 py-2">
-              <div className="flex items-center gap-2">
-                <LanguageSwitcher />
-                <ThemeToggle />
-              </div>
+            <div className="flex items-center gap-2 px-2">
+              <ThemeToggle />
+              <span className="text-sm text-muted-foreground">Tema</span>
             </div>
             <Link to="/editor" onClick={() => setMobileMenuOpen(false)}>
               <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
-                {t.home.ctaDesign}
+                Diseña tu Hábitat
               </Button>
             </Link>
           </div>
