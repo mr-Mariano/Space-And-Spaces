@@ -2,8 +2,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Box, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import { useState } from "react";
+import Canvas3D from "@/components/Canvas3D";
 
 const Editor = () => {
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
@@ -49,21 +50,7 @@ const Editor = () => {
             {/* 3D Viewport */}
             <div className="lg:col-span-2">
               <Card className="p-0 glass-effect border-primary/30 overflow-hidden h-[600px] relative animate-fade-in">
-                {/* Placeholder for 3D canvas */}
-                <div className="w-full h-full bg-gradient-to-br from-background via-primary/5 to-background flex items-center justify-center">
-                  <div className="text-center space-y-4">
-                    <Box className="h-24 w-24 text-primary/30 mx-auto animate-pulse" />
-                    <div>
-                      <p className="text-xl font-semibold text-foreground mb-2">
-                        Área de Visualización 3D
-                      </p>
-                      <p className="text-muted-foreground max-w-md">
-                        Aquí se renderizará el modelo 3D del hábitat EDEN TREE usando Three.js. 
-                        Los controles permitirán orbitar, zoom y pan.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <Canvas3D selectedZone={selectedZone} onZoneSelect={setSelectedZone} />
 
                 {/* Controls overlay */}
                 <div className="absolute top-4 left-4 glass-effect p-3 rounded-lg border border-border/50">
