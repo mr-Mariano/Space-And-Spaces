@@ -1,9 +1,12 @@
 import { Rocket, Github, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   return (
-    <footer className="border-t border-border/50 bg-card/50 backdrop-blur-sm">
+    <footer className="border-t border-border/50 bg-card/30 backdrop-blur-sm mt-20">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -15,32 +18,32 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Plantando las bases permanentes de vida humana en Marte
+              {t.footer.tagline}
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Navegación</h3>
+            <h3 className="font-semibold mb-4 text-foreground">{t.footer.navigation}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
-                  Inicio
+                  {t.nav.home}
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">
-                  Proyecto
+                  {t.nav.about}
                 </Link>
               </li>
               <li>
                 <Link to="/docs" className="text-muted-foreground hover:text-primary transition-colors">
-                  Documentación
+                  {t.nav.docs}
                 </Link>
               </li>
               <li>
                 <Link to="/editor" className="text-muted-foreground hover:text-primary transition-colors">
-                  Editor 3D
+                  {t.nav.editor}
                 </Link>
               </li>
             </ul>
@@ -48,20 +51,20 @@ const Footer = () => {
 
           {/* Habitat Zones */}
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Zonas</h3>
+            <h3 className="font-semibold mb-4 text-foreground">{t.footer.zones}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>TRUNK - Núcleo</li>
-              <li>ROOT 1 - Operativa</li>
-              <li>ROOT 2 - Bienestar</li>
-              <li>ROOT 3 - Descanso</li>
-              <li>ROOT 4 - Recursos</li>
-              <li>ROOT 5 - Investigación</li>
+              <li>{t.footer.trunk}</li>
+              <li>{t.footer.root1}</li>
+              <li>{t.footer.root2}</li>
+              <li>{t.footer.root3}</li>
+              <li>{t.footer.root4}</li>
+              <li>{t.footer.root5}</li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Contacto</h3>
+            <h3 className="font-semibold mb-4 text-foreground">{t.footer.contact}</h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -87,8 +90,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
-          <p>© 2025 EDEN TREE Habitat Project. Diseñando el futuro de la humanidad en Marte.</p>
+        <div className="mt-12 pt-8 border-t border-border/50 text-center">
+          <p className="text-sm text-muted-foreground">
+            © 2025 EDEN TREE. {t.footer.rights}
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">
+            {t.footer.concept}
+          </p>
         </div>
       </div>
     </footer>
