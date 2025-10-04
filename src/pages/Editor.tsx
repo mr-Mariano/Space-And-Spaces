@@ -64,20 +64,6 @@ const Editor = () => {
   };
 
   const handleAreaChange = (rootId: string, newArea: AreaType) => {
-    // Verificar si el área ya está asignada a otro ROOT
-    const isAreaTaken = Object.entries(areaAssignments).some(
-      ([id, area]) => id !== rootId && area === newArea
-    );
-
-    if (isAreaTaken) {
-      toast({
-        title: "Área no disponible",
-        description: `El área "${newArea}" ya está asignada a otro ROOT`,
-        variant: "destructive",
-      });
-      return;
-    }
-
     setAreaAssignments(prev => ({
       ...prev,
       [rootId]: newArea
@@ -89,18 +75,61 @@ const Editor = () => {
     });
   };
 
-  const getAvailableAreas = (currentRootId: string): AreaType[] => {
-    const allAreas: AreaType[] = ["Investigación", "Salud", "Descanso", "Comida y Recursos", "Social"];
-    const currentArea = areaAssignments[currentRootId];
-    
-    return allAreas.filter(area => {
-      // Incluir el área actual
-      if (area === currentArea) return true;
-      // Incluir áreas no asignadas
-      return !Object.entries(areaAssignments).some(
-        ([id, assignedArea]) => id !== currentRootId && assignedArea === area
-      );
+  const validateAssignments = (): { isValid: boolean; errors: string[] } => {
+    const errors: string[] = [];
+    const areaCount: Record<string, string[]> = {};
+
+    // Verificar áreas duplicadas
+    Object.entries(areaAssignments).forEach(([rootId, area]) => {
+      if (!areaCount[area]) {
+        areaCount[area] = [];
+      }
+      areaCount[area].push(zones.find(z => z.id === rootId)?.name || rootId);
     });
+
+    Object.entries(areaCount).forEach(([area, roots]) => {
+      if (roots.length > 1) {
+        errors.push(`El área "${area}" está asignada a: ${roots.join(", ")}`);
+      }
+    });
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  };
+
+  const handleExportOrShare = () => {
+    const validation = validateAssignments();
+    
+    if (!validation.isValid) {
+      toast({
+        title: "Configuración inválida",
+        description: validation.errors.join(" • "),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Aquí iría la lógica de exportar/compartir
+    toast({
+      title: "¡Listo para exportar!",
+      description: "Todas las áreas están correctamente asignadas",
+    });
+  };
+
+  const getAllAreas = (): AreaType[] => {
+    return ["Investigación", "Salud", "Descanso", "Comida y Recursos", "Social"];
+  };
+
+  const getDuplicateAreas = (): string[] => {
+    const areaCount: Record<string, number> = {};
+    Object.values(areaAssignments).forEach(area => {
+      areaCount[area] = (areaCount[area] || 0) + 1;
+    });
+    return Object.entries(areaCount)
+      .filter(([_, count]) => count > 1)
+      .map(([area, _]) => area);
   };
 
   return (
@@ -187,13 +216,17 @@ const Editor = () => {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-background border-border">
-                            {getAvailableAreas(selectedZone).map((area) => {
+                            {getAllAreas().map((area) => {
                               const AreaIcon = areaInfo[area].icon;
+                              const isDuplicate = getDuplicateAreas().includes(area);
                               return (
                                 <SelectItem key={area} value={area}>
                                   <div className="flex items-center gap-2">
                                     <AreaIcon className={`w-4 h-4 ${areaInfo[area].color}`} />
                                     <span>{area}</span>
+                                    {isDuplicate && area === areaAssignments[selectedZone] && (
+                                      <AlertCircle className="w-3 h-3 text-yellow-500 ml-1" />
+                                    )}
                                   </div>
                                 </SelectItem>
                               );
@@ -211,12 +244,13 @@ const Editor = () => {
                         </div>
                       </div>
 
-                      {getAvailableAreas(selectedZone).length < 5 && (
+                      {getDuplicateAreas().length > 0 && (
                         <div className="p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
                           <div className="flex items-start gap-2">
                             <AlertCircle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
                             <p className="text-xs text-yellow-500">
-                              Algunas áreas ya están asignadas a otros ROOTs
+                              Advertencia: Hay áreas duplicadas ({getDuplicateAreas().join(", ")}). 
+                              Debes corregir esto antes de exportar o compartir.
                             </p>
                           </div>
                         </div>
@@ -317,7 +351,7 @@ const Editor = () => {
                 <h3 className="text-lg font-semibold mb-3 text-foreground">
                   Vistas Rápidas
                 </h3>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2 mb-4">
                   <Button variant="outline" className="border-border/50 hover:bg-primary/10">
                     Superior
                   </Button>
@@ -331,6 +365,13 @@ const Editor = () => {
                     Isométrica
                   </Button>
                 </div>
+                
+                <Button 
+                  onClick={handleExportOrShare}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                >
+                  Exportar / Compartir
+                </Button>
               </Card>
             </div>
           </div>
