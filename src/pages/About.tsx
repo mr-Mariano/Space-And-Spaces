@@ -84,20 +84,35 @@ const About = () => {
             </div>
           </Card>
 
-          {/* Wellbeing Focus */}
+          {/* Mission Benefits */}
           <Card className="p-8 md:p-12 glass-effect border-primary/30 mb-8 animate-slide-up" style={{animationDelay: '0.2s'}}>
             <div className="flex items-start gap-4 mb-6">
               <div className="p-3 rounded-full bg-primary/20">
-                <Heart className="h-8 w-8 text-primary" />
+                <Target className="h-8 w-8 text-primary" />
               </div>
               <div>
-                <h2 className="text-3xl font-bold mb-4 text-foreground">{t.about.wellbeing.title}</h2>
+                <h2 className="text-3xl font-bold mb-4 text-foreground">{t.about.missionBenefits.title}</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  {t.about.wellbeing.p1}
+                  {t.about.missionBenefits.intro}
                 </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {t.about.wellbeing.p2}
-                </p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary font-bold text-xl">•</span>
+                    <span>{t.about.missionBenefits.customization}</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary font-bold text-xl">•</span>
+                    <span>{t.about.missionBenefits.facilitation}</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary font-bold text-xl">•</span>
+                    <span>{t.about.missionBenefits.criticalInfo}</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary font-bold text-xl">•</span>
+                    <span>{t.about.missionBenefits.home}</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </Card>

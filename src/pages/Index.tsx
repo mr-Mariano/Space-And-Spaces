@@ -35,12 +35,12 @@ const Index = () => {
   ];
 
   const roots = [
-    { name: "TRUNK", desc: "Núcleo Central", color: "from-primary to-primary-glow" },
-    { name: "ROOT 1", desc: "Operativa", color: "from-secondary to-primary" },
-    { name: "ROOT 2", desc: "Bienestar", color: "from-primary to-secondary" },
-    { name: "ROOT 3", desc: "Descanso", color: "from-secondary to-primary" },
-    { name: "ROOT 4", desc: "Recursos", color: "from-primary to-secondary" },
-    { name: "ROOT 5", desc: "Investigación", color: "from-secondary to-primary" },
+    { name: "TRUNK", desc: t.docs.zones.trunk.name.split(' - ')[1] || "Central Core", color: "from-primary to-primary-glow" },
+    { name: "ROOT 1", desc: t.docs.zones.root1.name.split(' - ')[1] || "Operations", color: "from-secondary to-primary" },
+    { name: "ROOT 2", desc: t.docs.zones.root2.name.split(' - ')[1] || "Health & Fitness", color: "from-primary to-secondary" },
+    { name: "ROOT 3", desc: t.docs.zones.root3.name.split(' - ')[1] || "Rest", color: "from-secondary to-primary" },
+    { name: "ROOT 4", desc: t.docs.zones.root4.name.split(' - ')[1] || "Resources", color: "from-primary to-secondary" },
+    { name: "ROOT 5", desc: t.docs.zones.root5.name.split(' - ')[1] || "Research", color: "from-secondary to-primary" },
   ];
 
   return (
