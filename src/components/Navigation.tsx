@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import logo from "@/assets/logo.svg";
 
 const Navigation = () => {
   const location = useLocation();
@@ -27,12 +28,16 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="relative">
-              <Rocket className="h-6 w-6 text-primary transition-transform group-hover:rotate-12" />
-              <div className="absolute inset-0 blur-lg bg-primary/20 group-hover:bg-primary/40 transition-all" />
-            </div>
+          <div className="relative group">
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-6 w-6 transition-transform group-hover:rotate-12 invert dark:invert-0"
+            />
+            <div className="absolute inset-0 blur-lg bg-primary/20 group-hover:bg-primary/40 transition-all" />
+          </div>
             <span className="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-              EDEN TREE
+              Space & Spaces
             </span>
           </Link>
 
