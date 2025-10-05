@@ -816,7 +816,6 @@ export const translations = {
       rights: '© 2025 Space & Spaces. Prototype Eden Tree. Tous droits réservés.',
       concept: 'Habitat prototype pour missions professionnelles vers Mars.',
     },
-    },
   },
   de: {
     nav: {
