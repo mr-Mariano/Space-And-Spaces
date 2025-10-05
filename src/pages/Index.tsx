@@ -85,7 +85,7 @@ const Index = () => {
                   {t.home.ctaDesign}
                 </Button>
               </Link>
-              <Link to="/docs">
+              <Link to="/habitat">
                 <Button 
                   size="lg"
                   variant="outline"

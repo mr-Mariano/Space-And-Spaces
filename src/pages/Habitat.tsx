@@ -24,7 +24,7 @@ import root3Rest from "@/assets/root3-rest.jpg";
 import root4Food from "@/assets/root4-food.jpg";
 import root5Research from "@/assets/root5-research.jpg";
 
-const Documentation = () => {
+const Habitat = () => {
   const { t } = useLanguage();
 
   const rootAreas = [
@@ -115,10 +115,6 @@ const Documentation = () => {
                     <h3 className="font-semibold text-foreground mb-2">{t.docs.zones.trunk.eva}</h3>
                     <p className="text-sm text-muted-foreground">{t.docs.zones.trunk.evaDesc}</p>
                   </div>
-                  <div className="p-4 rounded-lg bg-card/50 border border-border/50">
-                    <h3 className="font-semibold text-foreground mb-2">{t.docs.zones.trunk.common}</h3>
-                    <p className="text-sm text-muted-foreground">{t.docs.zones.trunk.commonDesc}</p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -200,4 +196,4 @@ const Documentation = () => {
   );
 };
 
-export default Documentation;
+export default Habitat;

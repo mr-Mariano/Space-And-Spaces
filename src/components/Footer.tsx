@@ -36,7 +36,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/docs" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link to="/habitat" className="text-muted-foreground hover:text-primary transition-colors">
                   {t.nav.docs}
                 </Link>
               </li>

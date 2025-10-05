@@ -7,7 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Documentation from "./pages/Documentation";
+import Habitat from "./pages/Habitat";
 import Editor from "./pages/Editor";
 import NotFound from "./pages/NotFound";
 
@@ -24,7 +24,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
-              <Route path="/docs" element={<Documentation />} />
+              <Route path="/habitat" element={<Habitat />} />
               <Route path="/editor" element={<Editor />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
