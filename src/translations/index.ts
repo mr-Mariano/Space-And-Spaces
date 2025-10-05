@@ -314,6 +314,7 @@ export const translations = {
       home: 'Inicio',
       about: 'Acerca',
       docs: 'Hábitat',
+      location: 'Ubicación',
       editor: 'Editor',
     },
     home: {

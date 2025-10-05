@@ -3,7 +3,6 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Slider } from '@/components/ui/slider';
 import { 
   MapPin, 
   Radio, 
@@ -11,39 +10,13 @@ import {
   Radiation, 
   Wind, 
   Droplets,
-  Gauge,
-  Globe,
-  Rocket,
-  Timer
+  Gauge
 } from 'lucide-react';
-import { useState } from 'react';
 import marsHero from '@/assets/mars-hero.jpg';
 import galeCrater from '@/assets/gale-crater.jpg';
 
 const Location = () => {
   const { t } = useLanguage();
-  const [selectedMonth, setSelectedMonth] = useState(6);
-
-  // Simplified distance calculation (approximation)
-  const calculateDistance = (month: number) => {
-    // Distance varies between 54.6M km (closest) and 401M km (farthest)
-    // This is a sinusoidal approximation
-    const minDist = 54.6;
-    const maxDist = 401;
-    const avgDist = (minDist + maxDist) / 2;
-    const amplitude = (maxDist - minDist) / 2;
-    const distance = avgDist + amplitude * Math.sin((month / 12) * Math.PI * 2);
-    return distance.toFixed(1);
-  };
-
-  const distance = calculateDistance(selectedMonth);
-  const travelTime = (parseFloat(distance) / 4.5).toFixed(1); // Rough estimate: ~4.5M km/month
-  const commDelay = (parseFloat(distance) / 299792.458 / 60).toFixed(1); // Light speed delay in minutes
-
-  const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ];
 
   const conditions = [
     {
@@ -203,77 +176,6 @@ const Location = () => {
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Interactive Distance Section */}
-      <section className="py-20 px-4 bg-muted/30 animate-fade-in">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.location.distance.title}</h2>
-            <p className="text-muted-foreground text-lg">{t.location.distance.subtitle}</p>
-          </div>
-
-          <Card className="glass-effect border-primary/30">
-            <CardContent className="p-6 md:p-8">
-              {/* Month Selector */}
-              <div className="mb-8">
-                <label className="text-sm font-semibold mb-4 block">{t.location.distance.selectMonth}</label>
-                <div className="flex items-center gap-4">
-                  <Globe className="h-6 w-6 text-primary flex-shrink-0" />
-                  <Slider
-                    value={[selectedMonth]}
-                    onValueChange={(value) => setSelectedMonth(value[0])}
-                    max={11}
-                    step={1}
-                    className="flex-1"
-                  />
-                  <span className="text-lg font-bold min-w-[3rem] text-center">{months[selectedMonth]}</span>
-                </div>
-              </div>
-
-              {/* Distance Display */}
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="text-center p-6 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30">
-                  <Rocket className="h-8 w-8 mx-auto mb-3 text-primary" />
-                  <div className="text-3xl font-bold mb-2">{distance}M</div>
-                  <div className="text-sm text-muted-foreground">{t.location.distance.current}</div>
-                </div>
-
-                <div className="text-center p-6 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-500/5 border border-blue-500/30">
-                  <Timer className="h-8 w-8 mx-auto mb-3 text-blue-500" />
-                  <div className="text-3xl font-bold mb-2">{travelTime}m</div>
-                  <div className="text-sm text-muted-foreground">{t.location.distance.travelTime}</div>
-                </div>
-
-                <div className="text-center p-6 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-500/5 border border-purple-500/30">
-                  <Radio className="h-8 w-8 mx-auto mb-3 text-purple-500" />
-                  <div className="text-3xl font-bold mb-2">{commDelay}min</div>
-                  <div className="text-sm text-muted-foreground">{t.location.distance.commDelay}</div>
-                </div>
-              </div>
-
-              {/* Reference Values */}
-              <div className="grid grid-cols-3 gap-4 p-4 rounded-lg bg-muted/50">
-                <div className="text-center">
-                  <div className="text-sm text-muted-foreground mb-1">{t.location.distance.minimum}</div>
-                  <div className="font-bold">54.6M km</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-sm text-muted-foreground mb-1">{t.location.distance.average}</div>
-                  <div className="font-bold">225M km</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-sm text-muted-foreground mb-1">{t.location.distance.maximum}</div>
-                  <div className="font-bold">401M km</div>
-                </div>
-              </div>
-
-              <p className="text-sm text-center text-muted-foreground mt-6">
-                {t.location.distance.launchWindow}
-              </p>
             </CardContent>
           </Card>
         </div>
