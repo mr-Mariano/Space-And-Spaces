@@ -29,11 +29,11 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
           <div className="relative group">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-6 w-6 transition-transform group-hover:rotate-12 invert dark:invert-0"
-            />
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-6 w-6 transition-transform group-hover:rotate-12 dark:invert"
+          />
             <div className="absolute inset-0 blur-lg bg-primary/20 group-hover:bg-primary/40 transition-all" />
           </div>
             <span className="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
