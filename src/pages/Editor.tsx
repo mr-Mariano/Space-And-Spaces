@@ -15,17 +15,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-type AreaType = "Investigación" | "Salud" | "Descanso" | "Comida y Recursos" | "Social";
+type AreaType = "research" | "health" | "rest" | "foodResources" | "social";
 
 const Editor = () => {
+  const { t } = useLanguage();
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
   const [areaAssignments, setAreaAssignments] = useState<Record<string, AreaType>>({
-    root1: "Investigación",
-    root2: "Salud",
-    root3: "Descanso",
-    root4: "Comida y Recursos",
-    root5: "Social",
+    root1: "research",
+    root2: "health",
+    root3: "rest",
+    root4: "foodResources",
+    root5: "social",
   });
 
   const zones = [
@@ -37,30 +39,25 @@ const Editor = () => {
     { id: "root5", name: "ROOT 5", color: "from-secondary to-primary" },
   ];
 
-  const areaInfo: Record<AreaType, { icon: any; description: string; color: string }> = {
-    "Investigación": {
+  const areaInfo: Record<AreaType, { icon: any; color: string }> = {
+    research: {
       icon: FlaskConical,
-      description: "Laboratorios y espacios dedicados a investigación científica y análisis de datos marcianos",
       color: "text-blue-400"
     },
-    "Salud": {
+    health: {
       icon: HeartPulse,
-      description: "Centro médico equipado para atención de salud y monitoreo de la tripulación",
       color: "text-red-400"
     },
-    "Descanso": {
+    rest: {
       icon: Bed,
-      description: "Habitaciones privadas y áreas de descanso para recuperación y sueño",
       color: "text-purple-400"
     },
-    "Comida y Recursos": {
+    foodResources: {
       icon: UtensilsCrossed,
-      description: "Cocina, comedor, almacenamiento de alimentos y gestión de recursos",
       color: "text-yellow-400"
     },
-    "Social": {
+    social: {
       icon: Users,
-      description: "Sala de reuniones y áreas comunes para interacción social de la tripulación",
       color: "text-green-400"
     }
   };
@@ -72,8 +69,8 @@ const Editor = () => {
     }));
 
     toast({
-      title: "Área actualizada",
-      description: `${zones.find(z => z.id === rootId)?.name} ahora es: ${newArea}`,
+      title: t.editor.areaUpdated,
+      description: `${zones.find(z => z.id === rootId)?.name} ${t.editor.rootNowIs} ${t.editor.areas[newArea]}`,
     });
   };
 
@@ -81,7 +78,6 @@ const Editor = () => {
     const errors: string[] = [];
     const areaCount: Record<string, string[]> = {};
 
-    // Verificar áreas duplicadas
     Object.entries(areaAssignments).forEach(([rootId, area]) => {
       if (!areaCount[area]) {
         areaCount[area] = [];
@@ -91,7 +87,7 @@ const Editor = () => {
 
     Object.entries(areaCount).forEach(([area, roots]) => {
       if (roots.length > 1) {
-        errors.push(`El área "${area}" está asignada a: ${roots.join(", ")}`);
+        errors.push(`${t.editor.duplicateArea} "${t.editor.areas[area as AreaType]}" ${t.editor.assignedTo} ${roots.join(", ")}`);
       }
     });
 
@@ -106,7 +102,7 @@ const Editor = () => {
     
     if (!validation.isValid) {
       toast({
-        title: "Configuración inválida",
+        title: t.editor.invalidConfig,
         description: validation.errors.join(" • "),
         variant: "destructive",
       });
@@ -138,14 +134,14 @@ const Editor = () => {
       const zone = zones.find(z => z.id === rootId);
       return [
         zone?.name || rootId,
-        area,
-        areaInfo[area].description
+        t.editor.areas[area],
+        t.editor.areaDescriptions[area]
       ];
     });
     
     autoTable(doc, {
       startY: 60,
-      head: [['Zona', 'Área Asignada', 'Descripción']],
+      head: [['Zona', t.editor.assignedArea, 'Descripción']],
       body: tableData,
       theme: 'grid',
       headStyles: {
@@ -182,8 +178,8 @@ const Editor = () => {
     doc.save(`eden-tree-habitat-${new Date().toISOString().split('T')[0]}.pdf`);
     
     toast({
-      title: "PDF Generado",
-      description: "Tu configuración de hábitat ha sido descargada exitosamente",
+      title: t.editor.pdfGenerated,
+      description: t.editor.pdfSuccess,
     });
   };
 
@@ -192,18 +188,18 @@ const Editor = () => {
     
     if (!validation.isValid) {
       toast({
-        title: "Configuración inválida",
-        description: "Completa correctamente la configuración antes de compartir",
+        title: t.editor.invalidConfig,
+        description: t.editor.completeConfig,
         variant: "destructive",
       });
       return;
     }
 
-    const shareText = `¡Acabo de diseñar mi hábitat marciano EDEN TREE! 🚀🔴
+    const shareText = `${t.editor.justDesigned} 🚀🔴
     
 ${Object.entries(areaAssignments).map(([rootId, area]) => {
   const zone = zones.find(z => z.id === rootId);
-  return `${zone?.name}: ${area}`;
+  return `${zone?.name}: ${t.editor.areas[area]}`;
 }).join('\n')}
 
 #EdenTree #Mars #SpaceHabitat`;
@@ -221,8 +217,8 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
 
     if (platform === 'instagram') {
       toast({
-        title: "Instagram",
-        description: "Copia el texto y compártelo en tu historia de Instagram. El texto ha sido copiado al portapapeles.",
+        title: t.editor.instagram,
+        description: t.editor.instagramCopy,
       });
       navigator.clipboard.writeText(shareText);
       return;
@@ -231,13 +227,13 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
     window.open(urls[platform], '_blank', 'width=600,height=400');
     
     toast({
-      title: "Compartir en " + platform.charAt(0).toUpperCase() + platform.slice(1),
-      description: "Abriendo ventana para compartir...",
+      title: `${t.editor.shareOn} ${platform.charAt(0).toUpperCase() + platform.slice(1)}`,
+      description: t.editor.openingWindow,
     });
   };
 
   const getAllAreas = (): AreaType[] => {
-    return ["Investigación", "Salud", "Descanso", "Comida y Recursos", "Social"];
+    return ["research", "health", "rest", "foodResources", "social"];
   };
 
   const getDuplicateAreas = (): string[] => {
@@ -260,11 +256,11 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
           <div className="text-center mb-8 animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                Editor 3D - EDEN TREE
+                {t.editor.title}
               </span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Explora y personaliza el hábitat modular de Marte
+              {t.editor.subtitle}
             </p>
           </div>
 
@@ -272,9 +268,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
           <Card className="p-4 mb-8 glass-effect border-primary/30 flex items-start gap-3 animate-slide-up">
             <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
             <div className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Nota:</strong> Este es el espacio donde se integrará el modelo 3D del hábitat EDEN TREE. 
-              La visualización requiere un archivo .glb/.glTF del diseño del hábitat. Una vez cargado el modelo, podrás rotarlo, 
-              hacer zoom, y seleccionar zonas para personalizar colores y texturas.
+              <strong className="text-foreground">{t.editor.note}</strong> {t.editor.noteText}
             </div>
           </Card>
 
@@ -286,11 +280,11 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
 
                 {/* Controls overlay */}
                 <div className="absolute top-4 left-4 glass-effect p-3 rounded-lg border border-border/50">
-                  <p className="text-xs text-muted-foreground mb-2">Controles:</p>
+                  <p className="text-xs text-muted-foreground mb-2">{t.editor.controls}</p>
                   <ul className="text-xs text-muted-foreground space-y-1">
-                    <li>• Click + Arrastrar: Rotar</li>
-                    <li>• Scroll: Zoom</li>
-                    <li>• Click derecho: Pan</li>
+                    <li>• {t.editor.clickDrag}</li>
+                    <li>• {t.editor.scroll}</li>
+                    <li>• {t.editor.rightClick}</li>
                   </ul>
                 </div>
               </Card>
@@ -324,7 +318,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                     <div className="space-y-3">
                       <div>
                         <label className="text-sm font-medium text-muted-foreground mb-2 block">
-                          Función del ROOT
+                          {t.editor.rootFunction}
                         </label>
                         <Select
                           value={areaAssignments[selectedZone]}
@@ -341,7 +335,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                                 <SelectItem key={area} value={area}>
                                   <div className="flex items-center gap-2">
                                     <AreaIcon className={`w-4 h-4 ${areaInfo[area].color}`} />
-                                    <span>{area}</span>
+                                    <span>{t.editor.areas[area]}</span>
                                     {isDuplicate && area === areaAssignments[selectedZone] && (
                                       <AlertCircle className="w-3 h-3 text-yellow-500 ml-1" />
                                     )}
@@ -357,7 +351,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                         <div className="flex items-start gap-2">
                           <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                           <p className="text-sm text-muted-foreground">
-                            {areaInfo[areaAssignments[selectedZone]].description}
+                            {t.editor.areaDescriptions[areaAssignments[selectedZone]]}
                           </p>
                         </div>
                       </div>
@@ -367,8 +361,8 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                           <div className="flex items-start gap-2">
                             <AlertCircle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
                             <p className="text-xs text-yellow-500">
-                              Advertencia: Hay áreas duplicadas ({getDuplicateAreas().join(", ")}). 
-                              Debes corregir esto antes de exportar o compartir.
+                              {t.editor.warning} {t.editor.duplicateWarning} ({getDuplicateAreas().map(a => t.editor.areas[a]).join(", ")}). 
+                              {t.editor.mustCorrect}
                             </p>
                           </div>
                         </div>
@@ -383,7 +377,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
             <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.1s'}}>
               <Card className="p-6 glass-effect border-secondary/30">
                 <h2 className="text-2xl font-bold mb-4 text-foreground">
-                  Seleccionar Zona
+                  {t.editor.selectZone}
                 </h2>
                 <div className="space-y-3">
                   {zones.map((zone) => {
@@ -409,7 +403,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                             {isRoot && area && (
                               <div className="text-xs opacity-80 flex items-center gap-1 mt-0.5">
                                 {AreaIcon && <AreaIcon className="w-3 h-3" />}
-                                {area}
+                                {t.editor.areas[area]}
                               </div>
                             )}
                           </div>
@@ -423,12 +417,12 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
               {selectedZone && (
                 <Card className="p-6 glass-effect border-primary/30 animate-fade-in">
                   <h3 className="text-xl font-bold mb-4 text-foreground">
-                    Personalización
+                    {t.editor.customization}
                   </h3>
                   <div className="space-y-4">
                     <div>
                       <label className="text-sm font-medium text-muted-foreground mb-2 block">
-                        Color Principal
+                        {t.editor.mainColor}
                       </label>
                       <div className="grid grid-cols-4 gap-2">
                         {["#af4c0f", "#d49f85", "#8b7355", "#c47d5f"].map((color) => (
@@ -443,7 +437,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
 
                     <div>
                       <label className="text-sm font-medium text-muted-foreground mb-2 block">
-                        Textura
+                        {t.editor.texture}
                       </label>
                       <div className="space-y-2">
                         {["Metálica", "Mate", "Madera", "Tejido"].map((texture) => (
