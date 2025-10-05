@@ -1,4 +1,5 @@
 # Eden Tree - Mars Habitat Design
+<img width="1920" height="1440" alt="Shots Mockup 1x" src="https://github.com/user-attachments/assets/ed0b9e98-8382-435c-ae93-7c96eee4a3f1" />
 
 > Interactive 3D Mars habitat designer for professional space missions
 
