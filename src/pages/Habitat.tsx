@@ -159,7 +159,7 @@ const Habitat = () => {
                           </div>
                           
                           <div className="p-3 md:p-4">
-                            <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed line-clamp-1">
+                            <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed">
                               {root.description}
                             </p>
                             

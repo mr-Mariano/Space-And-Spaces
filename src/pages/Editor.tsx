@@ -85,7 +85,7 @@ const Editor = () => {
     doc.rect(0, 0, 210, 40, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(24);
-    doc.text("EDEN TREE - Hábitat Marciano", 105, 20, { align: "center" });
+    doc.text("Eden Tree - Hábitat Marciano", 105, 20, { align: "center" });
     doc.setFontSize(12);
     doc.text("Especificaciones de Configuración", 105, 30, { align: "center" });
     doc.setTextColor(0, 0, 0);
@@ -109,7 +109,7 @@ const Editor = () => {
       doc.setPage(i);
       doc.setFontSize(9);
       doc.setTextColor(128, 128, 128);
-      doc.text(`Página ${i} de ${pageCount} - EDEN TREE © ${new Date().getFullYear()}`, 105, doc.internal.pageSize.height - 10, { align: "center" });
+      doc.text(`Página ${i} de ${pageCount} - Eden Tree © ${new Date().getFullYear()}`, 105, doc.internal.pageSize.height - 10, { align: "center" });
     }
     doc.save(`eden-tree-habitat-${new Date().toISOString().split('T')[0]}.pdf`);
     toast({ title: t.editor.pdfGenerated, description: t.editor.pdfSuccess });
@@ -191,7 +191,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                 </div>
               </Card>
 
-              <Card className="canvas-3d-container p-0 glass-effect border-primary/30 overflow-hidden h-[600px] relative animate-fade-in">
+              <Card className="canvas-3d-container p-0 glass-effect border-primary/30 overflow-hidden h-[700px] relative animate-fade-in">
                 <Canvas3D selectedZone={selectedZone} onZoneSelect={setSelectedZone} duplicateZones={getDuplicateZones()} renderMode={renderMode} selectedMaterial={selectedMaterial} />
                 <div className="absolute top-4 left-4 glass-effect p-3 rounded-lg border border-border/50">
                   <p className="text-xs text-muted-foreground mb-2">{t.editor.controls}</p>

@@ -70,7 +70,7 @@ const About = () => {
                       <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
                         <li><strong className="text-secondary">{t.about.metaphor.trunk}</strong> {t.about.metaphor.trunkDesc}</li>
                         <li><strong className="text-secondary">{t.about.metaphor.root}</strong> {t.about.metaphor.rootDesc}</li>
-                        <li><strong className="text-secondary">{t.about.metaphor.growth}</strong> {t.about.metaphor.growthDesc}</li>
+                       
                       </ul>
                     </div>
                   </div>
@@ -103,10 +103,6 @@ const About = () => {
                   <li className="flex items-start gap-3">
                     <span className="text-primary font-bold text-xl">•</span>
                     <span>{t.about.missionBenefits.facilitation}</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold text-xl">•</span>
-                    <span>{t.about.missionBenefits.criticalInfo}</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary font-bold text-xl">•</span>

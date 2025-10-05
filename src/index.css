@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* EDEN TREE Color System - Light Mode */
+    /* Eden Tree Color System - Light Mode */
     --background: 0 0% 98%; /* #f9f9f9 - Soft off-white */
     --foreground: 0 0% 13%; /* #222222 - Dark gray text */
 
@@ -45,7 +45,7 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
     
-    /* Custom EDEN TREE tokens */
+    /* Custom Eden Tree tokens */
     --mars-orange: 16 100% 60%; /* Light mode orange */
     --warm-beige: 24 69% 81%; /* Light mode beige */
     --space-black: 0 0% 0%;

@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="flex items-center gap-2">
               <Rocket className="h-6 w-6 text-primary" />
               <span className="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                EDEN TREE
+                Eden Tree
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -95,7 +95,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
-          <p>© 2025 EDEN TREE. {t.footer.rights} {t.footer.concept}</p>
+          <p>© 2025 Eden Tree. {t.footer.rights} {t.footer.concept}</p>
         </div>
       </div>
     </footer>

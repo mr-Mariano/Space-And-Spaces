@@ -135,16 +135,7 @@ export const MaterialCarousel = ({ material, onClose }: MaterialCarouselProps) =
             ))}
           </div>
         </div>
-
-        {/* Image descriptions */}
-        <div className="mt-4 text-center">
-          <p className="text-sm text-white/90">
-            {currentIndex === 0 && "Vista General del Hábitat"}
-            {currentIndex === 1 && "Vista Interior - Área Principal"}
-            {currentIndex === 2 && "Detalle Estructural del Material"}
-            {currentIndex === 3 && "Vista Lateral - Conexiones"}
-          </p>
-        </div>
+       
       </div>
     </div>
   );

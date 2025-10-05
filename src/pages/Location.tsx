@@ -13,7 +13,7 @@ import {
   Gauge
 } from 'lucide-react';
 import marsHero from '@/assets/mars-hero.jpg';
-import galeCrater from '@/assets/gale-crater.jpg';
+import galeCrater from '@/assets/crater.png';
 
 const Location = () => {
   const { t } = useLanguage();
@@ -135,7 +135,7 @@ const Location = () => {
             {/* Selection Reasons */}
             <Card className="glass-effect border-primary/30">
               <CardHeader>
-                <CardTitle>{t.location.crater.whyTitle}</CardTitle>
+                <CardTitle><a href="https://science.nasa.gov/resource/a-guide-to-gale-crater/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 underline hover:no-underline transition-all duration-200 cursor-pointer">{t.location.crater.whyTitle}</a></CardTitle>
                 <CardDescription>{t.location.crater.whyDesc}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
