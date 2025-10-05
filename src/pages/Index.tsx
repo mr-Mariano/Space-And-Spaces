@@ -64,7 +64,7 @@ const Index = () => {
               <img 
                 src={logo2} 
                 alt="EDEN TREE"
-                className="w-64 md:w-96 mx-auto"
+                className="w-64 md:w-96 mx-auto invert-0 dark:invert"
               />
               <br />
               <span className="text-3xl md:text-5xl text-primary">

@@ -132,7 +132,7 @@ const Habitat = () => {
                 loop: true,
                 containScroll: "trimSnaps",
               }}
-              className="w-full max-w-6xl mx-auto"
+              className="w-full max-w-4xl mx-auto"
             >
               <CarouselContent className="-ml-2 md:-ml-4">
                 {rootAreas.map((root) => {
