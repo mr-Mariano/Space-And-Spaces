@@ -1,3 +1,5 @@
+// Eden Tree - Martian Habitat Application
+// Entry point with LanguageProvider properly configured
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";

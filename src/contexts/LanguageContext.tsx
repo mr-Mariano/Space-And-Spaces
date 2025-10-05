@@ -79,6 +79,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   );
 };
 
+// Hook to access language context - must be used within LanguageProvider
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
