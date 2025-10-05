@@ -122,7 +122,7 @@ const Habitat = () => {
 
           {/* ROOT Areas Carousel */}
           <div className="mb-12 animate-fade-in">
-            <h2 className="text-4xl font-bold mb-10 text-center text-foreground">
+            <h2 className="text-4xl font-bold mb-8 text-center text-foreground">
               {t.docs.rootAreasTitle || 'Áreas Modulares (ROOTs)'}
             </h2>
             
@@ -132,42 +132,42 @@ const Habitat = () => {
                 loop: true,
                 containScroll: "trimSnaps",
               }}
-              className="w-full max-w-7xl mx-auto"
+              className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent className="-ml-2 md:-ml-4">
                 {rootAreas.map((root) => {
                   const Icon = root.icon;
                   return (
-                    <CarouselItem key={root.id} className="pl-2 md:pl-4 md:basis-4/5 lg:basis-3/4">
-                      <div className="transition-all duration-500 hover:scale-[1.02]">
-                        <Card className="glass-effect border-primary/30 overflow-hidden backdrop-blur-xl shadow-xl hover:shadow-2xl transition-shadow">
-                          <div className="relative h-[240px] md:h-[280px]">
+                    <CarouselItem key={root.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-2/5">
+                      <div className="transition-all duration-300 hover:scale-[1.03]">
+                        <Card className="glass-effect border-primary/30 overflow-hidden backdrop-blur-xl shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all">
+                          <div className="relative h-[180px] md:h-[200px]">
                             <img 
                               src={root.image} 
                               alt={root.name}
                               className="w-full h-full object-cover"
                             />
                             <div className={`absolute inset-0 bg-gradient-to-t ${root.color} opacity-25`} />
-                            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-background/98 via-background/80 to-transparent">
+                            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-background via-background/85 to-transparent backdrop-blur-md">
                               <div className="flex items-center gap-3">
                                 <div className={`p-2.5 md:p-3 rounded-full bg-gradient-to-br ${root.color} shadow-lg`}>
                                   <Icon className="h-5 w-5 md:h-6 md:w-6 text-white" />
                                 </div>
-                                <h3 className="text-xl md:text-2xl font-bold text-foreground">{root.name}</h3>
+                                <h3 className="text-lg md:text-xl font-bold text-foreground">{root.name}</h3>
                               </div>
                             </div>
                           </div>
                           
-                          <div className="p-4 md:p-6">
-                            <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed line-clamp-2">
+                          <div className="p-3 md:p-4">
+                            <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed line-clamp-1">
                               {root.description}
                             </p>
                             
-                            <div className="space-y-1.5">
+                            <div className="space-y-1">
                               <h4 className="text-sm font-semibold text-foreground mb-2">
                                 {t.docs.includes || 'Incluye:'}
                               </h4>
-                              <ul className="space-y-1.5">
+                              <ul className="space-y-1">
                                 {root.includes.map((item, idx) => (
                                   <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                                     <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
