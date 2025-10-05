@@ -24,8 +24,7 @@ type AreaType = "research" | "health" | "rest" | "foodResources" | "social";
 const Editor = () => {
   const { t } = useLanguage();
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
-  const [renderMode, setRenderMode] = useState<"standard" | "autocad" | "revit">("standard");
-  const [selectedTexture, setSelectedTexture] = useState<string>("Sulfur-Regolith");
+  const [renderMode, setRenderMode] = useState<"standard" | "autocad">("standard");
   const [selectedMaterial, setSelectedMaterial] = useState<string | null>(null);
   const [areaAssignments, setAreaAssignments] = useState<Record<string, AreaType>>({
     root1: "research",
@@ -45,34 +44,15 @@ const Editor = () => {
   ];
 
   const areaInfo: Record<AreaType, { icon: any; color: string }> = {
-    research: {
-      icon: FlaskConical,
-      color: "text-blue-400"
-    },
-    health: {
-      icon: HeartPulse,
-      color: "text-red-400"
-    },
-    rest: {
-      icon: Bed,
-      color: "text-purple-400"
-    },
-    foodResources: {
-      icon: UtensilsCrossed,
-      color: "text-yellow-400"
-    },
-    social: {
-      icon: Users,
-      color: "text-green-400"
-    }
+    research: { icon: FlaskConical, color: "text-blue-400" },
+    health: { icon: HeartPulse, color: "text-red-400" },
+    rest: { icon: Bed, color: "text-purple-400" },
+    foodResources: { icon: UtensilsCrossed, color: "text-yellow-400" },
+    social: { icon: Users, color: "text-green-400" }
   };
 
   const handleAreaChange = (rootId: string, newArea: AreaType) => {
-    setAreaAssignments(prev => ({
-      ...prev,
-      [rootId]: newArea
-    }));
-
+    setAreaAssignments(prev => ({ ...prev, [rootId]: newArea }));
     toast({
       title: t.editor.areaUpdated,
       description: `${zones.find(z => z.id === rootId)?.name} ${t.editor.rootNowIs} ${t.editor.areas[newArea]}`,
@@ -82,136 +62,73 @@ const Editor = () => {
   const validateAssignments = (): { isValid: boolean; errors: string[] } => {
     const errors: string[] = [];
     const areaCount: Record<string, string[]> = {};
-
     Object.entries(areaAssignments).forEach(([rootId, area]) => {
-      if (!areaCount[area]) {
-        areaCount[area] = [];
-      }
+      if (!areaCount[area]) areaCount[area] = [];
       areaCount[area].push(zones.find(z => z.id === rootId)?.name || rootId);
     });
-
     Object.entries(areaCount).forEach(([area, roots]) => {
       if (roots.length > 1) {
         errors.push(`${t.editor.duplicateArea} "${t.editor.areas[area as AreaType]}" ${t.editor.assignedTo} ${roots.join(", ")}`);
       }
     });
-
-    return {
-      isValid: errors.length === 0,
-      errors
-    };
+    return { isValid: errors.length === 0, errors };
   };
 
   const generatePDF = () => {
     const validation = validateAssignments();
-    
     if (!validation.isValid) {
-      toast({
-        title: t.editor.invalidConfig,
-        description: validation.errors.join(" • "),
-        variant: "destructive",
-      });
+      toast({ title: t.editor.invalidConfig, description: validation.errors.join(" • "), variant: "destructive" });
       return;
     }
-
     const doc = new jsPDF();
-    
-    // Header
     doc.setFillColor(175, 76, 15);
     doc.rect(0, 0, 210, 40, 'F');
-    
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(24);
     doc.text("EDEN TREE - Hábitat Marciano", 105, 20, { align: "center" });
-    
     doc.setFontSize(12);
     doc.text("Especificaciones de Configuración", 105, 30, { align: "center" });
-    
-    // Reset text color
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(11);
-    
-    // Information
     doc.text("Fecha de generación: " + new Date().toLocaleDateString(), 20, 50);
-    
-    // Table data
     const tableData = Object.entries(areaAssignments).map(([rootId, area]) => {
       const zone = zones.find(z => z.id === rootId);
-      return [
-        zone?.name || rootId,
-        t.editor.areas[area],
-        t.editor.areaDescriptions[area]
-      ];
+      return [zone?.name || rootId, t.editor.areas[area], t.editor.areaDescriptions[area]];
     });
-    
     autoTable(doc, {
       startY: 60,
       head: [['Zona', t.editor.assignedArea, 'Descripción']],
       body: tableData,
       theme: 'grid',
-      headStyles: {
-        fillColor: [175, 76, 15],
-        textColor: [255, 255, 255],
-        fontStyle: 'bold'
-      },
-      styles: {
-        fontSize: 10,
-        cellPadding: 5
-      },
-      columnStyles: {
-        0: { cellWidth: 30 },
-        1: { cellWidth: 50 },
-        2: { cellWidth: 100 }
-      }
+      headStyles: { fillColor: [175, 76, 15], textColor: [255, 255, 255], fontStyle: 'bold' },
+      styles: { fontSize: 10, cellPadding: 5 },
+      columnStyles: { 0: { cellWidth: 30 }, 1: { cellWidth: 50 }, 2: { cellWidth: 100 } }
     });
-    
-    // Footer
     const pageCount = doc.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
       doc.setFontSize(9);
       doc.setTextColor(128, 128, 128);
-      doc.text(
-        `Página ${i} de ${pageCount} - EDEN TREE © ${new Date().getFullYear()}`,
-        105,
-        doc.internal.pageSize.height - 10,
-        { align: "center" }
-      );
+      doc.text(`Página ${i} de ${pageCount} - EDEN TREE © ${new Date().getFullYear()}`, 105, doc.internal.pageSize.height - 10, { align: "center" });
     }
-    
-    // Download
     doc.save(`eden-tree-habitat-${new Date().toISOString().split('T')[0]}.pdf`);
-    
-    toast({
-      title: t.editor.pdfGenerated,
-      description: t.editor.pdfSuccess,
-    });
+    toast({ title: t.editor.pdfGenerated, description: t.editor.pdfSuccess });
   };
 
   const handleShare = (platform: 'whatsapp' | 'twitter' | 'facebook' | 'linkedin' | 'instagram') => {
     const validation = validateAssignments();
-    
     if (!validation.isValid) {
-      toast({
-        title: t.editor.invalidConfig,
-        description: t.editor.completeConfig,
-        variant: "destructive",
-      });
+      toast({ title: t.editor.invalidConfig, description: t.editor.completeConfig, variant: "destructive" });
       return;
     }
-
     const shareText = `${t.editor.justDesigned} 🚀🔴
-    
 ${Object.entries(areaAssignments).map(([rootId, area]) => {
-  const zone = zones.find(z => z.id === rootId);
-  return `${zone?.name}: ${t.editor.areas[area]}`;
-}).join('\n')}
-
+      const zone = zones.find(z => z.id === rootId);
+      return `${zone?.name}: ${t.editor.areas[area]}`;
+    }).join('\n')}
 #EdenTree #Mars #SpaceHabitat`;
-
     const encodedText = encodeURIComponent(shareText);
     const currentUrl = encodeURIComponent(window.location.href);
-
     const urls = {
       whatsapp: `https://wa.me/?text=${encodedText}`,
       twitter: `https://twitter.com/intent/tweet?text=${encodedText}`,
@@ -219,145 +136,63 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`,
       instagram: ''
     };
-
     if (platform === 'instagram') {
-      toast({
-        title: t.editor.instagram,
-        description: t.editor.instagramCopy,
-      });
+      toast({ title: t.editor.instagram, description: t.editor.instagramCopy });
       navigator.clipboard.writeText(shareText);
       return;
     }
-
     window.open(urls[platform], '_blank', 'width=600,height=400');
-    
-    toast({
-      title: `${t.editor.shareOn} ${platform.charAt(0).toUpperCase() + platform.slice(1)}`,
-      description: t.editor.openingWindow,
-    });
+    toast({ title: `${t.editor.shareOn} ${platform.charAt(0).toUpperCase() + platform.slice(1)}`, description: t.editor.openingWindow });
   };
 
-  const getAllAreas = (): AreaType[] => {
-    return ["research", "health", "rest", "foodResources", "social"];
-  };
-
+  const getAllAreas = (): AreaType[] => ["research", "health", "rest", "foodResources", "social"];
   const getDuplicateAreas = (): string[] => {
     const areaCount: Record<string, number> = {};
-    Object.values(areaAssignments).forEach(area => {
-      areaCount[area] = (areaCount[area] || 0) + 1;
-    });
-    return Object.entries(areaCount)
-      .filter(([_, count]) => count > 1)
-      .map(([area, _]) => area);
+    Object.values(areaAssignments).forEach(area => { areaCount[area] = (areaCount[area] || 0) + 1; });
+    return Object.entries(areaCount).filter(([_, count]) => count > 1).map(([area, _]) => area);
   };
-
   const getDuplicateZones = (): string[] => {
     const areaCount: Record<string, string[]> = {};
-    
-    // Group zones by assigned area
     Object.entries(areaAssignments).forEach(([zoneId, area]) => {
-      if (!areaCount[area]) {
-        areaCount[area] = [];
-      }
+      if (!areaCount[area]) areaCount[area] = [];
       areaCount[area].push(zoneId);
     });
-    
-    // Return all zones that have duplicate areas
     const duplicateZones: string[] = [];
-    Object.values(areaCount).forEach(zones => {
-      if (zones.length > 1) {
-        duplicateZones.push(...zones);
-      }
-    });
-    
+    Object.values(areaCount).forEach(zones => { if (zones.length > 1) duplicateZones.push(...zones); });
     return duplicateZones;
-  };
-
-  const handleMaterialChange = (zoneId: string, material: string) => {
-    setSelectedTexture(material);
-    setSelectedMaterial(material);
-    toast({
-      title: t.editor.materialUpdated || "Material actualizado",
-      description: `${zones.find(z => z.id === zoneId)?.name}: ${material}`,
-    });
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
       <EditorWalkthrough onComplete={() => {}} />
-      
       <div className="pt-24 pb-20 px-4">
         <div className="container mx-auto max-w-7xl">
-          {/* Header */}
           <div className="text-center mb-8 animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-                {t.editor.title}
-              </span>
+              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">{t.editor.title}</span>
             </h1>
-            <p className="text-lg text-muted-foreground">
-              {t.editor.subtitle}
-            </p>
+            <p className="text-lg text-muted-foreground">{t.editor.subtitle}</p>
           </div>
 
-          {/* Info Alert */}
-          <Card className="p-4 mb-8 glass-effect border-primary/30 flex items-start gap-3 animate-slide-up">
-            <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-muted-foreground">
-              <strong className="text-foreground">{t.editor.note}</strong> {t.editor.noteText}
-            </div>
-          </Card>
-
           <div className="grid lg:grid-cols-3 gap-6">
-          {/* 3D Viewport */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Selector de Modo de Renderizado */}
-            <Card className="p-4 glass-effect border-border/30">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-foreground">
-                  {t.editor.renderMode || "Modo de Visualización"}
-                </h3>
-                <div className="flex gap-2">
-                  <Button
-                    variant={renderMode === "standard" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setRenderMode("standard")}
-                    className="text-xs"
-                  >
-                    🎨 {t.editor.standard || "Normal"}
-                  </Button>
-                  <Button
-                    variant={renderMode === "autocad" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setRenderMode("autocad")}
-                    className="text-xs"
-                  >
-                    ✨ {t.editor.autocad || "Render"}
-                  </Button>
-                  <Button
-                    variant={renderMode === "revit" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setRenderMode("revit")}
-                    className="text-xs"
-                  >
-                    📐 {t.editor.revit || "Técnico"}
-                  </Button>
+            <div className="lg:col-span-2 space-y-6">
+              <Card className="p-4 glass-effect border-border/30">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-semibold text-foreground">{t.editor.renderMode || "Modo de Visualización"}</h3>
+                  <div className="flex gap-2">
+                    <Button variant={renderMode === "standard" ? "default" : "outline"} size="sm" onClick={() => setRenderMode("standard")} className="text-xs">
+                      🎨 {t.editor.standard || "Normal"}
+                    </Button>
+                    <Button variant={renderMode === "autocad" ? "default" : "outline"} size="sm" onClick={() => setRenderMode("autocad")} className="text-xs">
+                      ✨ {t.editor.autocad || "Render"}
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
 
-            <Card className="canvas-3d-container p-0 glass-effect border-primary/30 overflow-hidden h-[600px] relative animate-fade-in">
-              <Canvas3D 
-                selectedZone={selectedZone} 
-                onZoneSelect={setSelectedZone}
-                duplicateZones={getDuplicateZones()}
-                renderMode={renderMode}
-                selectedMaterial={selectedMaterial}
-              />
-
-                {/* Controls overlay */}
+              <Card className="canvas-3d-container p-0 glass-effect border-primary/30 overflow-hidden h-[600px] relative animate-fade-in">
+                <Canvas3D selectedZone={selectedZone} onZoneSelect={setSelectedZone} duplicateZones={getDuplicateZones()} renderMode={renderMode} selectedMaterial={selectedMaterial} />
                 <div className="absolute top-4 left-4 glass-effect p-3 rounded-lg border border-border/50">
                   <p className="text-xs text-muted-foreground mb-2">{t.editor.controls}</p>
                   <ul className="text-xs text-muted-foreground space-y-1">
@@ -368,9 +203,8 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                 </div>
               </Card>
 
-            {/* Panel de Información Detallada - Solo para ROOTs */}
-            {selectedZone && selectedZone !== "trunk" && (
-              <Card className="area-selector p-6 glass-effect border-secondary/30 animate-fade-in">
+              {renderMode === "autocad" && selectedZone && selectedZone !== "trunk" && (
+                <Card className="area-selector p-6 glass-effect border-secondary/30 animate-fade-in">
                   <div className="space-y-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
@@ -452,110 +286,81 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
               )}
             </div>
 
-          {/* Control Panel */}
-          <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.1s'}}>
-            <Card className="zone-selector p-6 glass-effect border-secondary/30">
-                <h2 className="text-2xl font-bold mb-4 text-foreground">
-                  {t.editor.selectZone}
-                </h2>
-                <div className="space-y-3">
-                  {zones.map((zone) => {
-                    const isRoot = zone.id !== "trunk";
-                    const area = isRoot ? areaAssignments[zone.id] : null;
-                    const AreaIcon = area ? areaInfo[area].icon : null;
-                    
-                    return (
-                      <Button
-                        key={zone.id}
-                        variant={selectedZone === zone.id ? "default" : "outline"}
-                        className={`w-full justify-start ${
-                          selectedZone === zone.id 
-                            ? "bg-primary hover:bg-primary/90 text-primary-foreground" 
-                            : "border-border/50 hover:bg-primary/10"
-                        }`}
-                        onClick={() => setSelectedZone(zone.id)}
-                      >
-                        <div className="flex items-center gap-3 w-full">
-                          <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${zone.color} flex-shrink-0`} />
-                          <div className="flex-1 text-left">
-                            <div className="font-semibold">{zone.name}</div>
-                            {isRoot && area && (
-                              <div className="text-xs opacity-80 flex items-center gap-1 mt-0.5">
-                                {AreaIcon && <AreaIcon className="w-3 h-3" />}
-                                {t.editor.areas[area]}
+            <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.1s'}}>
+              {renderMode === "standard" && (
+                <Card className="texture-selector p-6 glass-effect border-primary/30 animate-fade-in">
+                  <h3 className="text-xl font-bold mb-4 text-foreground">{t.editor.materials || "Materiales"}</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground mb-3 block">{t.editor.selectMaterial || "Selecciona un material para visualizar"}</label>
+                      <div className="grid grid-cols-1 gap-3">
+                        {[
+                          { name: "Sulfur-Regolith", description: "Compuesto de azufre y regolito marciano", icon: "🪨", color: "from-yellow-600 to-orange-700" },
+                          { name: "Geopolímero Marciano", description: "Material cementante procesado in-situ", icon: "🧱", color: "from-red-700 to-red-900" },
+                          { name: "Kevlar De Membrana Externa", description: "Tejido resistente de alta tecnología", icon: "🛡️", color: "from-gray-700 to-gray-900" }
+                        ].map((material) => (
+                          <Button key={material.name} variant={selectedMaterial === material.name ? "default" : "outline"}
+                            className={cn("h-auto py-4 flex flex-col items-start justify-center gap-2 text-left",
+                              selectedMaterial === material.name ? `bg-gradient-to-br ${material.color} text-white` : "border-border/50 hover:bg-secondary/10")}
+                            onClick={() => { setSelectedMaterial(material.name); toast({ title: t.editor.materialUpdated || "Material seleccionado", description: material.name }); }}>
+                            <div className="flex items-center gap-3 w-full">
+                              <span className="text-3xl">{material.icon}</span>
+                              <div>
+                                <span className="text-sm font-bold block">{material.name}</span>
+                                <span className="text-xs opacity-80">{material.description}</span>
                               </div>
-                            )}
-                          </div>
-                        </div>
-                      </Button>
-                    );
-                  })}
-                </div>
-              </Card>
+                            </div>
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              )}
 
-            {/* Solo mostrar materiales en modo Normal y cuando hay zona ROOT seleccionada */}
-            {selectedZone && selectedZone !== "trunk" && renderMode === "standard" && (
-              <Card className="texture-selector p-6 glass-effect border-primary/30 animate-fade-in">
-                <h3 className="text-xl font-bold mb-4 text-foreground">
-                  {t.editor.materials || "Materiales"}
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground mb-3 block">
-                      {t.editor.selectMaterial || "Selecciona un material"}
-                    </label>
-                    <div className="grid grid-cols-1 gap-3">
-                      {[
-                        { 
-                          name: "Sulfur-Regolith", 
-                          description: "Compuesto de azufre y regolito marciano",
-                          icon: "🪨",
-                          color: "from-yellow-600 to-orange-700"
-                        },
-                        { 
-                          name: "Geopolímero Marciano", 
-                          description: "Material cementante procesado in-situ",
-                          icon: "🧱",
-                          color: "from-red-700 to-red-900"
-                        },
-                        { 
-                          name: "Kevlar De Membrana Externa", 
-                          description: "Tejido resistente de alta tecnología",
-                          icon: "🛡️",
-                          color: "from-gray-700 to-gray-900"
-                        }
-                      ].map((material) => (
+              {renderMode === "autocad" && (
+                <Card className="zone-selector p-6 glass-effect border-secondary/30">
+                  <h2 className="text-2xl font-bold mb-4 text-foreground">{t.editor.selectZone}</h2>
+                  <div className="space-y-3">
+                    {zones.map((zone) => {
+                      const isRoot = zone.id !== "trunk";
+                      const area = isRoot ? areaAssignments[zone.id] : null;
+                      const AreaIcon = area ? areaInfo[area].icon : null;
+                      return (
                         <Button
-                          key={material.name}
-                          variant={selectedTexture === material.name ? "default" : "outline"}
-                          className={cn(
-                            "h-auto py-4 flex flex-col items-start justify-center gap-2 text-left",
-                            selectedTexture === material.name 
-                              ? `bg-gradient-to-br ${material.color} text-white` 
-                              : "border-border/50 hover:bg-secondary/10"
-                          )}
-                          onClick={() => handleMaterialChange(selectedZone, material.name)}
+                          key={zone.id}
+                          variant={selectedZone === zone.id ? "default" : "outline"}
+                          className={`w-full justify-start ${
+                            selectedZone === zone.id
+                              ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+                              : "border-border/50 hover:bg-primary/10"
+                          }`}
+                          onClick={() => setSelectedZone(zone.id)}
                         >
                           <div className="flex items-center gap-3 w-full">
-                            <span className="text-3xl">{material.icon}</span>
-                            <div>
-                              <span className="text-sm font-bold block">{material.name}</span>
-                              <span className="text-xs opacity-80">{material.description}</span>
+                            <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${zone.color} flex-shrink-0`} />
+                            <div className="flex-1 text-left">
+                              <div className="font-semibold">{zone.name}</div>
+                              {isRoot && area && (
+                                <div className="text-xs opacity-80 flex items-center gap-1 mt-0.5">
+                                  {AreaIcon && <AreaIcon className="w-3 h-3" />}
+                                  {t.editor.areas[area]}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </Button>
-                      ))}
-                    </div>
+                      );
+                    })}
                   </div>
-                </div>
-              </Card>
-            )}
+                </Card>
+              )}
 
-            <Card className="export-panel p-6 glass-effect border-border/30">
+              <Card className="export-panel p-6 glass-effect border-border/30">
                 <h3 className="text-lg font-semibold mb-4 text-foreground">
                   Exportar Configuración
                 </h3>
-                
+
                 {getDuplicateZones().length > 0 && (
                   <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
                     <div className="flex items-start gap-2">
@@ -566,8 +371,8 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                     </div>
                   </div>
                 )}
-                
-                <Button 
+
+                <Button
                   onClick={generatePDF}
                   disabled={getDuplicateZones().length > 0}
                   className={cn(
@@ -603,7 +408,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                       </svg>
                       WhatsApp
                     </Button>
-                    
+
                     <Button
                       variant="outline"
                       disabled={getDuplicateZones().length > 0}
@@ -620,7 +425,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                       </svg>
                       Twitter/X
                     </Button>
-                    
+
                     <Button
                       variant="outline"
                       disabled={getDuplicateZones().length > 0}
@@ -637,7 +442,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                       </svg>
                       Facebook
                     </Button>
-                    
+
                     <Button
                       variant="outline"
                       disabled={getDuplicateZones().length > 0}
@@ -655,7 +460,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                       LinkedIn
                     </Button>
                   </div>
-                  
+
                   <Button
                     variant="outline"
                     disabled={getDuplicateZones().length > 0}
@@ -677,33 +482,29 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
             </div>
           </div>
 
-          {/* Instructions */}
           <Card className="mt-8 p-6 glass-effect border-secondary/30 animate-slide-up" style={{animationDelay: '0.2s'}}>
-            <h3 className="text-xl font-bold mb-4 text-foreground">
-              Tutorial de Uso
-            </h3>
+            <h3 className="text-xl font-bold mb-4 text-foreground">Tutorial de Uso</h3>
             <ol className="space-y-3 text-muted-foreground">
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">1</span>
-                <span>Explora el modelo 3D rotándolo con el mouse y cambia entre modos de visualización</span>
+                <span>En modo "Normal", selecciona un material para ver imágenes de referencia del hábitat</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">2</span>
-                <span>Selecciona una zona (ROOT 1-5) y asígnale una función específica</span>
+                <span>Cambia a modo "Render" para personalizar las funciones de cada zona ROOT</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">3</span>
-                <span>Cambia a modo "Normal" y selecciona un material para ver renderizados del hábitat</span>
+                <span>Selecciona una zona ROOT y asígnale una función específica (Investigación, Salud, etc.)</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">4</span>
-                <span>Descarga tu diseño completo en PDF o compártelo en redes sociales</span>
+                <span>Descarga tu configuración en PDF o compártela en redes sociales</span>
               </li>
             </ol>
           </Card>
         </div>
       </div>
-
       <Footer />
     </div>
   );

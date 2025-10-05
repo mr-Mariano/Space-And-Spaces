@@ -265,8 +265,8 @@ export const translations = {
             description: 'Each ROOT can have a function: Research, Health, Rest, Food or Social.',
           },
           {
-            title: 'Customize materials',
-            description: 'In Normal mode, choose from 3 advanced materials and visualize habitat renderings.',
+            title: 'Visualize materials',
+            description: 'In Normal mode, select a material to see reference images of the habitat.',
           },
           {
             title: 'Export your design',

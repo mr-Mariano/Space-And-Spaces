@@ -7,7 +7,7 @@ interface HabitatModelProps {
   selectedZone: string | null;
   onZoneSelect: (zone: string | null) => void;
   duplicateZones: string[];
-  renderMode: "standard" | "autocad" | "revit";
+  renderMode: "standard" | "autocad";
 }
 
 const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones, renderMode }: HabitatModelProps) => {
@@ -109,12 +109,7 @@ const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones, renderMode }
           mesh.material = mesh.userData.originalMaterial;
           
           // Apply render mode effects first
-          if (renderMode === "revit") {
-            material.wireframe = true;
-            material.color = new THREE.Color(0x333333);
-            material.emissive = new THREE.Color(0x000000);
-            material.emissiveIntensity = 0;
-          } else if (renderMode === "autocad") {
+          if (renderMode === "autocad") {
             material.wireframe = false;
             material.metalness = 0.7;
             material.roughness = 0.3;

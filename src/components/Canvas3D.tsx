@@ -8,7 +8,7 @@ interface Canvas3DProps {
   selectedZone: string | null;
   onZoneSelect: (zone: string | null) => void;
   duplicateZones: string[];
-  renderMode: "standard" | "autocad" | "revit";
+  renderMode: "standard" | "autocad";
   selectedMaterial: string | null;
 }
 
@@ -38,9 +38,7 @@ const Canvas3D = ({
         className="w-full h-full"
       >
         <color attach="background" args={[
-          renderMode === "revit" ? "#ffffff" : 
-          renderMode === "autocad" ? "#1a1a2e" : 
-          "#0a0a0a"
+          renderMode === "autocad" ? "#1a1a2e" : "#0a0a0a"
         ]} />
         
         {/* Lighting según modo */}
@@ -60,15 +58,8 @@ const Canvas3D = ({
         {renderMode === "autocad" && (
           <>
             <ambientLight intensity={0.8} />
-            <directionalLight position={[5, 10, 7]} intensity={1.2} />
-            <pointLight position={[0, 5, 0]} intensity={0.5} color="#00d4ff" />
-          </>
-        )}
-        
-        {renderMode === "revit" && (
-          <>
-            <ambientLight intensity={1} />
-            <directionalLight position={[10, 10, 10]} intensity={0.8} />
+            <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow={false} />
+            <directionalLight position={[-10, -10, -10]} intensity={0.5} />
           </>
         )}
         
@@ -84,11 +75,6 @@ const Canvas3D = ({
         
         {/* Environment solo en modo standard */}
         {renderMode === "standard" && <Environment preset="night" />}
-        
-        {/* Grid en modo Revit */}
-        {renderMode === "revit" && (
-          <gridHelper args={[50, 50, "#cccccc", "#eeeeee"]} />
-        )}
         
         {/* Controls */}
         <OrbitControls

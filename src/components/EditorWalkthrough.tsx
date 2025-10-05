@@ -19,17 +19,17 @@ const steps: WalkthroughStep[] = [
   },
   {
     id: 2,
-    targetClass: "zone-selector",
+    targetClass: "texture-selector",
     position: "left"
   },
   {
     id: 3,
-    targetClass: "area-selector",
-    position: "top"
+    targetClass: "zone-selector",
+    position: "left"
   },
   {
     id: 4,
-    targetClass: "texture-selector",
+    targetClass: "area-selector",
     position: "top"
   },
   {

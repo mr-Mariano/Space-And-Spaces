@@ -14,19 +14,22 @@ export const MaterialCarousel = ({ material, onClose }: MaterialCarouselProps) =
   // Mapear cada material a sus imágenes correspondientes
   const materialImages: Record<string, string[]> = {
     "Sulfur-Regolith": [
-      "/assets/materials/sulfur-regolith-exterior.png",
-      "/assets/materials/sulfur-regolith-interior.png",
-      "/assets/materials/sulfur-regolith-detail.png"
+      "/assets/img1_sulfur_regolith.png",
+      "/assets/img2_sulfur_regolith.png",
+      "/assets/img3_sulfur_regolith.png",
+      "/assets/img4_sulfur_regolith.png"
     ],
     "Geopolímero Marciano": [
-      "/assets/materials/geopolimero-exterior.png",
-      "/assets/materials/geopolimero-interior.png",
-      "/assets/materials/geopolimero-detail.png"
+      "/assets/img1_geopolimero.png",
+      "/assets/img2_geopolimero.png",
+      "/assets/img3_geopolimero.png",
+      "/assets/img4_geopolimero.png"
     ],
     "Kevlar De Membrana Externa": [
-      "/assets/materials/kevlar-exterior.png",
-      "/assets/materials/kevlar-interior.png",
-      "/assets/materials/kevlar-detail.png"
+      "/assets/img1_kevlar.png",
+      "/assets/img2_kevlar.png",
+      "/assets/img3_kevlar.png",
+      "/assets/img4_kevlar.png"
     ]
   };
 
@@ -120,9 +123,10 @@ export const MaterialCarousel = ({ material, onClose }: MaterialCarouselProps) =
         {/* Image descriptions */}
         <div className="mt-4 text-center">
           <p className="text-sm text-white/90">
-            {currentIndex === 0 && "Vista Exterior del Hábitat"}
-            {currentIndex === 1 && "Vista Interior del Módulo"}
-            {currentIndex === 2 && "Detalle del Material"}
+            {currentIndex === 0 && "Vista General del Hábitat"}
+            {currentIndex === 1 && "Vista Interior - Área Principal"}
+            {currentIndex === 2 && "Detalle Estructural del Material"}
+            {currentIndex === 3 && "Vista Lateral - Conexiones"}
           </p>
         </div>
       </div>
