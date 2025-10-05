@@ -74,6 +74,12 @@ export const EditorWalkthrough = ({ onComplete }: { onComplete: () => void }) =>
   if (!isVisible) return null;
 
   const step = steps[currentStep];
+  
+  // Safety check: return null if translations aren't loaded yet
+  if (!t?.editor?.walkthrough) return null;
+  
+  const walkthroughStep = t.editor.walkthrough.steps?.[currentStep];
+  if (!walkthroughStep) return null;
 
   return (
     <>
@@ -109,10 +115,10 @@ export const EditorWalkthrough = ({ onComplete }: { onComplete: () => void }) =>
             </div>
           </div>
           <h3 className="text-xl font-bold text-foreground mb-2">
-            {t.editor.walkthrough.steps[currentStep].title}
+            {walkthroughStep.title}
           </h3>
           <p className="text-sm text-muted-foreground">
-            {t.editor.walkthrough.steps[currentStep].description}
+            {walkthroughStep.description}
           </p>
         </div>
         
