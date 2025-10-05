@@ -6,6 +6,7 @@ import { Info, FlaskConical, HeartPulse, Bed, UtensilsCrossed, Users, AlertCircl
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Canvas3D from "@/components/Canvas3D";
+import { EditorWalkthrough } from "@/components/EditorWalkthrough";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import {
@@ -23,6 +24,8 @@ type AreaType = "research" | "health" | "rest" | "foodResources" | "social";
 const Editor = () => {
   const { t } = useLanguage();
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
+  const [renderMode, setRenderMode] = useState<"standard" | "autocad" | "revit">("standard");
+  const [selectedTexture, setSelectedTexture] = useState<string>("Metálica");
   const [areaAssignments, setAreaAssignments] = useState<Record<string, AreaType>>({
     root1: "research",
     root2: "health",
@@ -269,9 +272,19 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
     return duplicateZones;
   };
 
+  const handleTextureChange = (zoneId: string, texture: string) => {
+    setSelectedTexture(texture);
+    toast({
+      title: t.editor.textureUpdated || "Textura actualizada",
+      description: `${zones.find(z => z.id === zoneId)?.name}: ${texture}`,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      
+      <EditorWalkthrough onComplete={() => {}} />
       
       <div className="pt-24 pb-20 px-4">
         <div className="container mx-auto max-w-7xl">
@@ -296,14 +309,50 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
           </Card>
 
           <div className="grid lg:grid-cols-3 gap-6">
-            {/* 3D Viewport */}
-            <div className="lg:col-span-2 space-y-6">
-              <Card className="p-0 glass-effect border-primary/30 overflow-hidden h-[600px] relative animate-fade-in">
-                <Canvas3D 
-                  selectedZone={selectedZone} 
-                  onZoneSelect={setSelectedZone}
-                  duplicateZones={getDuplicateZones()}
-                />
+          {/* 3D Viewport */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Selector de Modo de Renderizado */}
+            <Card className="p-4 glass-effect border-border/30">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-foreground">
+                  {t.editor.renderMode || "Modo de Visualización"}
+                </h3>
+                <div className="flex gap-2">
+                  <Button
+                    variant={renderMode === "standard" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setRenderMode("standard")}
+                    className="text-xs"
+                  >
+                    🎨 {t.editor.standard || "Normal"}
+                  </Button>
+                  <Button
+                    variant={renderMode === "autocad" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setRenderMode("autocad")}
+                    className="text-xs"
+                  >
+                    ✨ {t.editor.autocad || "Render"}
+                  </Button>
+                  <Button
+                    variant={renderMode === "revit" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setRenderMode("revit")}
+                    className="text-xs"
+                  >
+                    📐 {t.editor.revit || "Técnico"}
+                  </Button>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="canvas-3d-container p-0 glass-effect border-primary/30 overflow-hidden h-[600px] relative animate-fade-in">
+              <Canvas3D 
+                selectedZone={selectedZone} 
+                onZoneSelect={setSelectedZone}
+                duplicateZones={getDuplicateZones()}
+                renderMode={renderMode}
+              />
 
                 {/* Controls overlay */}
                 <div className="absolute top-4 left-4 glass-effect p-3 rounded-lg border border-border/50">
@@ -316,9 +365,9 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                 </div>
               </Card>
 
-              {/* Panel de Información Detallada - Solo para ROOTs */}
-              {selectedZone && selectedZone !== "trunk" && (
-                <Card className="p-6 glass-effect border-secondary/30 animate-fade-in">
+            {/* Panel de Información Detallada - Solo para ROOTs */}
+            {selectedZone && selectedZone !== "trunk" && (
+              <Card className="area-selector p-6 glass-effect border-secondary/30 animate-fade-in">
                   <div className="space-y-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
@@ -400,9 +449,9 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
               )}
             </div>
 
-            {/* Control Panel */}
-            <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.1s'}}>
-              <Card className="p-6 glass-effect border-secondary/30">
+          {/* Control Panel */}
+          <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.1s'}}>
+            <Card className="zone-selector p-6 glass-effect border-secondary/30">
                 <h2 className="text-2xl font-bold mb-4 text-foreground">
                   {t.editor.selectZone}
                 </h2>
@@ -441,52 +490,45 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                 </div>
               </Card>
 
-              {selectedZone && (
-                <Card className="p-6 glass-effect border-primary/30 animate-fade-in">
-                  <h3 className="text-xl font-bold mb-4 text-foreground">
-                    {t.editor.customization}
-                  </h3>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground mb-2 block">
-                        {t.editor.mainColor}
-                      </label>
-                      <div className="grid grid-cols-4 gap-2">
-                        {["#af4c0f", "#d49f85", "#8b7355", "#c47d5f"].map((color) => (
-                          <button
-                            key={color}
-                            className="w-full aspect-square rounded-lg border-2 border-border/50 hover:border-primary transition-all"
-                            style={{ backgroundColor: color }}
-                          />
-                        ))}
-                      </div>
+            {selectedZone && (
+              <Card className="texture-selector p-6 glass-effect border-primary/30 animate-fade-in">
+                <h3 className="text-xl font-bold mb-4 text-foreground">
+                  {t.editor.customization}
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground mb-3 block">
+                      {t.editor.texture}
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { name: "Metálica", icon: "🔩", color: "from-gray-400 to-gray-600" },
+                        { name: "Mate", icon: "⚪", color: "from-gray-300 to-gray-400" },
+                        { name: "Madera", icon: "🪵", color: "from-amber-700 to-amber-900" },
+                        { name: "Tejido", icon: "🧵", color: "from-blue-400 to-blue-600" }
+                      ].map((texture) => (
+                        <Button
+                          key={texture.name}
+                          variant={selectedTexture === texture.name ? "default" : "outline"}
+                          className={cn(
+                            "h-20 flex flex-col items-center justify-center gap-2",
+                            selectedTexture === texture.name 
+                              ? `bg-gradient-to-br ${texture.color} text-white` 
+                              : "border-border/50 hover:bg-secondary/10"
+                          )}
+                          onClick={() => handleTextureChange(selectedZone, texture.name)}
+                        >
+                          <span className="text-2xl">{texture.icon}</span>
+                          <span className="text-xs font-medium">{texture.name}</span>
+                        </Button>
+                      ))}
                     </div>
-
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground mb-2 block">
-                        {t.editor.texture}
-                      </label>
-                      <div className="space-y-2">
-                        {["Metálica", "Mate", "Madera", "Tejido"].map((texture) => (
-                          <Button
-                            key={texture}
-                            variant="outline"
-                            className="w-full justify-start border-border/50 hover:bg-secondary/10"
-                          >
-                            {texture}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
-                      Aplicar Cambios
-                    </Button>
                   </div>
-                </Card>
-              )}
+                </div>
+              </Card>
+            )}
 
-              <Card className="p-6 glass-effect border-border/30">
+            <Card className="export-panel p-6 glass-effect border-border/30">
                 <h3 className="text-lg font-semibold mb-4 text-foreground">
                   Exportar Configuración
                 </h3>
@@ -620,19 +662,19 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
             <ol className="space-y-3 text-muted-foreground">
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">1</span>
-                <span>Usa el mouse o touch para rotar el modelo 3D y explorar el hábitat desde todos los ángulos</span>
+                <span>Explora el modelo 3D rotándolo con el mouse y cambia entre modos de visualización</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">2</span>
-                <span>Selecciona una zona (TRUNK o ROOT 1-5) del panel lateral para personalizarla</span>
+                <span>Selecciona una zona (ROOT 1-5) y asígnale una función específica</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">3</span>
-                <span>Elige colores y texturas que reflejen tu visión del hábitat marciano</span>
+                <span>Personaliza la textura de cada zona para darle tu toque único</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">4</span>
-                <span>Aplica los cambios y visualiza el resultado en tiempo real</span>
+                <span>Descarga tu diseño completo en PDF o compártelo en redes sociales</span>
               </li>
             </ol>
           </Card>

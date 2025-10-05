@@ -7,27 +7,51 @@ interface Canvas3DProps {
   selectedZone: string | null;
   onZoneSelect: (zone: string | null) => void;
   duplicateZones: string[];
+  renderMode: "standard" | "autocad" | "revit";
 }
 
-const Canvas3D = ({ selectedZone, onZoneSelect, duplicateZones }: Canvas3DProps) => {
+const Canvas3D = ({ selectedZone, onZoneSelect, duplicateZones, renderMode }: Canvas3DProps) => {
   return (
     <>
       <Canvas
         camera={{ position: [8, 6, 8], fov: 60 }}
-        shadows
+        shadows={renderMode === "standard"}
         className="w-full h-full"
       >
-        <color attach="background" args={["#0a0a0a"]} />
+        <color attach="background" args={[
+          renderMode === "revit" ? "#ffffff" : 
+          renderMode === "autocad" ? "#1a1a2e" : 
+          "#0a0a0a"
+        ]} />
         
-        {/* Lighting */}
-        <ambientLight intensity={0.5} />
-        <directionalLight
-          position={[10, 10, 5]}
-          intensity={1}
-          castShadow
-          shadow-mapSize={[1024, 1024]}
-        />
-        <pointLight position={[-10, -10, -5]} intensity={0.3} />
+        {/* Lighting según modo */}
+        {renderMode === "standard" && (
+          <>
+            <ambientLight intensity={0.5} />
+            <directionalLight
+              position={[10, 10, 5]}
+              intensity={1}
+              castShadow
+              shadow-mapSize={[1024, 1024]}
+            />
+            <pointLight position={[-10, -10, -5]} intensity={0.3} />
+          </>
+        )}
+        
+        {renderMode === "autocad" && (
+          <>
+            <ambientLight intensity={0.8} />
+            <directionalLight position={[5, 10, 7]} intensity={1.2} />
+            <pointLight position={[0, 5, 0]} intensity={0.5} color="#00d4ff" />
+          </>
+        )}
+        
+        {renderMode === "revit" && (
+          <>
+            <ambientLight intensity={1} />
+            <directionalLight position={[10, 10, 10]} intensity={0.8} />
+          </>
+        )}
         
         {/* 3D Model */}
         <Suspense fallback={null}>
@@ -35,11 +59,17 @@ const Canvas3D = ({ selectedZone, onZoneSelect, duplicateZones }: Canvas3DProps)
             selectedZone={selectedZone} 
             onZoneSelect={onZoneSelect}
             duplicateZones={duplicateZones}
+            renderMode={renderMode}
           />
         </Suspense>
         
-        {/* Environment */}
-        <Environment preset="night" />
+        {/* Environment solo en modo standard */}
+        {renderMode === "standard" && <Environment preset="night" />}
+        
+        {/* Grid en modo Revit */}
+        {renderMode === "revit" && (
+          <gridHelper args={[50, 50, "#cccccc", "#eeeeee"]} />
+        )}
         
         {/* Controls */}
         <OrbitControls

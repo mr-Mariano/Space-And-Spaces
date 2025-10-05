@@ -235,6 +235,41 @@ export const translations = {
       justDesigned: 'I just designed my EDEN TREE Martian habitat!',
       cannotExport: 'Cannot export',
       duplicateAreasError: 'There are duplicate areas assigned to multiple ROOTs. The duplicate zones are shown in red on the 3D model.',
+      renderMode: 'Render Mode',
+      standard: 'Normal',
+      autocad: 'Render',
+      revit: 'Technical',
+      textureUpdated: 'Texture updated',
+      walkthrough: {
+        step: 'Step',
+        of: 'of',
+        previous: 'Previous',
+        next: 'Next',
+        start: 'Start',
+        skip: 'Skip tutorial',
+        steps: [
+          {
+            title: 'Welcome to the 3D Editor',
+            description: 'Here you can design your own Martian habitat. Rotate the model with your mouse.',
+          },
+          {
+            title: 'Select a zone',
+            description: 'Click on TRUNK or any ROOT (1-5) to start customizing it.',
+          },
+          {
+            title: 'Assign functions',
+            description: 'Each ROOT can have a function: Research, Health, Rest, Food or Social.',
+          },
+          {
+            title: 'Customize textures',
+            description: 'Choose the texture you prefer for the selected zone.',
+          },
+          {
+            title: 'Export your design',
+            description: 'Once finished, download your configuration as PDF or share it on social media.',
+          },
+        ],
+      },
     },
     location: {
       badge: 'Mars Location',
@@ -543,6 +578,41 @@ export const translations = {
       justDesigned: '¡Acabo de diseñar mi hábitat marciano EDEN TREE!',
       cannotExport: 'No se puede exportar',
       duplicateAreasError: 'Hay áreas duplicadas asignadas a múltiples ROOTs. Las zonas duplicadas se muestran en rojo en el modelo 3D.',
+      renderMode: 'Modo de Visualización',
+      standard: 'Normal',
+      autocad: 'Render',
+      revit: 'Técnico',
+      textureUpdated: 'Textura actualizada',
+      walkthrough: {
+        step: 'Paso',
+        of: 'de',
+        previous: 'Anterior',
+        next: 'Siguiente',
+        start: 'Comenzar',
+        skip: 'Omitir tutorial',
+        steps: [
+          {
+            title: 'Bienvenido al Editor 3D',
+            description: 'Aquí podrás diseñar tu propio hábitat marciano. Rota el modelo con el mouse.',
+          },
+          {
+            title: 'Selecciona una zona',
+            description: 'Haz clic en TRUNK o cualquier ROOT (1-5) para comenzar a personalizarla.',
+          },
+          {
+            title: 'Asigna funciones',
+            description: 'Cada ROOT puede tener una función: Investigación, Salud, Descanso, Alimentos o Social.',
+          },
+          {
+            title: 'Personaliza texturas',
+            description: 'Elige la textura que prefieras para la zona seleccionada.',
+          },
+          {
+            title: 'Exporta tu diseño',
+            description: 'Una vez terminado, descarga tu configuración en PDF o compártela en redes sociales.',
+          },
+        ],
+      },
     },
     location: {
       badge: 'Ubicación en Marte',
@@ -851,6 +921,41 @@ export const translations = {
       justDesigned: 'Je viens de concevoir mon habitat martien EDEN TREE !',
       cannotExport: 'Impossible d\'exporter',
       duplicateAreasError: 'Il y a des zones en double assignées à plusieurs ROOTs. Les zones en double sont affichées en rouge sur le modèle 3D.',
+      renderMode: 'Mode de Rendu',
+      standard: 'Normal',
+      autocad: 'Rendu',
+      revit: 'Technique',
+      textureUpdated: 'Texture mise à jour',
+      walkthrough: {
+        step: 'Étape',
+        of: 'sur',
+        previous: 'Précédent',
+        next: 'Suivant',
+        start: 'Commencer',
+        skip: 'Passer le tutoriel',
+        steps: [
+          {
+            title: 'Bienvenue dans l\'Éditeur 3D',
+            description: 'Ici, vous pouvez concevoir votre propre habitat martien. Faites pivoter le modèle avec votre souris.',
+          },
+          {
+            title: 'Sélectionnez une zone',
+            description: 'Cliquez sur TRUNK ou n\'importe quel ROOT (1-5) pour commencer à le personnaliser.',
+          },
+          {
+            title: 'Attribuez des fonctions',
+            description: 'Chaque ROOT peut avoir une fonction : Recherche, Santé, Repos, Nourriture ou Social.',
+          },
+          {
+            title: 'Personnalisez les textures',
+            description: 'Choisissez la texture que vous préférez pour la zone sélectionnée.',
+          },
+          {
+            title: 'Exportez votre design',
+            description: 'Une fois terminé, téléchargez votre configuration en PDF ou partagez-la sur les réseaux sociaux.',
+          },
+        ],
+      },
     },
     location: {
       badge: 'Emplacement sur Mars',
@@ -1164,6 +1269,41 @@ export const translations = {
       justDesigned: 'Ich habe gerade meinen EDEN TREE Mars-Lebensraum entworfen!',
       cannotExport: 'Export nicht möglich',
       duplicateAreasError: 'Es gibt doppelte Bereiche, die mehreren ROOTs zugewiesen sind. Die doppelten Zonen werden rot im 3D-Modell angezeigt.',
+      renderMode: 'Render-Modus',
+      standard: 'Normal',
+      autocad: 'Render',
+      revit: 'Technisch',
+      textureUpdated: 'Textur aktualisiert',
+      walkthrough: {
+        step: 'Schritt',
+        of: 'von',
+        previous: 'Zurück',
+        next: 'Weiter',
+        start: 'Beginnen',
+        skip: 'Tutorial überspringen',
+        steps: [
+          {
+            title: 'Willkommen im 3D-Editor',
+            description: 'Hier können Sie Ihren eigenen Mars-Lebensraum entwerfen. Drehen Sie das Modell mit Ihrer Maus.',
+          },
+          {
+            title: 'Wählen Sie eine Zone',
+            description: 'Klicken Sie auf TRUNK oder einen ROOT (1-5), um mit der Anpassung zu beginnen.',
+          },
+          {
+            title: 'Funktionen zuweisen',
+            description: 'Jeder ROOT kann eine Funktion haben: Forschung, Gesundheit, Ruhe, Nahrung oder Sozial.',
+          },
+          {
+            title: 'Texturen anpassen',
+            description: 'Wählen Sie die gewünschte Textur für die ausgewählte Zone.',
+          },
+          {
+            title: 'Design exportieren',
+            description: 'Wenn Sie fertig sind, laden Sie Ihre Konfiguration als PDF herunter oder teilen Sie sie in sozialen Medien.',
+          },
+        ],
+      },
     },
     location: {
       badge: 'Mars-Standort',

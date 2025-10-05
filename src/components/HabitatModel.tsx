@@ -7,9 +7,10 @@ interface HabitatModelProps {
   selectedZone: string | null;
   onZoneSelect: (zone: string | null) => void;
   duplicateZones: string[];
+  renderMode: "standard" | "autocad" | "revit";
 }
 
-const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones }: HabitatModelProps) => {
+const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones, renderMode }: HabitatModelProps) => {
   const { scene } = useGLTF(trunkModel);
   const [hoveredZone, setHoveredZone] = useState<string | null>(null);
 
@@ -78,12 +79,13 @@ const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones }: HabitatMod
     });
   }, [scene]);
 
-  // Update materials based on selection and hover
+  // Update materials based on selection, hover and render mode
   useEffect(() => {
     console.log("=== MATERIAL UPDATE ===");
     console.log("Selected zone:", selectedZone);
     console.log("Hovered zone:", hoveredZone);
     console.log("Duplicate zones:", duplicateZones);
+    console.log("Render mode:", renderMode);
     
     // First, reset all meshes to default state
     Object.entries(zoneMap).forEach(([zoneId, collectionName]) => {
@@ -106,9 +108,26 @@ const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones }: HabitatMod
           
           mesh.material = mesh.userData.originalMaterial;
           
-          // Reset to default
-          material.emissive = new THREE.Color(0x000000);
-          material.emissiveIntensity = 0;
+          // Apply render mode effects first
+          if (renderMode === "revit") {
+            material.wireframe = true;
+            material.color = new THREE.Color(0x333333);
+            material.emissive = new THREE.Color(0x000000);
+            material.emissiveIntensity = 0;
+          } else if (renderMode === "autocad") {
+            material.wireframe = false;
+            material.metalness = 0.7;
+            material.roughness = 0.3;
+            material.emissive = new THREE.Color(0x000000);
+            material.emissiveIntensity = 0.2;
+          } else {
+            material.wireframe = false;
+            material.metalness = 0.5;
+            material.roughness = 0.5;
+            material.emissive = new THREE.Color(0x000000);
+            material.emissiveIntensity = 0;
+          }
+          
           material.needsUpdate = true;
         }
       });
@@ -164,7 +183,7 @@ const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones }: HabitatMod
         });
       }
     });
-  }, [selectedZone, hoveredZone, duplicateZones, scene]);
+  }, [selectedZone, hoveredZone, duplicateZones, renderMode, scene]);
 
   // Handle click on zones with more precise matching
   const handleClick = (event: any) => {
