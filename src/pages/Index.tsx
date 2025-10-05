@@ -23,11 +23,6 @@ const Index = () => {
       description: t.home.features.crew.desc,
     },
     {
-      icon: Leaf,
-      title: t.home.features.sustainable.title,
-      description: t.home.features.sustainable.desc,
-    },
-    {
       icon: Zap,
       title: t.home.features.tech.title,
       description: t.home.features.tech.desc,

@@ -26,10 +26,6 @@ export const translations = {
           title: 'Mission-Ready Design',
           desc: 'Optimized for professional crews with customizable operational zones',
         },
-        sustainable: {
-          title: 'Self-Sustainable',
-          desc: 'First complete independent life support system on Mars',
-        },
         tech: {
           title: 'Advanced Technology',
           desc: 'Integration of state-of-the-art systems for maximum efficiency',
@@ -95,7 +91,7 @@ export const translations = {
         intro: 'Eden Tree is a working prototype - not a final product. Space & Spaces is testing and validating this modular design to establish the foundation for future Mars colonies. Its architecture allows:',
         expansion: 'Progressive expansion as colony needs grow',
         adaptation: 'Adaptation to different planetary conditions',
-        selfsufficiency: 'Energy and resource self-sufficiency',
+        selfsufficiency: 'Efficient resource management and renewable energy integration',
         integration: 'Integration of new technologies without complete reconstruction',
       },
     },
@@ -109,8 +105,6 @@ export const translations = {
         zonesDesc: '1 TRUNK + 5 ROOT modules',
         crew: '4 Astronauts',
         crewDesc: 'Optimal maximum capacity',
-        sustainable: 'Self-Sustainable',
-        sustainableDesc: 'Closed life system',
       },
       zones: {
         trunk: {
@@ -298,10 +292,6 @@ export const translations = {
           title: 'Diseño Listo para Misión',
           desc: 'Optimizado para tripulaciones profesionales con zonas operacionales personalizables',
         },
-        sustainable: {
-          title: 'Autosustentable',
-          desc: 'Primer sistema completo de soporte vital independiente en Marte',
-        },
         tech: {
           title: 'Tecnología Avanzada',
           desc: 'Integración de sistemas de última generación para máxima eficiencia',
@@ -367,7 +357,7 @@ export const translations = {
         intro: 'Eden Tree es un prototipo funcional - no un producto final. Space & Spaces está probando y validando este diseño modular para establecer la base de futuras colonias marcianas. Su arquitectura permite:',
         expansion: 'Expansión progresiva según crezcan las necesidades de la colonia',
         adaptation: 'Adaptación a diferentes condiciones planetarias',
-        selfsufficiency: 'Autosuficiencia energética y de recursos',
+        selfsufficiency: 'Gestión eficiente de recursos e integración de energía renovable',
         integration: 'Integración de nuevas tecnologías sin reconstrucción completa',
       },
     },
@@ -378,11 +368,9 @@ export const translations = {
       includes: 'Incluye:',
       overview: {
         zones: '6 Zonas',
-        zonesDesc: '1 TRUNK + 5 ROOT modules',
+        zonesDesc: '1 TRUNK + 5 módulos ROOT',
         crew: '4 Astronautas',
         crewDesc: 'Capacidad máxima óptima',
-        sustainable: 'Autosustentable',
-        sustainableDesc: 'Sistema cerrado de vida',
       },
       zones: {
         trunk: {
@@ -570,10 +558,6 @@ export const translations = {
           title: 'Conception prête pour la mission',
           desc: 'Optimisé pour équipages professionnels avec zones opérationnelles personnalisables',
         },
-        sustainable: {
-          title: 'Autonome',
-          desc: 'Premier système complet de soutien vital indépendant sur Mars',
-        },
         tech: {
           title: 'Technologie avancée',
           desc: 'Intégration de systèmes de dernière génération pour une efficacité maximale',
@@ -639,7 +623,7 @@ export const translations = {
         intro: 'Eden Tree est un prototype fonctionnel - pas un produit final. Space & Spaces teste et valide cette conception modulaire pour établir la fondation des futures colonies martiennes. Son architecture permet :',
         expansion: 'Expansion progressive à mesure que les besoins de la colonie augmentent',
         adaptation: 'Adaptation à différentes conditions planétaires',
-        selfsufficiency: 'Autosuffisance énergétique et en ressources',
+        selfsufficiency: 'Gestion efficace des ressources et intégration d\'énergie renouvelable',
         integration: 'Intégration de nouvelles technologies sans reconstruction complète',
       },
     },
@@ -653,8 +637,6 @@ export const translations = {
         zonesDesc: '1 TRUNK + 5 modules ROOT',
         crew: '4 astronautes',
         crewDesc: 'Capacité maximale optimale',
-        sustainable: 'Autonome',
-        sustainableDesc: 'Système de vie fermé',
       },
       zones: {
         trunk: {
@@ -842,10 +824,6 @@ export const translations = {
           title: 'Missionsbereit Design',
           desc: 'Optimiert für professionelle Crews mit anpassbaren Betriebszonen',
         },
-        sustainable: {
-          title: 'Selbsttragend',
-          desc: 'Erstes vollständiges unabhängiges Lebenserhaltungssystem auf dem Mars',
-        },
         tech: {
           title: 'Fortschrittliche Technologie',
           desc: 'Integration modernster Systeme für maximale Effizienz',
@@ -911,7 +889,7 @@ export const translations = {
         intro: 'Eden Tree ist ein funktionierender Prototyp - kein Endprodukt. Space & Spaces testet und validiert dieses modulare Design, um die Grundlage für zukünftige Mars-Kolonien zu schaffen. Seine Architektur ermöglicht:',
         expansion: 'Progressive Erweiterung, wenn die Bedürfnisse der Kolonie wachsen',
         adaptation: 'Anpassung an verschiedene planetare Bedingungen',
-        selfsufficiency: 'Energie- und Ressourcen-Selbstversorgung',
+        selfsufficiency: 'Effizientes Ressourcenmanagement und Integration erneuerbarer Energien',
         integration: 'Integration neuer Technologien ohne vollständigen Wiederaufbau',
       },
     },
@@ -925,8 +903,6 @@ export const translations = {
         zonesDesc: '1 TRUNK + 5 ROOT-Module',
         crew: '4 Astronauten',
         crewDesc: 'Optimale maximale Kapazität',
-        sustainable: 'Selbsttragend',
-        sustainableDesc: 'Geschlossenes Lebenssystem',
       },
       zones: {
         trunk: {
