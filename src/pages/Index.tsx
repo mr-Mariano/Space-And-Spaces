@@ -7,28 +7,30 @@ import { Rocket, Leaf, Users, Zap, Building2, Sprout } from "lucide-react";
 import edenTreeSystem from "@/assets/eden-tree-system.jpg";
 import habitatInterior from "@/assets/habitat-interior.jpg";
 import greenhouseLife from "@/assets/greenhouse-life.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
   const features = [
     {
       icon: Building2,
-      title: "Arquitectura Modular",
-      description: "Sistema ROOT expansible que crece según las necesidades de la misión",
+      title: t.home.features.modular.title,
+      description: t.home.features.modular.desc,
     },
     {
       icon: Users,
-      title: "Diseñado para 4 Astronautas",
-      description: "Espacios optimizados para el bienestar psicológico y físico del equipo",
+      title: t.home.features.crew.title,
+      description: t.home.features.crew.desc,
     },
     {
       icon: Leaf,
-      title: "Autosustentable",
-      description: "Primer sistema completo de soporte vital independiente en Marte",
+      title: t.home.features.sustainable.title,
+      description: t.home.features.sustainable.desc,
     },
     {
       icon: Zap,
-      title: "Tecnología Avanzada",
-      description: "Integración de sistemas de última generación para máxima eficiencia",
+      title: t.home.features.tech.title,
+      description: t.home.features.tech.desc,
     },
   ];
 
@@ -57,25 +59,24 @@ const Index = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-effect border border-primary/30">
               <Sprout className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium text-foreground">
-                Plantando Vida en Marte
+                {t.home.badge}
               </span>
             </div>
 
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl font-bold leading-tight">
               <span className="bg-gradient-to-r from-foreground via-secondary to-foreground bg-clip-text text-transparent">
-                EDEN TREE
+                {t.home.title}
               </span>
               <br />
               <span className="text-3xl md:text-5xl text-primary">
-                Hábitat Espacial Modular
+                {t.home.subtitle}
               </span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              Diseña el futuro de la vida humana en Marte. Un sistema de soporte vital 
-              completo y autosustentable donde hasta 4 astronautas pueden sentirse en casa.
+              {t.home.description}
             </p>
 
             {/* CTA Buttons */}
@@ -86,7 +87,7 @@ const Index = () => {
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-8 shadow-[0_0_30px_rgba(175,76,15,0.4)] hover:shadow-[0_0_40px_rgba(175,76,15,0.6)] transition-all"
                 >
                   <Rocket className="mr-2 h-5 w-5" />
-                  Diseña tu Hábitat
+                  {t.home.ctaDesign}
                 </Button>
               </Link>
               <Link to="/docs">
@@ -95,7 +96,7 @@ const Index = () => {
                   variant="outline"
                   className="border-primary/30 hover:bg-primary/10 text-foreground font-semibold text-lg px-8"
                 >
-                  Explorar Documentación
+                  {t.home.ctaDocs}
                 </Button>
               </Link>
             </div>
@@ -120,10 +121,10 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-4xl font-bold mb-4 text-foreground">
-              Sistema Completo de Vida
+              {t.home.featuresTitle}
             </h2>
             <p className="text-lg text-muted-foreground">
-              EDEN TREE integra tecnología avanzada con diseño centrado en el ser humano
+              {t.home.featuresSubtitle}
             </p>
           </div>
 
@@ -159,24 +160,23 @@ const Index = () => {
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold mb-4 text-foreground">
-                    La Metáfora del Árbol
+                    {t.home.metaphor.title}
                   </h2>
                   <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                    Como un árbol que planta sus raíces profundamente en tierra fértil, 
-                    EDEN TREE establece las bases permanentes de la vida humana en Marte.
+                    {t.home.metaphor.description}
                   </p>
                   <ul className="space-y-3 text-muted-foreground">
                     <li className="flex items-start gap-3">
                       <span className="text-primary font-bold">•</span>
-                      <span><strong className="text-foreground">EDEN:</strong> El hábitat ideal donde la humanidad puede prosperar</span>
+                      <span><strong className="text-foreground">EDEN:</strong> {t.home.metaphor.eden}</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-primary font-bold">•</span>
-                      <span><strong className="text-foreground">TREE:</strong> Arquitectura modular - raíces (ROOT), tronco (TRUNK), y capacidad de crecimiento</span>
+                      <span><strong className="text-foreground">TREE:</strong> {t.home.metaphor.tree}</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-primary font-bold">•</span>
-                      <span><strong className="text-foreground">Misión:</strong> Crear espacios donde los astronautas se sientan verdaderamente en casa</span>
+                      <span><strong className="text-foreground">{t.home.metaphor.mission.split(':')[0]}:</strong> {t.home.metaphor.mission.split(':')[1] || t.home.metaphor.mission}</span>
                     </li>
                   </ul>
                 </div>
@@ -208,10 +208,10 @@ const Index = () => {
       <section className="py-20 px-4 bg-gradient-to-b from-background via-primary/10 to-background">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6 text-foreground">
-            Comienza a Diseñar el Futuro
+            {t.home.ctaFinal.title}
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Explora el editor 3D interactivo y personaliza cada zona del hábitat EDEN TREE
+            {t.home.ctaFinal.description}
           </p>
           <Link to="/editor">
             <Button 
@@ -219,7 +219,7 @@ const Index = () => {
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-10 shadow-[0_0_30px_rgba(175,76,15,0.4)] hover:shadow-[0_0_40px_rgba(175,76,15,0.6)] transition-all"
             >
               <Rocket className="mr-2 h-5 w-5" />
-              Abrir Editor 3D
+              {t.home.ctaFinal.button}
             </Button>
           </Link>
         </div>
