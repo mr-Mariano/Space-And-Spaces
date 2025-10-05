@@ -99,6 +99,8 @@ export const translations = {
     docs: {
       title: 'Documentation',
       subtitle: 'Complete guide to EDEN TREE habitat zones and their technical specifications',
+      rootAreasTitle: 'Modular Areas (ROOTs)',
+      includes: 'Includes:',
       overview: {
         zones: '6 Zones',
         zonesDesc: '1 TRUNK + 5 ROOT modules',
@@ -110,15 +112,13 @@ export const translations = {
       zones: {
         trunk: {
           name: 'TRUNK - Central Core',
-          desc: 'The heart of the EDEN TREE habitat. Like a tree trunk, it connects all ROOT modules and serves as the center of social life and operations.',
+          desc: 'The heart of the EDEN TREE habitat. Like a tree trunk, it connects all ROOT modules and serves as the center of operations.',
           airlock: 'Main Airlock',
           airlockDesc: 'Safe entry/exit with pressurization and decontamination system. Capacity for 2 simultaneous astronauts.',
           eva: 'EVA Support',
           evaDesc: 'Storage for 4 spacesuits with maintenance and charging systems. Includes pre-mission inspection station.',
           common: 'Common Room',
-          commonDesc: 'Central living space with capacity for 4 people. Multi-purpose area for meetings, social meals, and rest.',
-          recreation: 'Recreation Zone',
-          recreationDesc: 'Leisure area with multimedia screens, digital library, and games. Essential for psychological well-being.',
+          commonDesc: 'Central living space with capacity for 4 people. Multi-purpose area for meetings and rest.',
         },
         root1: {
           name: 'ROOT 1 - Operations',
@@ -366,6 +366,8 @@ export const translations = {
     docs: {
       title: 'Documentación',
       subtitle: 'Guía completa de las zonas del hábitat EDEN TREE y sus especificaciones técnicas',
+      rootAreasTitle: 'Áreas Modulares (ROOTs)',
+      includes: 'Incluye:',
       overview: {
         zones: '6 Zonas',
         zonesDesc: '1 TRUNK + 5 ROOT modules',
@@ -377,15 +379,13 @@ export const translations = {
       zones: {
         trunk: {
           name: 'TRUNK - Núcleo Central',
-          desc: 'El corazón del hábitat EDEN TREE. Como el tronco de un árbol, conecta todos los módulos ROOT y sirve como centro de vida social y operaciones.',
+          desc: 'El corazón del hábitat EDEN TREE. Como el tronco de un árbol, conecta todos los módulos ROOT y sirve como centro de operaciones.',
           airlock: 'Airlock Principal',
           airlockDesc: 'Entrada/salida segura con sistema de presurización y descontaminación. Capacidad para 2 astronautas simultáneos.',
           eva: 'EVA Support',
           evaDesc: 'Almacenamiento para 4 trajes espaciales con sistemas de mantenimiento y carga. Incluye estación de inspección pre-misión.',
           common: 'Sala Común',
-          commonDesc: 'Espacio central de convivencia con capacidad para 4 personas. Área multipropósito para reuniones, comidas sociales y descanso.',
-          recreation: 'Zona de Recreación',
-          recreationDesc: 'Área de ocio con pantallas multimedia, biblioteca digital y juegos. Esencial para el bienestar psicológico.',
+          commonDesc: 'Espacio central de convivencia con capacidad para 4 personas. Área multipropósito para reuniones y descanso.',
         },
         root1: {
           name: 'ROOT 1 - Operativa',
@@ -633,6 +633,8 @@ export const translations = {
     docs: {
       title: 'Documentation',
       subtitle: 'Guide complet des zones de l\'habitat EDEN TREE et de leurs spécifications techniques',
+      rootAreasTitle: 'Zones modulaires (ROOTs)',
+      includes: 'Comprend :',
       overview: {
         zones: '6 zones',
         zonesDesc: '1 TRUNK + 5 modules ROOT',
@@ -644,15 +646,13 @@ export const translations = {
       zones: {
         trunk: {
           name: 'TRUNK - Noyau central',
-          desc: 'Le cœur de l\'habitat EDEN TREE. Comme le tronc d\'un arbre, il connecte tous les modules ROOT et sert de centre de vie sociale et d\'opérations.',
+          desc: 'Le cœur de l\'habitat EDEN TREE. Comme le tronc d\'un arbre, il connecte tous les modules ROOT et sert de centre d\'opérations.',
           airlock: 'Sas principal',
           airlockDesc: 'Entrée/sortie sécurisée avec système de pressurisation et de décontamination. Capacité pour 2 astronautes simultanés.',
           eva: 'Support EVA',
           evaDesc: 'Stockage pour 4 combinaisons spatiales avec systèmes de maintenance et de charge. Comprend une station d\'inspection pré-mission.',
           common: 'Salle commune',
-          commonDesc: 'Espace de vie central avec capacité pour 4 personnes. Zone polyvalente pour réunions, repas sociaux et repos.',
-          recreation: 'Zone de loisirs',
-          recreationDesc: 'Zone de loisirs avec écrans multimédias, bibliothèque numérique et jeux. Essentiel pour le bien-être psychologique.',
+          commonDesc: 'Espace de vie central avec capacité pour 4 personnes. Zone polyvalente pour réunions et repos.',
         },
         root1: {
           name: 'ROOT 1 - Opérations',
@@ -866,6 +866,8 @@ export const translations = {
     docs: {
       title: 'Dokumentation',
       subtitle: 'Vollständiger Leitfaden zu den Zonen des EDEN TREE-Lebensraums und ihren technischen Spezifikationen',
+      rootAreasTitle: 'Modulare Bereiche (ROOTs)',
+      includes: 'Beinhaltet:',
       overview: {
         zones: '6 Zonen',
         zonesDesc: '1 TRUNK + 5 ROOT-Module',
@@ -877,15 +879,13 @@ export const translations = {
       zones: {
         trunk: {
           name: 'TRUNK - Zentraler Kern',
-          desc: 'Das Herz des EDEN TREE-Lebensraums. Wie ein Baumstamm verbindet es alle ROOT-Module und dient als Zentrum des sozialen Lebens und der Operationen.',
+          desc: 'Das Herz des EDEN TREE-Lebensraums. Wie ein Baumstamm verbindet es alle ROOT-Module und dient als Zentrum der Operationen.',
           airlock: 'Hauptluftschleuse',
           airlockDesc: 'Sicherer Ein-/Ausgang mit Druckbeaufschlagungs- und Dekontaminationssystem. Kapazität für 2 gleichzeitige Astronauten.',
           eva: 'EVA-Unterstützung',
-          evaDesc: 'Lagerung für 4 Raumanzüge mit Wartungs- und Ladesystemen. Umfasst eine Inspektionsstation vor der Mission.',
+          evaDesc: 'Lagerung für 4 Raumanzüge mit Wartungs- und Ladesystemen. Umfasst eine Inspektationsstation vor der Mission.',
           common: 'Gemeinschaftsraum',
-          commonDesc: 'Zentraler Lebensraum mit Kapazität für 4 Personen. Mehrzweckbereich für Besprechungen, soziale Mahlzeiten und Erholung.',
-          recreation: 'Freizeitzone',
-          recreationDesc: 'Freizeitbereich mit Multimedia-Bildschirmen, digitaler Bibliothek und Spielen. Wesentlich für psychisches Wohlbefinden.',
+          commonDesc: 'Zentraler Lebensraum mit Kapazität für 4 Personen. Mehrzweckbereich für Besprechungen und Erholung.',
         },
         root1: {
           name: 'ROOT 1 - Operationen',
