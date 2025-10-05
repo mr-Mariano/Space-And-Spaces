@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# Eden Tree - Mars Habitat Design
 
-## Project info
+> Interactive 3D Mars habitat designer for professional space missions
 
-**URL**: https://lovable.dev/projects/15886443-d107-45e2-b00a-61b60006699b
+Eden Tree is a modular space habitat visualization tool designed for Mars colonization. Users can explore, customize, and configure living spaces optimized for 4-astronaut crews in the Gale Crater location.
 
-## How can I edit this code?
+## ✨ Features
 
-There are several ways of editing your application.
+- **3D Interactive Visualization** - Explore the habitat with orbital controls
+- **Material Selection** - Choose from Mars-optimized construction materials
+- **Modular Design** - 1 TRUNK + 5 ROOT specialized modules
+- **Multilingual Support** - English, Spanish, French, German
+- **PDF Export** - Generate detailed habitat specifications
+- **Social Sharing** - Share configurations across platforms
 
-**Use Lovable**
+## 🚀 Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/15886443-d107-45e2-b00a-61b60006699b) and start prompting.
+### Frontend
+- **React 18** - UI Framework
+- **TypeScript** - Type Safety
+- **Vite** - Build Tool & Dev Server
 
-Changes made via Lovable will be committed automatically to this repo.
+### 3D Visualization
+- **Three.js** - 3D Rendering Engine
+- **React Three Fiber** - React-Three.js Integration
+- **React Three Drei** - 3D Helpers & Controls
 
-**Use your preferred IDE**
+### UI & Styling
+- **Tailwind CSS** - Utility-first CSS
+- **Shadcn/ui** - Component Library
+- **Radix UI** - Headless Components
+- **Lucide React** - Icon System
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Utilities
+- **React Router** - Navigation
+- **jsPDF** - PDF Generation
+- **React Hook Form** - Form Management
+- **Context API** - State Management
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🛠️ Development
 
-Follow these steps:
+```bash
+# Install dependencies
+npm install
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-**Edit a file directly in GitHub**
+## 🌍 Mission Focus
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Designed specifically for Mars missions with:
+- **Gale Crater** location optimization
+- **4-astronaut crew** capacity
+- **NASA-compliant** functional separation
+- **Mars-specific materials** (Sulfur-Regolith, Geopolímero, Kevlar)
 
-**Use GitHub Codespaces**
+## 📱 Responsive Design
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Fully responsive interface optimized for:
+- Desktop (3D visualization)
+- Tablet (touch controls)
+- Mobile (simplified navigation)
 
-## What technologies are used for this project?
+## 🚀 Deployment
 
-This project is built with:
+The application is built as a static site and can be deployed to any static hosting service:
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/15886443-d107-45e2-b00a-61b60006699b) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+**Built with ❤️ for the future of Mars colonization**
