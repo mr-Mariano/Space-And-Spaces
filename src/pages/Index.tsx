@@ -7,6 +7,7 @@ import { Rocket, Leaf, Users, Zap, Building2, Sprout } from "lucide-react";
 import edenTreeSystem from "@/assets/eden-tree-system.jpg";
 import habitatInterior from "@/assets/habitat-interior.jpg";
 import greenhouseLife from "@/assets/greenhouse-life.jpg";
+import logo2 from "@/assets/logo2.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
@@ -60,9 +61,11 @@ const Index = () => {
 
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-foreground via-secondary to-foreground bg-clip-text text-transparent">
-                {t.home.title}
-              </span>
+              <img 
+                src={logo2} 
+                alt="EDEN TREE"
+                className="w-64 md:w-96 mx-auto mb-4"
+              />
               <br />
               <span className="text-3xl md:text-5xl text-primary">
                 {t.home.subtitle}
