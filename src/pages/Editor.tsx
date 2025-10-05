@@ -25,7 +25,8 @@ const Editor = () => {
   const { t } = useLanguage();
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
   const [renderMode, setRenderMode] = useState<"standard" | "autocad" | "revit">("standard");
-  const [selectedTexture, setSelectedTexture] = useState<string>("Metálica");
+  const [selectedTexture, setSelectedTexture] = useState<string>("Sulfur-Regolith");
+  const [selectedMaterial, setSelectedMaterial] = useState<string | null>(null);
   const [areaAssignments, setAreaAssignments] = useState<Record<string, AreaType>>({
     root1: "research",
     root2: "health",
@@ -272,11 +273,12 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
     return duplicateZones;
   };
 
-  const handleTextureChange = (zoneId: string, texture: string) => {
-    setSelectedTexture(texture);
+  const handleMaterialChange = (zoneId: string, material: string) => {
+    setSelectedTexture(material);
+    setSelectedMaterial(material);
     toast({
-      title: t.editor.textureUpdated || "Textura actualizada",
-      description: `${zones.find(z => z.id === zoneId)?.name}: ${texture}`,
+      title: t.editor.materialUpdated || "Material actualizado",
+      description: `${zones.find(z => z.id === zoneId)?.name}: ${material}`,
     });
   };
 
@@ -352,6 +354,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                 onZoneSelect={setSelectedZone}
                 duplicateZones={getDuplicateZones()}
                 renderMode={renderMode}
+                selectedMaterial={selectedMaterial}
               />
 
                 {/* Controls overlay */}
@@ -490,36 +493,56 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                 </div>
               </Card>
 
-            {selectedZone && (
+            {/* Solo mostrar materiales en modo Normal y cuando hay zona ROOT seleccionada */}
+            {selectedZone && selectedZone !== "trunk" && renderMode === "standard" && (
               <Card className="texture-selector p-6 glass-effect border-primary/30 animate-fade-in">
                 <h3 className="text-xl font-bold mb-4 text-foreground">
-                  {t.editor.customization}
+                  {t.editor.materials || "Materiales"}
                 </h3>
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-muted-foreground mb-3 block">
-                      {t.editor.texture}
+                      {t.editor.selectMaterial || "Selecciona un material"}
                     </label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3">
                       {[
-                        { name: "Metálica", icon: "🔩", color: "from-gray-400 to-gray-600" },
-                        { name: "Mate", icon: "⚪", color: "from-gray-300 to-gray-400" },
-                        { name: "Madera", icon: "🪵", color: "from-amber-700 to-amber-900" },
-                        { name: "Tejido", icon: "🧵", color: "from-blue-400 to-blue-600" }
-                      ].map((texture) => (
+                        { 
+                          name: "Sulfur-Regolith", 
+                          description: "Compuesto de azufre y regolito marciano",
+                          icon: "🪨",
+                          color: "from-yellow-600 to-orange-700"
+                        },
+                        { 
+                          name: "Geopolímero Marciano", 
+                          description: "Material cementante procesado in-situ",
+                          icon: "🧱",
+                          color: "from-red-700 to-red-900"
+                        },
+                        { 
+                          name: "Kevlar De Membrana Externa", 
+                          description: "Tejido resistente de alta tecnología",
+                          icon: "🛡️",
+                          color: "from-gray-700 to-gray-900"
+                        }
+                      ].map((material) => (
                         <Button
-                          key={texture.name}
-                          variant={selectedTexture === texture.name ? "default" : "outline"}
+                          key={material.name}
+                          variant={selectedTexture === material.name ? "default" : "outline"}
                           className={cn(
-                            "h-20 flex flex-col items-center justify-center gap-2",
-                            selectedTexture === texture.name 
-                              ? `bg-gradient-to-br ${texture.color} text-white` 
+                            "h-auto py-4 flex flex-col items-start justify-center gap-2 text-left",
+                            selectedTexture === material.name 
+                              ? `bg-gradient-to-br ${material.color} text-white` 
                               : "border-border/50 hover:bg-secondary/10"
                           )}
-                          onClick={() => handleTextureChange(selectedZone, texture.name)}
+                          onClick={() => handleMaterialChange(selectedZone, material.name)}
                         >
-                          <span className="text-2xl">{texture.icon}</span>
-                          <span className="text-xs font-medium">{texture.name}</span>
+                          <div className="flex items-center gap-3 w-full">
+                            <span className="text-3xl">{material.icon}</span>
+                            <div>
+                              <span className="text-sm font-bold block">{material.name}</span>
+                              <span className="text-xs opacity-80">{material.description}</span>
+                            </div>
+                          </div>
                         </Button>
                       ))}
                     </div>
@@ -670,7 +693,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">3</span>
-                <span>Personaliza la textura de cada zona para darle tu toque único</span>
+                <span>Cambia a modo "Normal" y selecciona un material para ver renderizados del hábitat</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">4</span>

@@ -1,18 +1,37 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Loader } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import HabitatModel from "./HabitatModel";
+import { MaterialCarousel } from "./MaterialCarousel";
 
 interface Canvas3DProps {
   selectedZone: string | null;
   onZoneSelect: (zone: string | null) => void;
   duplicateZones: string[];
   renderMode: "standard" | "autocad" | "revit";
+  selectedMaterial: string | null;
 }
 
-const Canvas3D = ({ selectedZone, onZoneSelect, duplicateZones, renderMode }: Canvas3DProps) => {
+const Canvas3D = ({ 
+  selectedZone, 
+  onZoneSelect, 
+  duplicateZones, 
+  renderMode,
+  selectedMaterial
+}: Canvas3DProps) => {
+  const [showCarousel, setShowCarousel] = useState(false);
+
+  // Mostrar carrusel cuando se selecciona un material en modo standard
+  useEffect(() => {
+    if (selectedMaterial && renderMode === "standard") {
+      setShowCarousel(true);
+    } else {
+      setShowCarousel(false);
+    }
+  }, [selectedMaterial, renderMode]);
+
   return (
-    <>
+    <div className="relative w-full h-full">
       <Canvas
         camera={{ position: [8, 6, 8], fov: 60 }}
         shadows={renderMode === "standard"}
@@ -90,7 +109,15 @@ const Canvas3D = ({ selectedZone, onZoneSelect, duplicateZones, renderMode }: Ca
         />
       </Canvas>
       <Loader />
-    </>
+      
+      {/* Carrusel de materiales superpuesto */}
+      {showCarousel && selectedMaterial && (
+        <MaterialCarousel 
+          material={selectedMaterial}
+          onClose={() => setShowCarousel(false)}
+        />
+      )}
+    </div>
   );
 };
 

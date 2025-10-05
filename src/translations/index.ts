@@ -240,6 +240,10 @@ export const translations = {
       autocad: 'Render',
       revit: 'Technical',
       textureUpdated: 'Texture updated',
+      materials: 'Materials',
+      selectMaterial: 'Select a material',
+      materialUpdated: 'Material updated',
+      materialOnlyNormal: 'Materials can only be selected in Normal mode',
       walkthrough: {
         step: 'Step',
         of: 'of',
@@ -261,8 +265,8 @@ export const translations = {
             description: 'Each ROOT can have a function: Research, Health, Rest, Food or Social.',
           },
           {
-            title: 'Customize textures',
-            description: 'Choose the texture you prefer for the selected zone.',
+            title: 'Customize materials',
+            description: 'In Normal mode, choose from 3 advanced materials and visualize habitat renderings.',
           },
           {
             title: 'Export your design',
@@ -583,6 +587,10 @@ export const translations = {
       autocad: 'Render',
       revit: 'Técnico',
       textureUpdated: 'Textura actualizada',
+      materials: 'Materiales',
+      selectMaterial: 'Selecciona un material',
+      materialUpdated: 'Material actualizado',
+      materialOnlyNormal: 'Los materiales solo se pueden seleccionar en modo Normal',
       walkthrough: {
         step: 'Paso',
         of: 'de',
@@ -604,8 +612,8 @@ export const translations = {
             description: 'Cada ROOT puede tener una función: Investigación, Salud, Descanso, Alimentos o Social.',
           },
           {
-            title: 'Personaliza texturas',
-            description: 'Elige la textura que prefieras para la zona seleccionada.',
+            title: 'Personaliza materiales',
+            description: 'En modo Normal, elige entre 3 materiales avanzados y visualiza renderizados del hábitat.',
           },
           {
             title: 'Exporta tu diseño',
@@ -926,6 +934,10 @@ export const translations = {
       autocad: 'Rendu',
       revit: 'Technique',
       textureUpdated: 'Texture mise à jour',
+      materials: 'Matériaux',
+      selectMaterial: 'Sélectionnez un matériau',
+      materialUpdated: 'Matériau mis à jour',
+      materialOnlyNormal: 'Les matériaux ne peuvent être sélectionnés qu\'en mode Normal',
       walkthrough: {
         step: 'Étape',
         of: 'sur',
@@ -1274,6 +1286,10 @@ export const translations = {
       autocad: 'Render',
       revit: 'Technisch',
       textureUpdated: 'Textur aktualisiert',
+      materials: 'Materialien',
+      selectMaterial: 'Wähle ein Material',
+      materialUpdated: 'Material aktualisiert',
+      materialOnlyNormal: 'Materialien können nur im Normalmodus ausgewählt werden',
       walkthrough: {
         step: 'Schritt',
         of: 'von',
@@ -1295,8 +1311,8 @@ export const translations = {
             description: 'Jeder ROOT kann eine Funktion haben: Forschung, Gesundheit, Ruhe, Nahrung oder Sozial.',
           },
           {
-            title: 'Texturen anpassen',
-            description: 'Wählen Sie die gewünschte Textur für die ausgewählte Zone.',
+            title: 'Materialien anpassen',
+            description: 'Im Normalmodus wählen Sie aus 3 fortschrittlichen Materialien und visualisieren Sie Habitat-Renderings.',
           },
           {
             title: 'Design exportieren',
