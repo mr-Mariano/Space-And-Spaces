@@ -63,7 +63,7 @@ import {
   Droplets,
   Gauge
 } from 'lucide-react';
-import marsHero from '@/assets/mars-hero.jpg';
+import marsHero from '@/assets/mars-hero.png';
 import galeCrater from '@/assets/crater.png';
 
 const Location = () => {

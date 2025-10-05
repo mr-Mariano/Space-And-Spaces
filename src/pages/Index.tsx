@@ -48,9 +48,9 @@ import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Rocket, Leaf, Users, Zap, Building2, Sprout } from "lucide-react";
-import eden from "@/assets/eden.jpeg";
-import habitatInterior from "@/assets/habitat-interior.jpg";
-import greenhouseLife from "@/assets/greenhouse-life.jpg";
+import eden from "@/assets/eden.png";
+import habitatInterior from "@/assets/habitat-interior.png";
+import greenhouseLife from "@/assets/greenhouse-life.png";
 import logo2 from "@/assets/logo2.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
 

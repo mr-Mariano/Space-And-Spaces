@@ -63,11 +63,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import root1Operations from "@/assets/root1-operations.jpg";
-import root2Wellbeing from "@/assets/root2-wellbeing.jpg";
-import root3Rest from "@/assets/root3-rest.jpg";
-import root4Food from "@/assets/root4-food.jpg";
-import root5Research from "@/assets/root5-research.jpg";
+import root1Operations from "@/assets/root1-operations.png";
+import root2Wellbeing from "@/assets/root2-wellbeing.png";
+import root3Rest from "@/assets/root3-rest.png";
+import root4Food from "@/assets/root4-food.png";
+import root5Research from "@/assets/root5-research.png";
 
 const Habitat = () => {
   const { t } = useLanguage();

@@ -54,20 +54,20 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // Import material images
-import img1_sulfur from "@/assets/img1_sulfur_regolith.jpg";
-import img2_sulfur from "@/assets/img2_sulfur_regolith.jpg";
-import img3_sulfur from "@/assets/img3_sulfur_regolith.jpg";
-import img4_sulfur from "@/assets/img4_sulfur_regolith.jpg";
+import img1_sulfur from "@/assets/img1_sulfur_regolith.png";
+import img2_sulfur from "@/assets/img2_sulfur_regolith.png";
+import img3_sulfur from "@/assets/img3_sulfur_regolith.png";
+import img4_sulfur from "@/assets/img4_sulfur_regolith.png";
 
-import img1_geo from "@/assets/img1_geopolimero.jpg";
-import img2_geo from "@/assets/img2_geopolimero.jpg";
-import img3_geo from "@/assets/img3_geopolimero.jpg";
-import img4_geo from "@/assets/img4_geopolimero.jpg";
+import img1_geo from "@/assets/img1_geopolimero.png";
+import img2_geo from "@/assets/img2_geopolimero.png";
+import img3_geo from "@/assets/img3_geopolimero.png";
+import img4_geo from "@/assets/img4_geopolimero.png";
 
-import img1_kevlar from "@/assets/img1_kevlar.jpg";
-import img2_kevlar from "@/assets/img2_kevlar.jpg";
-import img3_kevlar from "@/assets/img3_kevlar.jpg";
-import img4_kevlar from "@/assets/img4_kevlar.jpg";
+import img1_kevlar from "@/assets/img1_kevlar.png";
+import img2_kevlar from "@/assets/img2_kevlar.png";
+import img3_kevlar from "@/assets/img3_kevlar.png";
+import img4_kevlar from "@/assets/img4_kevlar.png";
 
 interface MaterialCarouselProps {
   material: string;
