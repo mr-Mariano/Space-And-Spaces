@@ -8,13 +8,16 @@ import {
   Bed, 
   Utensils, 
   Microscope,
-  ChevronLeft,
-  ChevronRight
+  Check
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import useEmblaCarousel from 'embla-carousel-react';
-import { useCallback } from 'react';
-import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import root1Operations from "@/assets/root1-operations.jpg";
 import root2Wellbeing from "@/assets/root2-wellbeing.jpg";
 import root3Rest from "@/assets/root3-rest.jpg";
@@ -23,15 +26,7 @@ import root5Research from "@/assets/root5-research.jpg";
 
 const Documentation = () => {
   const { t } = useLanguage();
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
   const rootAreas = [
     {
       id: "root1",
@@ -130,50 +125,57 @@ const Documentation = () => {
           </Card>
 
           {/* ROOT Areas Carousel */}
-          <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-8 text-center text-foreground">
+          <div className="mb-12 animate-fade-in">
+            <h2 className="text-4xl font-bold mb-10 text-center text-foreground">
               {t.docs.rootAreasTitle || 'Áreas Modulares (ROOTs)'}
             </h2>
             
-            <div className="relative">
-              <div className="overflow-hidden" ref={emblaRef}>
-                <div className="flex">
-                  {rootAreas.map((root) => {
-                    const Icon = root.icon;
-                    return (
-                      <div key={root.id} className="flex-[0_0_100%] min-w-0 px-4">
-                        <Card className="glass-effect border-primary/30 overflow-hidden">
-                          <div className="relative h-[400px]">
+            <Carousel
+              opts={{
+                align: "center",
+                loop: true,
+                containScroll: "trimSnaps",
+              }}
+              className="w-full max-w-7xl mx-auto"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {rootAreas.map((root) => {
+                  const Icon = root.icon;
+                  return (
+                    <CarouselItem key={root.id} className="pl-2 md:pl-4 md:basis-4/5 lg:basis-3/4">
+                      <div className="transition-all duration-500 hover:scale-[1.02]">
+                        <Card className="glass-effect border-primary/30 overflow-hidden backdrop-blur-xl shadow-xl hover:shadow-2xl transition-shadow">
+                          <div className="relative h-[240px] md:h-[280px]">
                             <img 
                               src={root.image} 
                               alt={root.name}
                               className="w-full h-full object-cover"
                             />
-                            <div className={`absolute inset-0 bg-gradient-to-t ${root.color} opacity-20`} />
-                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/95 to-transparent">
-                              <div className="flex items-center gap-3 mb-3">
-                                <div className={`p-3 rounded-full bg-gradient-to-br ${root.color}`}>
-                                  <Icon className="h-6 w-6 text-white" />
+                            <div className={`absolute inset-0 bg-gradient-to-t ${root.color} opacity-25`} />
+                            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-background/98 via-background/80 to-transparent">
+                              <div className="flex items-center gap-3">
+                                <div className={`p-2.5 md:p-3 rounded-full bg-gradient-to-br ${root.color} shadow-lg`}>
+                                  <Icon className="h-5 w-5 md:h-6 md:w-6 text-white" />
                                 </div>
-                                <h3 className="text-2xl font-bold text-foreground">{root.name}</h3>
+                                <h3 className="text-xl md:text-2xl font-bold text-foreground">{root.name}</h3>
                               </div>
                             </div>
                           </div>
                           
-                          <div className="p-6">
-                            <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
+                          <div className="p-4 md:p-6">
+                            <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed line-clamp-2">
                               {root.description}
                             </p>
                             
-                            <div className="space-y-2">
-                              <h4 className="font-semibold text-foreground mb-3">
+                            <div className="space-y-1.5">
+                              <h4 className="text-sm font-semibold text-foreground mb-2">
                                 {t.docs.includes || 'Incluye:'}
                               </h4>
-                              <ul className="space-y-2">
+                              <ul className="space-y-1.5">
                                 {root.includes.map((item, idx) => (
-                                  <li key={idx} className="flex items-start gap-2 text-muted-foreground">
-                                    <span className="text-primary font-bold mt-1">•</span>
-                                    <span>{item}</span>
+                                  <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                    <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                                    <span className="line-clamp-1">{item}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -181,29 +183,13 @@ const Documentation = () => {
                           </div>
                         </Card>
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
-              
-              <Button
-                variant="outline"
-                size="icon"
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm"
-                onClick={scrollPrev}
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </Button>
-              
-              <Button
-                variant="outline"
-                size="icon"
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm"
-                onClick={scrollNext}
-              >
-                <ChevronRight className="h-6 w-6" />
-              </Button>
-            </div>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex -left-12 lg:-left-16 bg-background/90 backdrop-blur-sm hover:bg-background border-primary/30 hover:border-primary/50 shadow-lg" />
+              <CarouselNext className="hidden md:flex -right-12 lg:-right-16 bg-background/90 backdrop-blur-sm hover:bg-background border-primary/30 hover:border-primary/50 shadow-lg" />
+            </Carousel>
           </div>
 
         </div>
