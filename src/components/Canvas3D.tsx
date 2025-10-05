@@ -1,3 +1,41 @@
+/**
+ * ============================================================================
+ * CANVAS3D COMPONENT - Three.js Scene Configuration & Material System
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This component manages the 3D rendering environment and was developed
+ * with significant AI assistance during the 2-day development sprint.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Canvas setup, lighting configuration (~70%)
+ * - Cursor AI Editor: Dual-mode rendering logic, material carousel integration (~25%)
+ * - GitHub Copilot: OrbitControls fine-tuning (~5%)
+ * 
+ * Human Intervention:
+ * - Lighting strategy for each render mode (Standard vs AutoCAD/Render)
+ * - Camera positioning and FOV optimization
+ * - Material carousel overlay positioning and state management
+ * - Performance optimization (shadows, environment maps)
+ * - Background color selection for each mode
+ * 
+ * Technologies:
+ * - React Three Fiber v8.18.0 (React renderer for Three.js)
+ * - React Three Drei v9.122.0 (OrbitControls, Environment, Loader)
+ * - Three.js v0.160.1 (WebGL rendering)
+ * 
+ * Complexity: HIGH
+ * - Dual rendering modes with different visual styles
+ * - Dynamic lighting configuration
+ * - Material carousel overlay management
+ * - Optimized camera controls
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 3-4 hours
+ * - Without AI: 3-5 business days
+ * ============================================================================
+ */
+
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Loader } from "@react-three/drei";
 import { Suspense, useEffect, useState } from "react";

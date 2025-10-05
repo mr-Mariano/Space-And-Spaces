@@ -1,3 +1,44 @@
+/**
+ * ============================================================================
+ * FOOTER COMPONENT - Site-Wide Footer with Links & Information
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This footer component was developed almost entirely with AI assistance.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Footer structure and grid layout (~90%)
+ * - Cursor AI Editor: Styling refinements (~8%)
+ * - GitHub Copilot: Icon integration (~2%)
+ * 
+ * Human Intervention:
+ * - Content organization (brand, navigation, zones, contact)
+ * - Link structure decisions
+ * - Copyright text
+ * 
+ * Technologies:
+ * - React Router DOM (internal links)
+ * - Tailwind CSS (responsive grid)
+ * - Lucide React (icons)
+ * - i18n Context
+ * 
+ * Structure:
+ * - 4-column responsive grid
+ * - Brand section with tagline
+ * - Navigation links
+ * - Habitat zones list
+ * - Contact information (GitHub, email)
+ * - Copyright notice
+ * 
+ * Complexity: LOW-MEDIUM
+ * Lines of code: 105
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 1-2 hours
+ * - Without AI: 2-3 business days
+ * ============================================================================
+ */
+
 import { Rocket, Github, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";

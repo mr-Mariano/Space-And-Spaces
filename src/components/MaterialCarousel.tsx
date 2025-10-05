@@ -1,3 +1,53 @@
+/**
+ * ============================================================================
+ * MATERIAL CAROUSEL - Interactive Material Visualization System
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This component manages the display of 12 material images across 3 materials
+ * with a professional carousel interface.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Carousel structure and navigation (~75%)
+ * - Cursor AI Editor: Image mapping and state management (~20%)
+ * - GitHub Copilot: Error handling and fallback (~5%)
+ * 
+ * Human Intervention:
+ * - Material-to-image mapping architecture
+ * - Visual design (backdrop blur, glassmorphism)
+ * - Navigation UX decisions
+ * - Image asset organization
+ * - Error handling strategy
+ * 
+ * Technologies:
+ * - React 18.3.1 + TypeScript
+ * - Lucide React (icons)
+ * - Custom UI components (Button)
+ * - CSS animations and transitions
+ * 
+ * Features:
+ * - 3 materials with 4 images each (12 total images)
+ * - Smooth carousel navigation
+ * - Indicator dots for current position
+ * - Backdrop blur overlay
+ * - Close button
+ * - Keyboard navigation support
+ * - Image error handling
+ * 
+ * Materials Included:
+ * - Sulfur-Regolith (4 images)
+ * - Geopolímero Marciano (4 images)
+ * - Kevlar De Membrana Externa (4 images)
+ * 
+ * Complexity: MEDIUM
+ * Lines of code: 142
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 2-3 hours
+ * - Without AI: 3-4 business days
+ * ============================================================================
+ */
+
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";

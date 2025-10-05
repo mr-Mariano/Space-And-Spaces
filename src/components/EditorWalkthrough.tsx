@@ -1,6 +1,59 @@
+/**
+ * ============================================================================
+ * EDITOR WALKTHROUGH - Interactive Tutorial System
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This interactive tutorial component was developed with AI assistance
+ * to provide a sophisticated onboarding experience.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Initial modal and step navigation (~60%)
+ * - Cursor AI Editor: Spotlight effect, dynamic positioning, glassmorphism (~35%)
+ * - GitHub Copilot: Progress bar and step transitions (~5%)
+ * 
+ * Human Intervention:
+ * - UX flow design (5-step progression)
+ * - Automatic mode switching (Standard → Render on step 4)
+ * - Robust target element validation (prevents spotlight on non-existent elements)
+ * - Glassmorphism visual design
+ * - Progress indicator implementation
+ * - Always-visible behavior (removed localStorage persistence)
+ * - Translation integration for 4 languages
+ * 
+ * Technologies:
+ * - React 18.3.1 + TypeScript
+ * - Custom UI components (Card, Button)
+ * - CSS glassmorphism effects
+ * - Dynamic DOM element targeting
+ * 
+ * Features:
+ * - 5-step guided tour
+ * - Dynamic spotlight highlighting
+ * - Automatic render mode switching
+ * - Progress visualization
+ * - Responsive positioning (top/bottom/left/right)
+ * - Glassmorphism design
+ * - i18n support
+ * 
+ * Complexity: MEDIUM-HIGH
+ * Lines of code: 236
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 4-5 hours
+ * - Without AI: 4-6 business days
+ * 
+ * Recent improvements (Day 2):
+ * - Removed localStorage check for always-visible behavior
+ * - Added onModeChange prop for automatic render mode switching
+ * - Enhanced target element validation
+ * - Removed 1-second delay for immediate display
+ * ============================================================================
+ */
+
 import { useState, useEffect } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card } from "./ui/card";
+import { Button } from "./ui/button";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";

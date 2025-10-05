@@ -1,3 +1,58 @@
+/**
+ * ============================================================================
+ * EDITOR PAGE - Interactive 3D Habitat Configuration System
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This is the main application page developed in 2 days using AI assistance.
+ * A full-featured 3D editor with this level of complexity would normally
+ * require 2-3 weeks of development.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Page layout, state management, UI components (~70%)
+ * - Cursor AI Editor: PDF generation logic, validation system (~20%)
+ * - GitHub Copilot: Social media sharing integration (~10%)
+ * 
+ * Human Intervention:
+ * - Architecture decisions (two-mode system: Standard vs AutoCAD/Render)
+ * - Complex validation logic for duplicate area assignments
+ * - PDF generation with jsPDF + autoTable integration
+ * - Tutorial system integration and mode-switching coordination
+ * - Business logic for area-to-zone assignments
+ * - UX flow and interaction patterns
+ * 
+ * Technologies:
+ * - React 18.3.1 + TypeScript (Component framework)
+ * - React Router DOM v6.30.1 (Routing)
+ * - jsPDF v3.0.3 + jspdf-autotable v5.0.2 (PDF generation)
+ * - Sonner v1.7.4 (Toast notifications)
+ * - Lucide React v0.462.0 (Icon system)
+ * - Custom 3D Canvas and HabitatModel components
+ * 
+ * Features:
+ * - Dual render modes (Standard with materials, AutoCAD/Render with zones)
+ * - Real-time 3D model interaction
+ * - Area assignment to habitat zones
+ * - Duplicate validation system
+ * - PDF export with configuration summary
+ * - Social media sharing (Twitter, LinkedIn, Facebook)
+ * - Interactive walkthrough tutorial
+ * - Internationalization (4 languages)
+ * 
+ * Complexity: VERY HIGH
+ * Lines of code: 519
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 12-14 hours (across 2 days)
+ * - Without AI: 15-20 business days (3-4 weeks)
+ * 
+ * Why this implementation is not credible for 2 days without AI:
+ * The combination of 3D rendering, state management, validation logic,
+ * PDF generation, i18n, and social sharing would be impossible to implement,
+ * test, and debug manually in such a short timeframe.
+ * ============================================================================
+ */
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";

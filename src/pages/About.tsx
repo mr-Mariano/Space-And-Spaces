@@ -1,3 +1,45 @@
+/**
+ * ============================================================================
+ * ABOUT PAGE - Project Mission & Metaphor Explanation
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This informational page explains the Eden Tree project philosophy,
+ * developed with significant AI layout assistance.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Page structure and card layouts (~85%)
+ * - Cursor AI Editor: Visual polish and spacing (~10%)
+ * - GitHub Copilot: Icon integration (~5%)
+ * 
+ * Human Intervention:
+ * - Content writing and messaging strategy
+ * - Tree metaphor conceptualization
+ * - Information architecture
+ * - Section organization
+ * 
+ * Technologies:
+ * - React 18.3.1 + TypeScript
+ * - Tailwind CSS (glassmorphism effects)
+ * - Lucide React (icons)
+ * - i18n Context (4 languages)
+ * 
+ * Content Sections:
+ * - Purpose statement
+ * - Tree metaphor explanation (EDEN, TREE structure)
+ * - Mission benefits for astronauts
+ * - Capacity and design specifications
+ * - Future vision
+ * 
+ * Complexity: MEDIUM
+ * Lines of code: 187
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 3-4 hours
+ * - Without AI: 4-5 business days
+ * ============================================================================
+ */
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";

@@ -1,3 +1,48 @@
+/**
+ * ============================================================================
+ * HABITAT PAGE - Technical Documentation & Zone Details
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This technical documentation page showcases the habitat zones with
+ * interactive carousel, developed primarily with AI assistance.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Page layout and carousel structure (~80%)
+ * - Cursor AI Editor: Card designs and responsive grid (~15%)
+ * - GitHub Copilot: Image imports and data mapping (~5%)
+ * 
+ * Human Intervention:
+ * - Technical content organization (TRUNK + 5 ROOT modules)
+ * - Image curation for each zone
+ * - Carousel UX decisions
+ * - Zone color gradients selection
+ * 
+ * Technologies:
+ * - React 18.3.1 + TypeScript
+ * - Embla Carousel React v8.6.0
+ * - Tailwind CSS (gradients, glassmorphism)
+ * - Lucide React (zone icons)
+ * 
+ * Content Structure:
+ * - TRUNK (central core) detailed card
+ * - 5 ROOT zones in interactive carousel:
+ *   * ROOT 1: Operations (Control, Comms, Maintenance)
+ *   * ROOT 2: Health & Fitness (Gym, Hygiene, Medical)
+ *   * ROOT 3: Rest (Bedrooms, Dressing, Storage)
+ *   * ROOT 4: Food & Resources (Kitchen, Dining, Stores)
+ *   * ROOT 5: Research (Lab, Greenhouse)
+ * - Each zone has image, description, and feature list
+ * 
+ * Complexity: MEDIUM-HIGH
+ * Lines of code: 199
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 4-5 hours
+ * - Without AI: 5-7 business days
+ * ============================================================================
+ */
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";

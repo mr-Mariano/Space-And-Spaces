@@ -1,3 +1,53 @@
+/**
+ * ============================================================================
+ * NAVIGATION COMPONENT - Responsive Site-Wide Navigation
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This navigation bar was developed with significant AI assistance
+ * for both desktop and mobile responsiveness.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Navigation structure and mobile menu (~80%)
+ * - Cursor AI Editor: Active state indicators and glassmorphism (~15%)
+ * - GitHub Copilot: Logo and theme toggle integration (~5%)
+ * 
+ * Human Intervention:
+ * - Navigation hierarchy decisions
+ * - Active route indicator design
+ * - Mobile menu UX
+ * - Logo animation effects
+ * - CTA button positioning
+ * 
+ * Technologies:
+ * - React Router DOM v6.30.1 (routing and active states)
+ * - Tailwind CSS (responsive breakpoints, glassmorphism)
+ * - Lucide React (icons)
+ * - Theme Toggle integration
+ * - Language Switcher integration
+ * 
+ * Features:
+ * - Responsive design (desktop + mobile)
+ * - Active route highlighting
+ * - Mobile hamburger menu
+ * - Theme toggle button
+ * - Language switcher (4 languages)
+ * - Glassmorphism effect
+ * - Logo with hover animation
+ * - Primary CTA button
+ * 
+ * Navigation Items:
+ * - Home, About, Habitat, Location, Editor
+ * 
+ * Complexity: MEDIUM
+ * Lines of code: 123
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 2-3 hours
+ * - Without AI: 3-4 business days
+ * ============================================================================
+ */
+
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Rocket, Menu, X } from "lucide-react";

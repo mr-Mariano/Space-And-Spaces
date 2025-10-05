@@ -1,3 +1,47 @@
+/**
+ * ============================================================================
+ * HOME PAGE (INDEX) - Marketing Landing & Hero Section
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This page serves as the main landing page with hero section, features,
+ * and call-to-action elements. Developed with substantial AI assistance.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Layout structure, sections, responsive grid (~80%)
+ * - Cursor AI Editor: Visual effects (gradients, animations, glassmorphism) (~15%)
+ * - GitHub Copilot: Icon and image integration (~5%)
+ * 
+ * Human Intervention:
+ * - Content strategy and messaging
+ * - Visual hierarchy decisions
+ * - Image selection and placement
+ * - Color scheme and theming
+ * - CTA button positioning
+ * - Internationalization integration
+ * 
+ * Technologies:
+ * - React 18.3.1 + TypeScript + React Router DOM
+ * - Tailwind CSS (responsive design, animations)
+ * - Lucide React v0.462.0 (icons)
+ * - Custom UI components (Button, Card)
+ * 
+ * Sections:
+ * - Hero section with background image and CTAs
+ * - Space & Spaces mission information
+ * - Features grid (modular, crew, technology)
+ * - Philosophy section with imagery
+ * - Final CTA section
+ * 
+ * Complexity: MEDIUM-HIGH
+ * Lines of code: 312
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 4-5 hours
+ * - Without AI: 5-7 business days
+ * ============================================================================
+ */
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";

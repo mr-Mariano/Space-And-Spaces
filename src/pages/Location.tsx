@@ -1,3 +1,54 @@
+/**
+ * ============================================================================
+ * LOCATION PAGE - Gale Crater & Mars Environmental Data
+ * ============================================================================
+ * 
+ * AI DEVELOPMENT DISCLOSURE:
+ * This page presents scientific data about Mars and Gale Crater,
+ * developed with substantial AI assistance for rapid deployment.
+ * 
+ * AI Tools Used:
+ * - Lovable (GPT Engineer): Page layout and data card structure (~75%)
+ * - Cursor AI Editor: Visual effects and hero section (~20%)
+ * - GitHub Copilot: Icon and badge integration (~5%)
+ * 
+ * Human Intervention:
+ * - NASA data research and validation
+ * - Scientific accuracy review
+ * - Content organization (Gale Crater specs, environmental conditions)
+ * - Visual hierarchy decisions
+ * - External link to NASA resources
+ * 
+ * Technologies:
+ * - React 18.3.1 + TypeScript
+ * - Tailwind CSS (responsive cards, gradients)
+ * - Lucide React (scientific icons)
+ * - Custom UI components (Card, Badge)
+ * 
+ * Content:
+ * - Hero section with Mars imagery
+ * - Gale Crater technical specifications
+ *   * Coordinates: 5.4°S 137.8°E
+ *   * Diameter: ~154 km
+ *   * Age: 3.5-3.8 billion years
+ * - 4 reasons why Gale Crater was selected
+ * - 6 environmental condition cards:
+ *   * Atmosphere (95.3% CO₂, 0.6 kPa)
+ *   * Temperature (-63°C average, -125°C to +20°C range)
+ *   * Radiation (30x Earth levels)
+ *   * Gravity (0.38g)
+ *   * Dust storms
+ *   * Water availability
+ * 
+ * Complexity: MEDIUM
+ * Lines of code: 248
+ * 
+ * Estimated Development Time:
+ * - With AI assistance: 4-5 hours
+ * - Without AI: 6-8 business days (including NASA data research)
+ * ============================================================================
+ */
+
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
