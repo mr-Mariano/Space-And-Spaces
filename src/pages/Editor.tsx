@@ -23,6 +23,7 @@ type AreaType = "research" | "health" | "rest" | "foodResources" | "social";
 
 const Editor = () => {
   const { t } = useLanguage();
+  const [showWalkthrough, setShowWalkthrough] = useState(true);
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
   const [renderMode, setRenderMode] = useState<"standard" | "autocad">("standard");
   const [selectedMaterial, setSelectedMaterial] = useState<string | null>(null);
@@ -165,7 +166,12 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <EditorWalkthrough onComplete={() => {}} />
+      {showWalkthrough && (
+        <EditorWalkthrough 
+          onComplete={() => setShowWalkthrough(false)}
+          onModeChange={(mode) => setRenderMode(mode)}
+        />
+      )}
       <div className="pt-24 pb-20 px-4">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-8 animate-fade-in">

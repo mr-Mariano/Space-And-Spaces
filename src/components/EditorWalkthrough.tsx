@@ -11,6 +11,11 @@ interface WalkthroughStep {
   position: "top" | "bottom" | "left" | "right";
 }
 
+interface EditorWalkthroughProps {
+  onComplete: () => void;
+  onModeChange?: (mode: "standard" | "autocad") => void;
+}
+
 const steps: WalkthroughStep[] = [
   {
     id: 1,
@@ -41,17 +46,15 @@ const steps: WalkthroughStep[] = [
 
 const stepIcons = ['🚀', '🎨', '🖼️', '⚙️', '📤'];
 
-export const EditorWalkthrough = ({ onComplete }: { onComplete: () => void }) => {
+export const EditorWalkthrough = ({ onComplete, onModeChange }: EditorWalkthroughProps) => {
   const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
-    const hasSeenWalkthrough = localStorage.getItem("eden-editor-walkthrough-seen");
-    if (!hasSeenWalkthrough) {
-      setTimeout(() => setIsVisible(true), 1000);
-    }
+    // Mostrar inmediatamente al montar el componente
+    setIsVisible(true);
   }, []);
 
   useEffect(() => {
@@ -59,14 +62,22 @@ export const EditorWalkthrough = ({ onComplete }: { onComplete: () => void }) =>
     
     const step = steps[currentStep];
     const element = document.querySelector(`.${step.targetClass}`);
+    
     if (element) {
       const rect = element.getBoundingClientRect();
       setTargetRect(rect);
+    } else {
+      // Si el elemento no existe, no mostrar spotlight
+      setTargetRect(null);
     }
   }, [currentStep, isVisible]);
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
+      // Cambiar automáticamente a modo Render en el paso 4 (zona selector)
+      if (currentStep === 2 && onModeChange) {
+        onModeChange("autocad");
+      }
       setCurrentStep(currentStep + 1);
     } else {
       handleComplete();
@@ -80,7 +91,6 @@ export const EditorWalkthrough = ({ onComplete }: { onComplete: () => void }) =>
   };
 
   const handleComplete = () => {
-    localStorage.setItem("eden-editor-walkthrough-seen", "true");
     setIsVisible(false);
     onComplete();
   };
