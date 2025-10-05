@@ -6,9 +6,10 @@ import trunkModel from "@/assets/trunk.glb";
 interface HabitatModelProps {
   selectedZone: string | null;
   onZoneSelect: (zone: string | null) => void;
+  duplicateZones: string[];
 }
 
-const HabitatModel = ({ selectedZone, onZoneSelect }: HabitatModelProps) => {
+const HabitatModel = ({ selectedZone, onZoneSelect, duplicateZones }: HabitatModelProps) => {
   const { scene } = useGLTF(trunkModel);
   const [hoveredZone, setHoveredZone] = useState<string | null>(null);
 
@@ -82,6 +83,7 @@ const HabitatModel = ({ selectedZone, onZoneSelect }: HabitatModelProps) => {
     console.log("=== MATERIAL UPDATE ===");
     console.log("Selected zone:", selectedZone);
     console.log("Hovered zone:", hoveredZone);
+    console.log("Duplicate zones:", duplicateZones);
     
     // First, reset all meshes to default state
     Object.entries(zoneMap).forEach(([zoneId, collectionName]) => {
@@ -112,15 +114,29 @@ const HabitatModel = ({ selectedZone, onZoneSelect }: HabitatModelProps) => {
       });
     });
     
-    // Then apply selection/hover effects
+    // Then apply effects with priority: duplicate > selected > hover
     Object.entries(zoneMap).forEach(([zoneId, collectionName]) => {
       const meshes = findMeshesByName(collectionName);
       const isSelected = selectedZone === zoneId;
       const isHovered = hoveredZone === zoneId;
+      const isDuplicate = duplicateZones.includes(zoneId);
       
-      console.log(`${zoneId}: ${meshes.length} meshes, selected: ${isSelected}, hovered: ${isHovered}`);
+      console.log(`${zoneId}: ${meshes.length} meshes, selected: ${isSelected}, hovered: ${isHovered}, duplicate: ${isDuplicate}`);
 
-      if (isSelected) {
+      if (isDuplicate) {
+        console.log(`🔴 DUPLICATE ${zoneId} - Applying RED to:`, meshes.map(m => m.name));
+        meshes.forEach((mesh) => {
+          if (mesh.material) {
+            const material = Array.isArray(mesh.material) 
+              ? mesh.material[0] as THREE.MeshStandardMaterial
+              : mesh.material as THREE.MeshStandardMaterial;
+            
+            material.emissive = new THREE.Color(0xff0000);
+            material.emissiveIntensity = 0.4;
+            material.needsUpdate = true;
+          }
+        });
+      } else if (isSelected) {
         console.log(`🎯 SELECTING ${zoneId} - Applying GREEN to:`, meshes.map(m => m.name));
         meshes.forEach((mesh) => {
           if (mesh.material) {
@@ -148,7 +164,7 @@ const HabitatModel = ({ selectedZone, onZoneSelect }: HabitatModelProps) => {
         });
       }
     });
-  }, [selectedZone, hoveredZone, scene]);
+  }, [selectedZone, hoveredZone, duplicateZones, scene]);
 
   // Handle click on zones with more precise matching
   const handleClick = (event: any) => {

@@ -6,9 +6,10 @@ import HabitatModel from "./HabitatModel";
 interface Canvas3DProps {
   selectedZone: string | null;
   onZoneSelect: (zone: string | null) => void;
+  duplicateZones: string[];
 }
 
-const Canvas3D = ({ selectedZone, onZoneSelect }: Canvas3DProps) => {
+const Canvas3D = ({ selectedZone, onZoneSelect, duplicateZones }: Canvas3DProps) => {
   return (
     <>
       <Canvas
@@ -30,7 +31,11 @@ const Canvas3D = ({ selectedZone, onZoneSelect }: Canvas3DProps) => {
         
         {/* 3D Model */}
         <Suspense fallback={null}>
-          <HabitatModel selectedZone={selectedZone} onZoneSelect={onZoneSelect} />
+          <HabitatModel 
+            selectedZone={selectedZone} 
+            onZoneSelect={onZoneSelect}
+            duplicateZones={duplicateZones}
+          />
         </Suspense>
         
         {/* Environment */}
