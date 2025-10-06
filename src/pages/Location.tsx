@@ -65,7 +65,6 @@ import {
 } from 'lucide-react';
 import marsHero from '@/assets/mars-hero.png';
 import galeCrater from '@/assets/crater.png';
-import { LazyImage } from '@/components/LazyImage';
 
 const Location = () => {
   const { t } = useLanguage();
@@ -131,6 +130,8 @@ const Location = () => {
           src={marsHero} 
           alt="Mars Surface" 
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background" />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -216,10 +217,11 @@ const Location = () => {
             </CardHeader>
             <CardContent className="p-0">
               <div className="relative h-[400px] md:h-[500px]">
-                <LazyImage 
+                <img 
                   src={galeCrater} 
                   alt="Gale Crater" 
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <div className="relative">

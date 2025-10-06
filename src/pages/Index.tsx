@@ -53,7 +53,6 @@ import habitatInterior from "@/assets/habitat-interior.png";
 import greenhouseLife from "@/assets/greenhouse-life.png";
 import logo2 from "@/assets/logo2.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { LazyImage } from "@/components/LazyImage";
 
 const Index = () => {
   const { t } = useLanguage();
@@ -96,6 +95,8 @@ const Index = () => {
             src={eden} 
             alt="Eden Tree System Background" 
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/70" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.2),transparent_70%)]" />
@@ -117,6 +118,8 @@ const Index = () => {
                 src={logo2} 
                 alt="Eden Tree"
                 className="w-64 md:w-96 mx-auto invert-0 dark:invert drop-shadow-2xl"
+                loading="eager"
+                fetchPriority="high"
               />
               <br />
               <span className="text-3xl md:text-5xl text-white drop-shadow-2xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_80%)]">
@@ -317,10 +320,11 @@ const Index = () => {
             <div className="grid gap-4">
               
               <div className="rounded-2xl overflow-hidden shadow-lg border border-primary/20 hover-lift">
-                <LazyImage 
+                <img 
                   src={greenhouseLife} 
                   alt="Astronauta cuidando plantas en invernadero del hábitat marciano" 
                   className="w-full h-auto object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
