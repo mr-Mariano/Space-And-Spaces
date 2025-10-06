@@ -2,11 +2,15 @@
 
 > Interactive 3D Mars habitat designer for professional space missions
 
-Eden Tree is a modular space habitat visualization tool designed for Mars colonization. Users can explore, customize, and configure living spaces optimized for 4-astronaut crews in the Gale Crater location.
+Eden Tree is a modular space habitat visualization tool designed for Mars missions. Users can explore, customize, and configure living spaces optimized for 4-astronaut crews in the Gale Crater location.
+
+## ⚠️ Performance Notice
+
+**If images load slowly on the live demo**, this is due to the high-resolution assets used for the 3D visualization. For the best experience, we recommend running the project locally following the instructions below.
 
 ## 📄 Documentation
 
-**📋 [NASA Space Apps Challenge Documentation] ./docs/
+**📋 [NASA Space Apps Challenge Documentation](./docs/Space%20&%20Spaces%202025%20NASA%20Space%20Apps%20Challenge%20Info.pdf)
 
 
 Complete project documentation including technical specifications, design rationale, and NASA Space Apps Challenge submission details.
@@ -44,21 +48,56 @@ Complete project documentation including technical specifications, design ration
 - **React Hook Form** - Form Management
 - **Context API** - State Management
 
-## 🛠️ Development
+## 🛠️ Local Development Setup
+
+### Prerequisites
+- **Node.js** (v18 or higher)
+- **npm** or **yarn** package manager
+
+### Quick Start
 
 ```bash
+# Clone the repository
+git clone https://github.com/your-username/eden-tree-planner.git
+cd eden-tree-planner
+
 # Install dependencies
 npm install
 
 # Start development server
 npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Available Scripts
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server (with hot reload)
+npm run dev
 
 # Build for production
 npm run build
 
-# Preview production build
+# Preview production build locally
 npm run preview
+
+# Type checking
+npm run type-check
+
+# Lint code
+npm run lint
 ```
+
+### Why Run Locally?
+
+- **Faster Image Loading** - Assets served from local filesystem
+- **Better 3D Performance** - No network latency for 3D models
+- **Development Features** - Hot reload, debugging tools
+- **Offline Access** - Work without internet connection
 
 ## 🌍 Mission Focus
 
