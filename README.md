@@ -12,6 +12,7 @@ Eden Tree is a modular space habitat visualization tool designed for Mars missio
 
 **📋 [NASA Space Apps Challenge Documentation](./docs/Space%20&%20Spaces%202025%20NASA%20Space%20Apps%20Challenge%20Info.pdf)
 
+**🎥 [Project Presentation Video](https://youtu.be/QSKVaaI2h4g?si=5QaU6lvcGdtNZoae)**
 
 Complete project documentation including technical specifications, design rationale, and NASA Space Apps Challenge submission details.
 
