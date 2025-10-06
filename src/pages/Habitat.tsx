@@ -68,6 +68,7 @@ import root2Wellbeing from "@/assets/root2-wellbeing.png";
 import root3Rest from "@/assets/root3-rest.png";
 import root4Food from "@/assets/root4-food.png";
 import root5Research from "@/assets/root5-research.png";
+import { LazyImage } from "@/components/LazyImage";
 
 const Habitat = () => {
   const { t } = useLanguage();
@@ -187,7 +188,7 @@ const Habitat = () => {
                       <div className="transition-all duration-300 hover:scale-[1.03]">
                         <Card className="glass-effect border-primary/30 overflow-hidden backdrop-blur-xl shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all">
                           <div className="relative h-[180px] md:h-[200px]">
-                            <img 
+                            <LazyImage 
                               src={root.image} 
                               alt={root.name}
                               className="w-full h-full object-cover"

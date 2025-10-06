@@ -53,6 +53,7 @@ import habitatInterior from "@/assets/habitat-interior.png";
 import greenhouseLife from "@/assets/greenhouse-life.png";
 import logo2 from "@/assets/logo2.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { LazyImage } from "@/components/LazyImage";
 
 const Index = () => {
   const { t } = useLanguage();
@@ -316,7 +317,7 @@ const Index = () => {
             <div className="grid gap-4">
               
               <div className="rounded-2xl overflow-hidden shadow-lg border border-primary/20 hover-lift">
-                <img 
+                <LazyImage 
                   src={greenhouseLife} 
                   alt="Astronauta cuidando plantas en invernadero del hábitat marciano" 
                   className="w-full h-auto object-cover"

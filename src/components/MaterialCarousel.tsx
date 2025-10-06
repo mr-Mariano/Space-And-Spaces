@@ -48,10 +48,11 @@
  * ============================================================================
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Import material images
 import img1_sulfur from "@/assets/img1_sulfur_regolith.png";
@@ -76,6 +77,8 @@ interface MaterialCarouselProps {
 
 export const MaterialCarousel = ({ material, onClose }: MaterialCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
+  const [imageLoading, setImageLoading] = useState<Record<number, boolean>>({ 0: true });
   
   // Mapear cada material a sus imágenes correspondientes
   const materialImages: Record<string, string[]> = {
@@ -101,12 +104,32 @@ export const MaterialCarousel = ({ material, onClose }: MaterialCarouselProps) =
 
   const images = materialImages[material] || [];
   
+  // Precargar imágenes adyacentes cuando cambia el índice
+  useEffect(() => {
+    const toLoad = new Set([currentIndex]);
+    if (currentIndex > 0) toLoad.add(currentIndex - 1);
+    if (currentIndex < images.length - 1) toLoad.add(currentIndex + 1);
+    
+    // Marcar nuevas imágenes como cargando
+    toLoad.forEach(idx => {
+      if (!loadedImages.has(idx)) {
+        setImageLoading(prev => ({ ...prev, [idx]: true }));
+      }
+    });
+    
+    setLoadedImages(toLoad);
+  }, [currentIndex, images.length]);
+  
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
   
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handleImageLoad = (idx: number) => {
+    setImageLoading(prev => ({ ...prev, [idx]: false }));
   };
 
   if (!material || images.length === 0) return null;
@@ -136,15 +159,24 @@ export const MaterialCarousel = ({ material, onClose }: MaterialCarouselProps) =
 
         {/* Carousel container */}
         <div className="relative aspect-video bg-background/10 rounded-lg overflow-hidden border-2 border-primary/50">
-          <img
-            src={images[currentIndex]}
-            alt={`${material} - Vista ${currentIndex + 1}`}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              // Fallback si la imagen no existe
-              (e.target as HTMLImageElement).src = "/placeholder.svg";
-            }}
-          />
+          {imageLoading[currentIndex] && (
+            <Skeleton className="absolute inset-0 w-full h-full" />
+          )}
+          {loadedImages.has(currentIndex) && (
+            <img
+              src={images[currentIndex]}
+              alt={`${material} - Vista ${currentIndex + 1}`}
+              className={cn(
+                "w-full h-full object-cover transition-opacity duration-300",
+                imageLoading[currentIndex] ? "opacity-0" : "opacity-100"
+              )}
+              onLoad={() => handleImageLoad(currentIndex)}
+              onError={(e) => {
+                handleImageLoad(currentIndex);
+                (e.target as HTMLImageElement).src = "/placeholder.svg";
+              }}
+            />
+          )}
 
           {/* Navigation buttons */}
           {images.length > 1 && (

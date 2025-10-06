@@ -41,6 +41,7 @@ import { OrbitControls, Environment, Loader } from "@react-three/drei";
 import { Suspense, useEffect, useState } from "react";
 import HabitatModel from "./HabitatModel";
 import { MaterialCarousel } from "./MaterialCarousel";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Canvas3DProps {
   selectedZone: string | null;
@@ -102,7 +103,12 @@ const Canvas3D = ({
         )}
         
         {/* 3D Model */}
-        <Suspense fallback={null}>
+        <Suspense fallback={
+          <mesh>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color="#333" wireframe />
+          </mesh>
+        }>
           <HabitatModel 
             selectedZone={selectedZone} 
             onZoneSelect={onZoneSelect}
