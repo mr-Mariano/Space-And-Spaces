@@ -291,6 +291,23 @@ export const translations = {
       assignedTo: 'is assigned to:',
       pdfGenerated: 'PDF Generated',
       pdfSuccess: 'Your habitat configuration has been successfully downloaded',
+      pdfTitle: 'Eden Tree - Martian Habitat',
+      pdfSubtitle: 'Configuration Specifications',
+      pdfDate: 'Generation date:',
+      materials: {
+        sulfurRegolith: {
+          name: 'Sulfur-Regolith Composite',
+          description: 'In-situ processed construction material',
+        },
+        geopolymer: {
+          name: 'Martian Geopolymer',
+          description: 'In-situ processed cementing material',
+        },
+        kevlar: {
+          name: 'External Membrane Kevlar',
+          description: 'High-tech resistant fabric',
+        },
+      },
       share: 'Share',
       openingWindow: 'Opening window to share...',
       instagram: 'Instagram',
@@ -311,8 +328,18 @@ export const translations = {
       autocad: 'Render',
       revit: 'Technical',
       textureUpdated: 'Texture updated',
-      materials: 'Materials',
       selectMaterial: 'Select a material',
+      materialsTitle: 'Materials',
+      exportConfiguration: 'Export Configuration',
+      shareOnSocialMedia: 'Share on Social Media',
+      copyForInstagram: 'Copy for Instagram',
+      tutorialTitle: 'Usage Tutorial',
+      tutorialSteps: {
+        step1: 'In "Normal" mode, select a material to see reference images of the habitat',
+        step2: 'Switch to "Render" mode to customize the functions of each ROOT zone',
+        step3: 'Select a ROOT zone and assign it a specific function (Research, Health, etc.)',
+        step4: 'Download your configuration in PDF or share it on social media'
+      },
       materialUpdated: 'Material updated',
       materialOnlyNormal: 'Materials can only be selected in Normal mode',
       walkthrough: {
@@ -654,6 +681,23 @@ export const translations = {
       assignedTo: 'está asignada a:',
       pdfGenerated: 'PDF Generado',
       pdfSuccess: 'Tu configuración de hábitat ha sido descargada exitosamente',
+      pdfTitle: 'Eden Tree - Hábitat Marciano',
+      pdfSubtitle: 'Especificaciones de Configuración',
+      pdfDate: 'Fecha de generación:',
+      materials: {
+        sulfurRegolith: {
+          name: 'Compuesto Azufre-Regolito',
+          description: 'Material de construcción procesado in-situ',
+        },
+        geopolymer: {
+          name: 'Geopolímero Marciano',
+          description: 'Material cementante procesado in-situ',
+        },
+        kevlar: {
+          name: 'Kevlar De Membrana Externa',
+          description: 'Tejido resistente de alta tecnología',
+        },
+      },
       share: 'Compartir',
       openingWindow: 'Abriendo ventana para compartir...',
       instagram: 'Instagram',
@@ -674,8 +718,18 @@ export const translations = {
       autocad: 'Render',
       revit: 'Técnico',
       textureUpdated: 'Textura actualizada',
-      materials: 'Materiales',
       selectMaterial: 'Selecciona un material',
+      materialsTitle: 'Materiales',
+      exportConfiguration: 'Exportar Configuración',
+      shareOnSocialMedia: 'Compartir en Redes Sociales',
+      copyForInstagram: 'Copiar para Instagram',
+      tutorialTitle: 'Tutorial de Uso',
+      tutorialSteps: {
+        step1: 'En modo "Normal", selecciona un material para ver imágenes de referencia del hábitat',
+        step2: 'Cambia a modo "Render" para personalizar las funciones de cada zona ROOT',
+        step3: 'Selecciona una zona ROOT y asígnale una función específica (Investigación, Salud, etc.)',
+        step4: 'Descarga tu configuración en PDF o compártela en redes sociales'
+      },
       materialUpdated: 'Material actualizado',
       materialOnlyNormal: 'Los materiales solo se pueden seleccionar en modo Normal',
       walkthrough: {
@@ -1017,6 +1071,23 @@ export const translations = {
       assignedTo: 'est assignée à :',
       pdfGenerated: 'PDF généré',
       pdfSuccess: 'Votre configuration d\'habitat a été téléchargée avec succès',
+      pdfTitle: 'Eden Tree - Habitat Martien',
+      pdfSubtitle: 'Spécifications de Configuration',
+      pdfDate: 'Date de génération:',
+      materials: {
+        sulfurRegolith: {
+          name: 'Composite Soufre-Régolithe',
+          description: 'Matériau de construction traité in-situ',
+        },
+        geopolymer: {
+          name: 'Géopolymère Martien',
+          description: 'Matériau cimentant traité in-situ',
+        },
+        kevlar: {
+          name: 'Kevlar de Membrane Externe',
+          description: 'Tissu résistant haute technologie',
+        },
+      },
       share: 'Partager',
       openingWindow: 'Ouverture de la fenêtre de partage...',
       instagram: 'Instagram',
@@ -1037,8 +1108,18 @@ export const translations = {
       autocad: 'Rendu',
       revit: 'Technique',
       textureUpdated: 'Texture mise à jour',
-      materials: 'Matériaux',
       selectMaterial: 'Sélectionnez un matériau',
+      materialsTitle: 'Matériaux',
+      exportConfiguration: 'Exporter la Configuration',
+      shareOnSocialMedia: 'Partager sur les Réseaux Sociaux',
+      copyForInstagram: 'Copier pour Instagram',
+      tutorialTitle: 'Tutoriel d\'Utilisation',
+      tutorialSteps: {
+        step1: 'En mode "Normal", sélectionnez un matériau pour voir les images de référence de l\'habitat',
+        step2: 'Passez en mode "Rendu" pour personnaliser les fonctions de chaque zone ROOT',
+        step3: 'Sélectionnez une zone ROOT et assignez-lui une fonction spécifique (Recherche, Santé, etc.)',
+        step4: 'Téléchargez votre configuration en PDF ou partagez-la sur les réseaux sociaux'
+      },
       materialUpdated: 'Matériau mis à jour',
       materialOnlyNormal: 'Les matériaux ne peuvent être sélectionnés qu\'en mode Normal',
       walkthrough: {
@@ -1385,6 +1466,23 @@ export const translations = {
       assignedTo: 'ist zugewiesen zu:',
       pdfGenerated: 'PDF erstellt',
       pdfSuccess: 'Ihre Lebensraumkonfiguration wurde erfolgreich heruntergeladen',
+      pdfTitle: 'Eden Tree - Mars-Lebensraum',
+      pdfSubtitle: 'Konfigurationsspezifikationen',
+      pdfDate: 'Generierungsdatum:',
+      materials: {
+        sulfurRegolith: {
+          name: 'Schwefel-Regolith-Verbundstoff',
+          description: 'Vor Ort verarbeitetes Baumaterial',
+        },
+        geopolymer: {
+          name: 'Mars-Geopolymer',
+          description: 'Vor Ort verarbeitetes Zementmaterial',
+        },
+        kevlar: {
+          name: 'Externe Membran-Kevlar',
+          description: 'Hochtechnologie-resistentes Gewebe',
+        },
+      },
       share: 'Teilen',
       openingWindow: 'Öffne Fenster zum Teilen...',
       instagram: 'Instagram',
@@ -1405,8 +1503,18 @@ export const translations = {
       autocad: 'Render',
       revit: 'Technisch',
       textureUpdated: 'Textur aktualisiert',
-      materials: 'Materialien',
       selectMaterial: 'Wähle ein Material',
+      materialsTitle: 'Materialien',
+      exportConfiguration: 'Konfiguration Exportieren',
+      shareOnSocialMedia: 'In Sozialen Medien Teilen',
+      copyForInstagram: 'Für Instagram Kopieren',
+      tutorialTitle: 'Bedienungsanleitung',
+      tutorialSteps: {
+        step1: 'Im "Normal"-Modus wählen Sie ein Material aus, um Referenzbilder des Lebensraums zu sehen',
+        step2: 'Wechseln Sie in den "Render"-Modus, um die Funktionen jeder ROOT-Zone anzupassen',
+        step3: 'Wählen Sie eine ROOT-Zone aus und weisen Sie ihr eine spezifische Funktion zu (Forschung, Gesundheit, etc.)',
+        step4: 'Laden Sie Ihre Konfiguration als PDF herunter oder teilen Sie sie in sozialen Medien'
+      },
       materialUpdated: 'Material aktualisiert',
       materialOnlyNormal: 'Materialien können nur im Normalmodus ausgewählt werden',
       walkthrough: {

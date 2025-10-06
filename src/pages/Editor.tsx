@@ -141,12 +141,12 @@ const Editor = () => {
     doc.rect(0, 0, 210, 40, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(24);
-    doc.text("Eden Tree - Hábitat Marciano", 105, 20, { align: "center" });
+    doc.text(t.editor.pdfTitle, 105, 20, { align: "center" });
     doc.setFontSize(12);
-    doc.text("Especificaciones de Configuración", 105, 30, { align: "center" });
+    doc.text(t.editor.pdfSubtitle, 105, 30, { align: "center" });
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(11);
-    doc.text("Fecha de generación: " + new Date().toLocaleDateString(), 20, 50);
+    doc.text(t.editor.pdfDate + " " + new Date().toLocaleDateString(), 20, 50);
     const tableData = Object.entries(areaAssignments).map(([rootId, area]) => {
       const zone = zones.find(z => z.id === rootId);
       return [zone?.name || rootId, t.editor.areas[area], t.editor.areaDescriptions[area]];
@@ -240,7 +240,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
             <div className="lg:col-span-2 space-y-6">
               <Card className="p-4 glass-effect border-border/30">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-foreground">{t.editor.renderMode || "Modo de Visualización"}</h3>
+                  <h3 className="text-sm font-semibold text-foreground">{t.editor.renderMode}</h3>
                   <div className="flex gap-2">
                     <Button variant={renderMode === "standard" ? "default" : "outline"} size="sm" onClick={() => setRenderMode("standard")} className="text-xs">
                       🎨 {t.editor.standard || "Normal"}
@@ -350,15 +350,15 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
             <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.1s'}}>
               {renderMode === "standard" && (
                 <Card className="texture-selector p-6 glass-effect border-primary/30 animate-fade-in">
-                  <h3 className="text-xl font-bold mb-4 text-foreground">{t.editor.materials || "Materiales"}</h3>
+                  <h3 className="text-xl font-bold mb-4 text-foreground">{t.editor.materialsTitle}</h3>
                   <div className="space-y-4">
                     <div>
                       <label className="text-sm font-medium text-muted-foreground mb-3 block">{t.editor.selectMaterial || "Selecciona un material para visualizar"}</label>
                       <div className="grid grid-cols-1 gap-3">
                         {[
-                          { name: "Sulfur-Regolith", description: "Compuesto de azufre y regolito marciano", icon: "🪨", color: "from-yellow-600 to-orange-700" },
-                          { name: "Geopolímero Marciano", description: "Material cementante procesado in-situ", icon: "🧱", color: "from-red-700 to-red-900" },
-                          { name: "Kevlar De Membrana Externa", description: "Tejido resistente de alta tecnología", icon: "🛡️", color: "from-gray-700 to-gray-900" }
+                          { name: t.editor.materials.sulfurRegolith.name, description: t.editor.materials.sulfurRegolith.description, icon: "🪨", color: "from-yellow-600 to-orange-700" },
+                          { name: t.editor.materials.geopolymer.name, description: t.editor.materials.geopolymer.description, icon: "🧱", color: "from-red-700 to-red-900" },
+                          { name: t.editor.materials.kevlar.name, description: t.editor.materials.kevlar.description, icon: "🛡️", color: "from-gray-700 to-gray-900" }
                         ].map((material) => (
                           <Button key={material.name} variant={selectedMaterial === material.name ? "default" : "outline"}
                             className={cn("h-auto py-4 flex flex-col items-start justify-center gap-2 text-left",
@@ -419,7 +419,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
 
               <Card className="export-panel p-6 glass-effect border-border/30">
                 <h3 className="text-lg font-semibold mb-4 text-foreground">
-                  Exportar Configuración
+                  {t.editor.exportConfiguration}
                 </h3>
 
                 {getDuplicateZones().length > 0 && (
@@ -444,13 +444,13 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                   )}
                 >
                   <Download className="w-4 h-4" />
-                  Descargar PDF
+                  {t.editor.downloadPDF}
                 </Button>
 
                 <div className="pt-4 border-t border-border/50">
                   <h4 className="text-sm font-semibold mb-3 text-foreground flex items-center gap-2">
                     <Share2 className="w-4 h-4" />
-                    Compartir en Redes Sociales
+                    {t.editor.shareOnSocialMedia}
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
                     <Button
@@ -536,7 +536,7 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
                     </svg>
-                    Copiar para Instagram
+                    {t.editor.copyForInstagram}
                   </Button>
                 </div>
               </Card>
@@ -544,23 +544,23 @@ ${Object.entries(areaAssignments).map(([rootId, area]) => {
           </div>
 
           <Card className="mt-8 p-6 glass-effect border-secondary/30 animate-slide-up" style={{animationDelay: '0.2s'}}>
-            <h3 className="text-xl font-bold mb-4 text-foreground">Tutorial de Uso</h3>
+            <h3 className="text-xl font-bold mb-4 text-foreground">{t.editor.tutorialTitle}</h3>
             <ol className="space-y-3 text-muted-foreground">
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">1</span>
-                <span>En modo "Normal", selecciona un material para ver imágenes de referencia del hábitat</span>
+                <span>{t.editor.tutorialSteps.step1}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">2</span>
-                <span>Cambia a modo "Render" para personalizar las funciones de cada zona ROOT</span>
+                <span>{t.editor.tutorialSteps.step2}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">3</span>
-                <span>Selecciona una zona ROOT y asígnale una función específica (Investigación, Salud, etc.)</span>
+                <span>{t.editor.tutorialSteps.step3}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold">4</span>
-                <span>Descarga tu configuración en PDF o compártela en redes sociales</span>
+                <span>{t.editor.tutorialSteps.step4}</span>
               </li>
             </ol>
           </Card>
